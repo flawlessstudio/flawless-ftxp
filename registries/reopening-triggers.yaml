@@ -1,0 +1,22 @@
+reopening_triggers:
+  - id: R1
+    name: New material evidence
+  - id: R2
+    name: Material domain change
+  - id: R3
+    name: Canonical terminology or standard change
+  - id: R4
+    name: Discovered contradiction
+  - id: R5
+    name: Demonstrated material gap
+  - id: R6
+    name: Scope change
+  - id: R7
+    name: Use-case requirement change
+
+non_triggers:
+  - cosmetic_edit
+  - new_example
+  - new_alias
+  - stylistic_rewrite
+  - generic_desire_for_more_breadth
