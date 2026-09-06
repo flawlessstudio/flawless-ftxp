@@ -1,0 +1,32 @@
+record:
+  id: ""
+  record_type: ""
+  preferred_label: ""
+  definition: null
+  status: ""
+  parent_id: null
+  labels:
+    synonyms: []
+    aliases: []
+    acronyms: []
+    translations: []
+    deprecated: []
+  facets: {}
+  relationships: []
+  provenance: []
+  evidence: []
+  notes: null
+
+record_types:
+  - candidate
+  - concept
+  - taxonomy_node
+  - facet
+  - facet_assignment
+  - relationship
+  - evidence
+  - exclusion
+  - unresolved
+  - gate_result
+  - saturation_result
+  - baseline
