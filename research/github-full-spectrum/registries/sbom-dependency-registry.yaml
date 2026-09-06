@@ -1,0 +1,25 @@
+schema_version: 1
+pass: adversarial_3
+status: DISCOVERY_SEED
+capabilities:
+  - id: GH-SBOM001
+    name: Dependency graph
+    role: canonical_GitHub_dependency_inventory_source_for_supported_ecosystems
+  - id: GH-SBOM002
+    name: SPDX SBOM export
+    source: dependency_graph_current_state
+    interfaces: [web_UI, REST_API]
+    includes: [dependencies, versions, package_identifiers, licenses, transitive_paths, copyright_information]
+    excludes: [dependents]
+  - id: GH-SBOM003
+    name: Dependency submission
+    role: add dependency data from build/tooling workflows into dependency graph
+    inputs_seed: [SPDX, CycloneDX_or_tool_generated_dependency_data]
+  - id: GH-SBOM004
+    name: SBOM workflow artifact
+    role: Actions_generated_software_inventory_artifact
+relations:
+  - dependency_graph ENABLES Dependabot_alerts
+  - dependency_graph EXPORTS GH-SBOM002
+  - dependency_submission ENRICHES dependency_graph
+  - artifact_attestation MAY_ATTEST SBOM_or_artifact_provenance

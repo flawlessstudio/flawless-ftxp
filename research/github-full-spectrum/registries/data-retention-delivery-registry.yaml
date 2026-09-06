@@ -1,0 +1,28 @@
+schema_version: 1
+pass: adversarial_3
+status: DISCOVERY_SEED
+records:
+  - id: GH-RET001
+    data_class: Copilot_repository_memory_fact
+    state: persistent_but_expiring
+    retention: unused_entry_auto_deletion_after_documented_period
+    validation: fact_citations_rechecked_against_current_branch_before_use
+  - id: GH-RET002
+    data_class: Copilot_user_memory_preference
+    state: persistent_but_expiring
+    owner_context: active_billing_entity
+  - id: GH-RET003
+    data_class: webhook_recent_delivery
+    state: bounded_recent_history
+    recovery: manual_or_API_redelivery_within_documented_recent_window
+    delivery_semantics: no_automatic_redelivery_on_failure
+  - id: GH-RET004
+    data_class: enterprise_audit_stream
+    state: externally_exported
+    delivery_semantics: at_least_once
+    implication: consumers_must_tolerate_duplicates
+  - id: GH-RET005
+    data_class: Codespace
+    state: ephemeral_environment
+    retention: automatic_deletion_after_stopped_inactivity_period
+    policy_scope: user_or_organization

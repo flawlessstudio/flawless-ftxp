@@ -1,0 +1,21 @@
+schema_version: 1
+pass: adversarial_3
+status: DISCOVERY_SEED
+topologies:
+  - id: GH-PRT001
+    name: Independent pull request
+    graph: head_branch -> base_branch
+    common_target: main_or_feature_branch
+  - id: GH-PRT002
+    name: Stacked pull requests
+    status: PUBLIC_PREVIEW
+    graph: ordered_chain_of_head_branches_and_PR_bases -> trunk
+    properties:
+      - each layer has focused diff and independent PR review state
+      - base/trunk governance constrains stack behavior
+      - merge ordering and branch relationships are material
+      - standard Git branches remain the underlying version-control objects
+    tools: [GitHub_native_stack_support, gh_stack, compatible_external_branch_stack_tools]
+target_choice:
+  flawless-ftxp: GH-PRT001
+  rationale: specification changes should remain small enough that stacked-PR complexity is not currently justified

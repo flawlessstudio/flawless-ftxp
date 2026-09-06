@@ -1,0 +1,23 @@
+schema_version: 1
+pass: adversarial_3
+status: DISCOVERY_SEED
+states: [pending_or_attempted, delivered_success, failed, throttled_or_delayed, eligible_for_recent_redelivery, redelivered, expired_from_recent_delivery_view]
+failure_classes:
+  - endpoint_unreachable
+  - response_timeout
+  - invalid_or_non_2xx_response
+  - certificate_or_network_failure
+  - signature_validation_failure_at_consumer
+  - event_limit_or_missing_subscription
+  - OAuth_or_permission_restriction
+recovery:
+  automatic_redelivery_by_GitHub_on_failure: false
+  manual_redelivery: supported_for_recent_deliveries
+  REST_redelivery: supported_for_repository_organization_and_GitHub_App_webhooks
+  scheduled_consumer_recovery: caller_may_poll_delivery_API_and_redeliver_failed_deliveries
+semantics:
+  ordering_guarantee: false
+  latency: not_immediate_guarantee
+  throttle_possible: true
+  receiver_best_practice: respond_2xx_within_10_seconds_then_process_asynchronously
+  replay_defense: use_delivery_identifier_and_signature_verification

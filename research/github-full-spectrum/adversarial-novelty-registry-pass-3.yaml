@@ -1,0 +1,92 @@
+schema_version: 1
+pass: adversarial_3
+status: MATERIAL_NOVELTY_FOUND
+candidates:
+  - id: ADV3-001
+    name: Stacked pull requests
+    concept_type: dependent_pull_request_topology
+    materiality: MATERIAL_STRUCTURAL
+    temporal_status: PUBLIC_PREVIEW
+    evidence: https://docs.github.com/en/pull-requests/reference/stacked-pull-requests
+    facts:
+      - a stack is an ordered chain of PRs where each PR targets the branch beneath it and the bottom targets a trunk
+      - rules are evaluated against the stack base/trunk context
+      - CI merge methods merge queue and linear-history behavior have stack-specific interactions
+      - tooling can link standard Git branches into a stack without changing Git branch semantics
+    target_applicability: NOT_APPLICABLE_CURRENT_LOW_COMPLEXITY_WORKFLOW
+    promote_to: [pull_request_topology, branch_relation, lifecycle, client_cli]
+
+  - id: ADV3-002
+    name: Copilot Memory
+    concept_type: agentic_memory_state
+    materiality: MATERIAL
+    temporal_status: PUBLIC_PREVIEW
+    evidence: https://docs.github.com/en/copilot/concepts/agents/copilot-memory
+    facts:
+      - repository-level facts and user-level preferences are distinct memory classes
+      - repository facts retain citations and are revalidated against current code before use
+      - unused memories are automatically deleted after a documented retention period
+      - memory availability is user/policy/client dependent
+    target_applicability: OPTIONAL_NOT_FTXP_SSOT
+    promote_to: [agentic_state, retention_model, provenance, policy_context]
+
+  - id: ADV3-003
+    name: SBOM export from dependency graph
+    concept_type: supply_chain_inventory_export
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/code-security/how-tos/secure-your-supply-chain/establish-provenance-and-integrity/export-dependencies-as-sbom
+    facts:
+      - dependency graph can export repository dependency state as SPDX SBOM
+      - export is available through UI and REST
+      - Actions can generate/submit SPDX or CycloneDX-derived dependency information
+    target_applicability: CONDITIONAL_LOW_VALUE_UNLESS_MEANINGFUL_DEPENDENCY_SET
+    promote_to: [supply_chain_provenance, artifact_export, API_parity]
+
+  - id: ADV3-004
+    name: Webhook delivery lifecycle
+    concept_type: external_event_delivery_state_machine
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/webhooks/using-webhooks/handling-failed-webhook-deliveries
+    facts:
+      - GitHub considers responses slower than documented timeout a delivery failure
+      - failed deliveries are not automatically redelivered
+      - recent deliveries can be manually/API-redelivered within the documented retention window
+      - delivery ordering is not guaranteed and delivery can be throttled/delayed
+    target_applicability: NOT_APPLICABLE_UNLESS_WEBHOOK_ADDED
+    promote_to: [event_delivery_state, failure_model, recovery_model, observability]
+
+  - id: ADV3-005
+    name: Audit log streaming
+    concept_type: enterprise_observability_export
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise
+    facts:
+      - enterprise audit/Git events can be streamed to external destinations
+      - delivery is at-least-once and duplicates can occur
+      - pause/resume has bounded buffering/continuity behavior
+      - agent-session audit activity can also participate in enterprise streaming in preview contexts
+    target_applicability: NOT_APPLICABLE_PERSONAL_REPOSITORY
+    promote_to: [audit_observability, delivery_semantics, enterprise_integration]
+
+  - id: ADV3-006
+    name: Codespaces retention and automatic deletion
+    concept_type: ephemeral_environment_lifecycle
+    materiality: MATERIAL_DETAIL
+    evidence: https://docs.github.com/en/codespaces/developing-in-a-codespace/deleting-a-codespace
+    facts:
+      - stopped inactive Codespaces are automatically deleted after configured retention
+      - retention can be organization-policy constrained for organization-paid Codespaces
+      - deletion can be initiated from CLI VS Code or browser
+    target_applicability: NOT_APPLICABLE_NO_CODESPACES_REQUIREMENT
+    promote_to: [Codespaces_state_machine, retention, client_parity]
+
+  - id: ADV3-007
+    name: Custom repository role lifecycle
+    concept_type: organization_authorization_configuration
+    materiality: MATERIAL_DETAIL
+    evidence: https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/managing-custom-repository-roles-for-an-organization
+    facts:
+      - Enterprise Cloud organizations can create custom repository roles from an inherited predefined role plus additional permissions
+      - deleting a custom role reassigns affected people/teams/invitations according to base-permission behavior
+    target_applicability: NOT_APPLICABLE_PERSONAL_OWNER
+    promote_to: [role_lifecycle, permission_inheritance]
