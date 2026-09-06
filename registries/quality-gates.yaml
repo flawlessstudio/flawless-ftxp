@@ -1,0 +1,42 @@
+quality_gates:
+  - id: G0
+    name: Scope
+  - id: G1
+    name: Terminology
+  - id: G2
+    name: Candidate Coverage
+  - id: G3
+    name: Canonicalization
+  - id: G4
+    name: Deduplication
+  - id: G5
+    name: Hierarchy
+  - id: G6
+    name: Facet Orthogonality
+  - id: G7
+    name: Relationships
+  - id: G8
+    name: Evidence
+  - id: G9
+    name: Gap Analysis
+  - id: G10
+    name: Adversarial Review
+  - id: G11
+    name: SAT-MAX
+  - id: G12
+    name: Regression
+
+states:
+  - PASS
+  - PASS_WITH_MINOR_FINDINGS
+  - FAIL
+  - NOT_APPLICABLE
+
+severities:
+  - BLOCKER
+  - MAJOR
+  - MINOR
+  - INFO
+
+freeze_rule: >-
+  Freeze is prohibited while BLOCKER findings or unresolved MAJOR findings remain.
