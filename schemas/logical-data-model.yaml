@@ -1,0 +1,33 @@
+model:
+  protocol: FTXP
+  version: "1.0.0"
+
+record_types:
+  candidate:
+    required: [id, raw_label, normalized_label, status]
+  concept:
+    required: [id, preferred_label, definition, concept_type, status]
+  taxonomy_node:
+    required: [id, concept_id, hierarchy_level, classification_basis]
+  facet:
+    required: [facet_id, name, definition, applicability_rule]
+  facet_assignment:
+    required: [concept_id, facet_id, value]
+  relationship:
+    required: [source_id, relationship_type, target_id]
+  evidence:
+    required: [id, claim, source, support, confidence]
+  exclusion:
+    required: [id, candidate_id, reason, decision]
+  unresolved:
+    required: [id, issue, impact, blocking]
+  gate_result:
+    required: [gate_id, status, findings]
+  saturation_result:
+    required: [passes_executed, consecutive_zero_material_passes, adversarial_pass_completed, saturation_status]
+  baseline:
+    required: [protocol, version, validation, sat_max, regression, status]
+
+notes:
+  - This file is a normative logical schema, not a JSON Schema document.
+  - Machine-validation formats may be added in a future compatible release when operationally justified.
