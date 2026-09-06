@@ -1,0 +1,80 @@
+schema_version: 1
+pass: 4
+status: DISCOVERY_SEED
+matrix:
+  - capability: Git_repository_clone_fetch_push
+    git_cli: SUPPORTED
+    web: PARTIAL
+    github_cli: PARTIAL
+    desktop: SUPPORTED
+    mobile: UNAVAILABLE
+    rest: NOT_APPLICABLE
+    graphql: NOT_APPLICABLE
+  - capability: Repository_create_view_clone_fork
+    github_cli: SUPPORTED
+    web: SUPPORTED
+    desktop: PARTIAL
+    mobile: PARTIAL
+    rest: SUPPORTED
+    graphql: CONDITIONAL
+  - capability: Issues
+    web: SUPPORTED
+    github_cli: SUPPORTED
+    mobile: SUPPORTED
+    desktop: LIMITED_OR_UNKNOWN
+    rest: SUPPORTED
+    graphql: SUPPORTED
+  - capability: Pull_request_create_review_merge
+    web: SUPPORTED
+    github_cli: SUPPORTED
+    mobile: SUPPORTED
+    desktop: PARTIAL
+    rest: SUPPORTED
+    graphql: SUPPORTED
+  - capability: Actions_workflow_run_inspection_and_control
+    web: SUPPORTED
+    github_cli: SUPPORTED
+    mobile: PARTIAL_OR_UNKNOWN
+    desktop: UNAVAILABLE_OR_EXTERNAL
+    rest: SUPPORTED
+    graphql: PARTIAL
+  - capability: Releases
+    web: SUPPORTED
+    github_cli: SUPPORTED
+    mobile: READ_ONLY_OR_UNKNOWN
+    desktop: UNKNOWN
+    rest: SUPPORTED
+    graphql: PARTIAL_OR_UNKNOWN
+  - capability: Codespaces
+    web: SUPPORTED
+    github_cli: SUPPORTED
+    mobile: CONDITIONAL
+    desktop: NOT_PRIMARY_INTERFACE
+    rest: SUPPORTED
+  - capability: Notification_triage
+    web: SUPPORTED
+    github_cli: API_VIA_GH_API_OR_EXTENSIONS
+    mobile: SUPPORTED
+    desktop: UNAVAILABLE_OR_UNKNOWN
+    rest: SUPPORTED
+  - capability: Code_search
+    web: SUPPORTED
+    mobile: SUPPORTED_WITHIN_REPOSITORY
+    github_cli: API_OR_SEARCH_COMMAND_CONTEXTUAL
+    desktop: LOCAL_SEARCH_NOT_EQUIVALENT
+  - capability: Two_factor_authentication_and_sign_in_verification
+    web: SUPPORTED
+    mobile: SUPPORTED
+    github_cli: AUTH_CONSUMER_NOT_PRIMARY_ADMIN_SURFACE
+    desktop: AUTH_CONSUMER
+  - capability: Repository_settings_administration
+    web: PRIMARY
+    github_cli: API_DEPENDENT
+    mobile: PARTIAL_OR_UNKNOWN
+    desktop: UNAVAILABLE_OR_UNKNOWN
+    rest: PARTIAL_BY_ENDPOINT
+    graphql: PARTIAL_BY_SCHEMA
+rules:
+  - PARTIAL_OR_UNKNOWN and UNKNOWN require later verification before canonical parity claims
+  - local Git operation parity must not be confused with GitHub platform feature parity
+  - a first-party client can expose a capability without exposing its full administration/settings surface

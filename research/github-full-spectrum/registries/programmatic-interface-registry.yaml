@@ -1,0 +1,119 @@
+schema_version: 1
+pass: 4
+status: DISCOVERY_SEED
+interfaces:
+  - id: GH-IF001
+    name: Git transport
+    kind: version_control_transport
+    purpose: clone_fetch_push_and_ref/object_exchange
+    authentication: [HTTPS_credentials_or_tokens, SSH]
+    semantic_boundary: Git_transport_is_not_GitHub_REST_or_GitHub_CLI
+
+  - id: GH-IF002
+    name: GitHub CLI
+    kind: first_party_command_line_client
+    executable: gh
+    capability_families:
+      - repository_view_create_clone_fork
+      - issues_and_pull_requests
+      - pull_request_review_diff_merge
+      - Actions_workflows_and_runs
+      - releases
+      - gists
+      - codespaces
+      - direct_GitHub_API_access
+      - extensions
+    semantic_boundary: gh_operates_GitHub_features_while_git_operates_Git_repositories
+
+  - id: GH-IF003
+    name: REST API
+    kind: HTTP_resource_API
+    versioning: date_based_API_versions
+    operations: [GET, HEAD, OPTIONS, POST, PATCH, PUT, DELETE]
+    constraints:
+      - primary_rate_limits
+      - secondary_rate_limits
+      - endpoint_specific_permissions
+      - content_creation_limits
+    compatibility_rule: breaking_changes_are_released_in_new_API_versions
+
+  - id: GH-IF004
+    name: GraphQL API
+    kind: typed_graph_API
+    operations: [query, mutation]
+    model: schema_objects_fields_connections_edges_nodes
+    constraints:
+      - point_based_primary_rate_limit
+      - secondary_rate_limits
+      - node_limits
+      - timeouts
+    semantic_advantage: client_selects_exact_fields_and_can_traverse_related_objects
+
+  - id: GH-IF005
+    name: Webhooks
+    kind: event_delivery_interface
+    model: event_plus_action_plus_payload
+    scopes: [repository, organization, enterprise, GitHub_App]
+    behavior:
+      - subscribe_only_to_needed_events
+      - availability_depends_on_webhook_scope
+      - delivery_is_external_HTTP_side_effect
+
+  - id: GH-IF006
+    name: GitHub web UI
+    kind: first_party_interactive_client
+    model: route_surface_control_action_state_transition
+
+  - id: GH-IF007
+    name: GitHub Mobile
+    kind: first_party_mobile_client
+    platforms: [iOS, Android]
+    capability_seed:
+      - notification_triage
+      - issue_and_pull_request_collaboration
+      - pull_request_file_editing
+      - user_repository_organization_browse
+      - repository_code_search
+      - push_notifications
+      - two_factor_authentication
+      - sign_in_verification
+      - Copilot_Chat
+      - Copilot_session_assignment_where_available
+
+  - id: GH-IF008
+    name: GitHub Desktop
+    kind: first_party_desktop_GUI_client
+    capability_seed:
+      - create_and_clone_local_repositories
+      - clone_and_fork_GitHub_repositories
+      - branch_and_commit_workflows
+      - partial_line_commit_selection
+      - push_pull_sync
+      - pull_request_creation
+      - visual_diff_and_history
+      - Git_LFS_integration
+    semantic_boundary: desktop_wraps_Git_operations_and_GitHub_workflows_but_is_not_feature_equivalent_to_web
+
+  - id: GH-IF009
+    name: Codespaces
+    kind: cloud_development_environment
+    capability_seed: [repository_checkout, devcontainer_configuration, prebuilds, ports, secrets, lifecycle_management]
+
+parity_status_values:
+  - SUPPORTED
+  - PARTIAL
+  - READ_ONLY
+  - WRITE_ONLY
+  - CONDITIONAL
+  - UNAVAILABLE
+  - UNKNOWN
+  - NOT_APPLICABLE
+
+api_rate_model:
+  REST:
+    primary: authentication_and_resource_category_dependent
+    secondary: abuse_and_content_creation_controls
+  GraphQL:
+    primary: point_based_per_identity
+    secondary: abuse_and_mutation_controls
+  shared_note: content-generating limits can include actions performed through web UI as well as REST/GraphQL; limits are temporally variable and evidence-bound
