@@ -35,8 +35,12 @@ FT-L, FT-S and FT-X are presets of one execution model, not independent implemen
 - [`templates/`](templates/) — canonical reusable templates
 - [`registries/`](registries/) — controlled vocabularies and protocol registries
 - [`validation/`](validation/) — quality gates, SAT-MAX and regression
-- [`docs/`](docs/) — explanatory architecture and lifecycle documentation
+- [`docs/`](docs/) — explanatory architecture, lifecycle and derived execution/reference documentation
 - [`.github/`](.github/) — repository-native contribution and validation controls
+
+## Derived execution references
+
+Derived execution/reference artifacts apply FTXP without redefining the normative protocol. The canonical Git + GitHub full-spectrum FT-X instruction is [`docs/github-full-spectrum-master-prompt.md`](docs/github-full-spectrum-master-prompt.md).
 
 ## Canonical lifecycle
 
