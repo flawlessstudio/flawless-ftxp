@@ -17,3 +17,6 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Validate repository baseline
         run: python3 validation/validate_repository.py
+      - name: Validate GHFS research package
+        if: ${{ hashFiles('research/github-full-spectrum/validate_research.py') != '' }}
+        run: python3 research/github-full-spectrum/validate_research.py
