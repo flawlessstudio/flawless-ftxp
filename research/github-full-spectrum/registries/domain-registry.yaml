@@ -1,0 +1,170 @@
+schema_version: 1
+pass: 1
+status: DISCOVERY_SEED
+domains:
+  - id: GIT-D01
+    canonical_name: Git foundations
+    scope: Git
+    includes: [repository, object database, refs, HEAD, index, working tree, configuration]
+    evidence: [GIT-S001, GIT-S002]
+  - id: GIT-D02
+    canonical_name: Git objects and history
+    scope: Git
+    includes: [blob, tree, commit, tag object, commit graph, ancestry, revisions]
+    evidence: [GIT-S001, GIT-S002]
+  - id: GIT-D03
+    canonical_name: Git references and branching
+    scope: Git
+    includes: [refs, symbolic refs, branches, tags, remote-tracking refs, upstreams]
+    evidence: [GIT-S001, GIT-S002]
+  - id: GIT-D04
+    canonical_name: Git working-state management
+    scope: Git
+    includes: [working tree, index, checkout, switch, restore, stash, worktrees]
+    evidence: [GIT-S001, GIT-S002]
+  - id: GIT-D05
+    canonical_name: Git synchronization and distributed workflows
+    scope: Git
+    includes: [remotes, clone, fetch, pull, push, merge, rebase, patch workflows]
+    evidence: [GIT-S001, GIT-S003]
+  - id: GIT-D06
+    canonical_name: Git inspection and debugging
+    scope: Git
+    includes: [status, log, show, diff, blame, grep, bisect, reflog]
+    evidence: [GIT-S001]
+  - id: GIT-D07
+    canonical_name: Git repository composition
+    scope: Git
+    includes: [bare repositories, shallow repositories, worktrees, submodules, sparse checkout, partial clone, LFS boundary]
+    evidence: [GIT-S001, GIT-S002]
+  - id: GIT-D08
+    canonical_name: Git automation and policy hooks
+    scope: Git
+    includes: [hooks, attributes, ignore rules, signing, configuration]
+    evidence: [GIT-S001, GIT-S002]
+  - id: GIT-D09
+    canonical_name: Git failure, recovery and maintenance
+    scope: Git
+    includes: [conflicts, revert, reset, restore, reflog recovery, gc, maintenance, fsck]
+    evidence: [GIT-S001]
+
+  - id: GH-D01
+    canonical_name: Platform foundations and onboarding
+    scope: GitHub
+    kind: documentation_domain
+    includes: [get_started, migrations, account_and_profile, site_policy]
+    evidence: [GH-S001, GH-S002]
+  - id: GH-D02
+    canonical_name: Identity, authentication and access
+    scope: GitHub
+    kind: cross_cutting_domain
+    includes: [accounts, authentication, credentials, roles, permissions, teams, policies]
+    evidence: [GH-S003, GH-S004]
+  - id: GH-D03
+    canonical_name: Repositories and collaborative coding
+    scope: GitHub
+    kind: core_domain
+    includes: [repositories, branches, tags, commits, files, forks, pull_requests, discussions]
+    evidence: [GH-S001]
+  - id: GH-D04
+    canonical_name: Planning and project management
+    scope: GitHub
+    kind: core_domain
+    includes: [issues, sub_issues, issue_types, labels, milestones, projects, search]
+    evidence: [GH-S001, GH-S019]
+  - id: GH-D05
+    canonical_name: Automation and CI/CD
+    scope: GitHub
+    kind: core_domain
+    includes: [actions, workflows, jobs, runners, environments, deployments, artifacts, caches]
+    evidence: [GH-S015]
+  - id: GH-D06
+    canonical_name: Publication and distribution
+    scope: GitHub
+    kind: core_domain
+    includes: [releases, release_assets, packages, pages]
+    evidence: [GH-S020, GH-S021]
+  - id: GH-D07
+    canonical_name: Cloud development environments
+    scope: GitHub
+    kind: product_domain
+    includes: [codespaces, dev_containers, prebuilds]
+    evidence: [GH-S001]
+  - id: GH-D08
+    canonical_name: Security and code quality
+    scope: GitHub
+    kind: cross_cutting_domain
+    includes: [secret_security, code_scanning, dependency_security, supply_chain, code_quality, security_at_scale]
+    evidence: [GH-S016, GH-S018]
+  - id: GH-D09
+    canonical_name: Governance and repository policy
+    scope: GitHub
+    kind: cross_cutting_domain
+    includes: [rulesets, branch_protection, tag_protection, merge_policy, codeowners, required_checks, approvals, bypass]
+    evidence: [GH-S005, GH-S006]
+  - id: GH-D10
+    canonical_name: Organizations, teams and enterprise administration
+    scope: GitHub
+    kind: account_scope_domain
+    includes: [organizations, teams, enterprise, enterprise_onboarding, administration, audit, policies]
+    evidence: [GH-S003, GH-S004]
+  - id: GH-D11
+    canonical_name: Apps and integrations
+    scope: GitHub
+    kind: developer_platform_domain
+    includes: [github_apps, oauth_apps, installations, authorizations, marketplace, integrations]
+    evidence: [GH-S013, GH-S014]
+  - id: GH-D12
+    canonical_name: Programmatic interfaces and events
+    scope: GitHub
+    kind: developer_platform_domain
+    includes: [rest, graphql, webhooks, git_transport, cli]
+    evidence: [GH-S008, GH-S010, GH-S012, GH-S013]
+  - id: GH-D13
+    canonical_name: Notifications, subscriptions and activity
+    scope: GitHub
+    kind: cross_cutting_domain
+    includes: [notifications, watching, participating, inbox, email, push, feeds]
+    evidence: [GH-S007]
+  - id: GH-D14
+    canonical_name: Client applications
+    scope: GitHub
+    kind: client_domain
+    includes: [web, mobile, desktop, cli]
+    evidence: [GH-S008]
+  - id: GH-D15
+    canonical_name: Copilot and agentic capabilities
+    scope: GitHub
+    kind: product_domain
+    includes: [copilot, cloud_agent, code_review, copilot_cli, custom_instructions, agent_skills, mcp_context]
+    evidence: [GH-S022]
+  - id: GH-D16
+    canonical_name: Billing, plans, entitlements and usage
+    scope: GitHub
+    kind: commercial_domain
+    includes: [plans, licenses, usage, budgets, billing_roles, cost_controls, limits]
+    evidence: [GH-S011]
+  - id: GH-D17
+    canonical_name: Community and ecosystem
+    scope: GitHub
+    kind: community_domain
+    includes: [community_health, sponsors, education, nonprofits, support]
+    evidence: [GH-S001]
+  - id: GH-D18
+    canonical_name: Audit, observability and operational evidence
+    scope: GitHub
+    kind: cross_cutting_domain
+    includes: [audit_logs, workflow_logs, checks, statuses, security_alerts, insights, usage_metrics]
+    evidence: [GH-S015, GH-S016]
+  - id: GH-D19
+    canonical_name: Lifecycle, failure, recovery and retirement
+    scope: GitHub
+    kind: cross_cutting_domain
+    includes: [creation, maintenance, transfer, archive, delete, restore, rollback, retry, recovery, deprecation]
+    evidence: [GH-S001]
+  - id: GH-D20
+    canonical_name: Temporal and availability variation
+    scope: GitHub
+    kind: cross_cutting_domain
+    includes: [preview, general_availability, legacy, deprecated, removed, plan_variation, client_variation, deployment_model_variation]
+    evidence: [GH-S001]
