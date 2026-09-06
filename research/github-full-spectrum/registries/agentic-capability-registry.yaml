@@ -1,6 +1,6 @@
 schema_version: 1
-pass: adversarial_1
-status: DISCOVERY_SEED
+pass: regression_integration
+status: CANONICAL_RESEARCH_REGISTRY
 capabilities:
   - {id: GH-AG001, name: Copilot cloud agent, kind: asynchronous_agent, scope: repository}
   - {id: GH-AG002, name: Agent sessions and Agents UI, kind: agent_management_surface, scope: user_repository}
@@ -21,6 +21,10 @@ capabilities:
   - {id: GH-AG017, name: Enterprise managed settings, kind: client_policy_distribution}
   - {id: GH-AG018, name: Repository custom instruction artifact, kind: repository_artifact, examples: [.github/copilot-instructions.md, .github/instructions/*.instructions.md, AGENTS.md, CLAUDE.md, GEMINI.md]}
   - {id: GH-AG019, name: Enterprise .github-private governance repository, kind: governance_repository, purpose: agent_profiles_client_permissions_plugin_settings}
+  - {id: GH-AG020, name: GitHub Copilot app, kind: first_party_agentic_desktop_client, scope: user_repositories, status: GENERALLY_AVAILABLE, platforms: [macOS, Windows, Linux]}
+  - {id: GH-AG021, name: Agent Finder, kind: registry_backed_agentic_resource_discovery, scope: Copilot_clients, status: CURRENT}
+  - {id: GH-AG022, name: MCP Registry, kind: agent_resource_registry, scope: platform_organization_private_registry}
+  - {id: GH-AG023, name: Agentic Resource Discovery, kind: open_discovery_specification, scope: ecosystem, relation: IMPLEMENTED_BY_AGENT_FINDER}
 relationships:
   - agent_apps ARE_A GitHub_App_specialization
   - third_party_coding_agents MAY_INSTALL partner_GitHub_Apps_when_enabled
@@ -29,3 +33,8 @@ relationships:
   - custom_instructions HAVE_CLIENT_AND_FEATURE_SUPPORT_MATRIX
   - sandboxes DEFINE trust_boundary_and_execution_policy
   - AI_Controls GOVERN enterprise_agent_availability_and_activity
+  - Copilot_app HOSTS parallel_agent_sessions_and_repository_workflows
+  - Agent_Finder QUERIES agent_resource_registries
+  - Agent_Finder IMPLEMENTS Agentic_Resource_Discovery
+  - discovery DOES_NOT_IMPLY automatic_installation_or_connection
+  - MCP_Registry IS_DISTINCT_FROM MCP_server_MCP_client_MCP_configuration_and_tool_invocation
