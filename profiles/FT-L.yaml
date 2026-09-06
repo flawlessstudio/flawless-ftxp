@@ -1,0 +1,9 @@
+profile: FT-L
+description: Light bounded execution for narrow targets.
+discovery: bounded
+facets: selective
+relationships: selective
+evidence: optional
+adversarial_pass: optional
+sat_max: lightweight
+regression: required-before-freeze
