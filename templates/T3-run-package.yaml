@@ -1,0 +1,20 @@
+ftxp_run_package:
+  execution_header: {}
+  executive_summary: null
+  scope_and_boundaries: {}
+  assumptions: []
+  terminology_registry: []
+  canonical_taxonomy: []
+  active_facet_registry: []
+  facet_matrix: []
+  relationship_registry: []
+  candidate_decisions: []
+  exclusions: []
+  unresolved_items: []
+  evidence_ledger: []
+  gap_analysis: []
+  adversarial_findings: []
+  validation_report: {}
+  sat_max_report: {}
+  regression_report: {}
+  baseline_declaration: {}
