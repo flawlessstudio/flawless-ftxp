@@ -1,0 +1,11 @@
+profile: FT-X
+description: Exhaustive execution for broad, polysemous, evidence-intensive, historical, cross-domain, or emerging targets.
+discovery: multipass
+cross_domain: when-relevant
+historical: when-relevant
+emerging: when-relevant
+evidence: required-for-verifiable-claims
+adversarial_pass: required
+independent_rediscovery: required
+sat_max: full
+regression: full
