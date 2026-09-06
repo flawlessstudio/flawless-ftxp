@@ -1,6 +1,6 @@
 schema_version: 1
-pass: adversarial_3
-status: DISCOVERY_SEED
+pass: regression_integration
+status: CANONICAL_RESEARCH_REGISTRY
 records:
   - id: GH-RET001
     data_class: Copilot_repository_memory_fact
@@ -26,3 +26,31 @@ records:
     state: ephemeral_environment
     retention: automatic_deletion_after_stopped_inactivity_period
     policy_scope: user_or_organization
+  - id: GH-RET006
+    data_class: github_dev_uncommitted_work
+    state: browser_local_ephemeral_state
+    retention: local_browser_storage_until_committed_or_cleared
+    implication: not_equivalent_to_server_side_repository_or_codespace_storage
+  - id: GH-RET007
+    data_class: GitHub_Classroom_service_specific_data
+    state: decommissioned_product_data
+    retention: subject_to_service_decommission_and_documented_retention_policy
+    effective_date: 2026-08-28
+    implication: surviving_GitHub_accounts_repositories_and_organizations_are_distinct_from_Classroom_service_data
+  - id: GH-RET008
+    data_class: Actions_checks_workflow_runs_statuses
+    state: current_plus_announced_future_retention_change
+    announced_effective_date: 2026-10-01
+    current_horizon_rule: future_retention_semantics_must_not_be_applied_before_effective_date
+  - id: GH-RET009
+    data_class: immutable_release_assets_and_tag
+    state: immutable_after_publication_when_feature_enabled
+    relation: release_attestation_generated_and_tag_assets_locked
+  - id: GH-RET010
+    data_class: SBOM_and_artifact_provenance
+    state: versioned_or_exported_supply_chain_evidence
+    relation: links_dependencies_artifacts_workflows_commits_and_deployments
+rules:
+  - absence_of_observation_does_not_imply_data_is_unretained_or_deleted
+  - current_retention_and_announced_future_retention_are_separate_temporal_states
+  - client_local_storage_server_managed_storage_and_Git_object_storage_are_distinct_persistence_classes
