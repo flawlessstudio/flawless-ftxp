@@ -7,7 +7,7 @@ execution:
   target: Git + GitHub Full-Spectrum Reference Architecture
   repository: flawlessstudio/flawless-ftxp
   branch: research/github-full-spectrum-execution
-  status: READY_TO_DISCOVER
+  status: REFERENCE_DISCOVERY_SAT_MAX_PASS
   mutation_policy: DISCOVER_VERIFY_CLASSIFY_JUSTIFY_PLAN_CHANGE_VALIDATE_REGRESS
 
 baseline:
@@ -50,7 +50,13 @@ baseline:
   validation:
     workflow: .github/workflows/validate.yml
     validator: validation/validate_repository.py
+    research_validator: research/github-full-spectrum/validate_research.py
     validator_dependency_model: zero_dependency_python
+    regression_run_id: 34022607305
+    regression_job_id: 101457809123
+    regression_conclusion: success
+    canonical_research_registries_validated: 36
+    canonical_research_ids_validated: 600
 
 scope:
   in:
@@ -85,6 +91,8 @@ evidence_horizon:
     web: true
     mobile: evidence_based
     desktop: evidence_based
+    copilot_app: evidence_based
+    github_dev: evidence_based
     cli: true
     rest: true
     graphql: true
@@ -138,12 +146,27 @@ pre_execution_gates:
   PE9_coverage_model_defined: PASS
   PE10_qa_strategy_defined: PASS
   PE11_security_model_defined: PASS
-  PE12_failure_recovery_model_defined: PASS
+  PE12_failure_recovery_model: PASS
   PE13_mutation_policy_defined: PASS
   PE14_sat_max_defined: PASS
   PE15_stop_condition_defined: PASS
 
+saturation:
+  adversarial_passes_with_material_novelty: multiple
+  zero_material_novelty_pass_1: PASS
+  zero_material_novelty_pass_2: PASS
+  consecutive_zero_material_passes: 2
+  post_integration_regression: PASS
+  known_material_taxonomy_gaps: 0
+  reference_discovery_sat_max: PASS
+  target_repository_freeze_ready: false
+
 next_stage:
-  name: SOURCE_AND_DOMAIN_DISCOVERY
+  name: TARGET_REMEDIATION
   allowed: true
-  repository_remediation_allowed: false
+  repository_remediation_allowed: true
+  constraints:
+    - only validated applicable gaps
+    - preserve FTXP v1.0 normative baseline unless a reopening trigger occurs
+    - settings/tag/release operations blocked by connector capability remain external steps
+    - licensing remains a human decision
