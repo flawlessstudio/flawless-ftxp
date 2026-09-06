@@ -1,0 +1,117 @@
+schema_version: 1
+pass: 3
+status: DISCOVERY_SEED
+controls:
+  - id: GH-SEC001
+    name: Dependency graph
+    family: supply_chain
+    function: model repository dependencies and dependents for supported ecosystems
+    public_repository_note: documented as permanently enabled for public repositories in repository security settings guidance
+  - id: GH-SEC002
+    name: Dependabot alerts
+    family: supply_chain
+    function: alert on vulnerable dependencies based on default-branch dependency graph changes and advisory data
+    configurable_by: [repository_admin, organization_owner]
+  - id: GH-SEC003
+    name: Dependabot security updates
+    family: supply_chain
+    function: propose updates for vulnerable dependencies where supported/configured
+  - id: GH-SEC004
+    name: Dependency review
+    family: supply_chain
+    function: review dependency changes and vulnerability implications before merge
+  - id: GH-SEC005
+    name: Secret scanning
+    family: secret_security
+    function: detect supported secret patterns and create alerts/remediation signals
+    public_repository_availability: automatic_free_scanning_documented
+  - id: GH-SEC006
+    name: Repository push protection
+    family: secret_security
+    function: block supported secrets before they reach repository history
+    channels: [git_cli_push, github_web_commit, github_file_upload, REST, github_MCP_public_repositories]
+    bypass: write_access_users_may_have_reason_based_bypass_subject_to_configuration
+    evidence_generated: push_protection_alert_when_repository_protection_is_bypassed
+  - id: GH-SEC007
+    name: User push protection
+    family: secret_security
+    function: protect an individual user from pushing supported secrets to public repositories
+    scope: github.com_user
+  - id: GH-SEC008
+    name: Code scanning
+    family: code_security
+    function: analyze repository code for vulnerabilities/errors and surface alerts
+    public_repository_availability: available_on_github_com
+    implementations: [CodeQL_default_setup, CodeQL_advanced_or_CLI, third_party_SARIF]
+  - id: GH-SEC009
+    name: CodeQL
+    family: code_security
+    function: semantic code analysis engine and query framework
+  - id: GH-SEC010
+    name: Copilot Autofix
+    family: code_security
+    function: remediation assistance for supported code scanning findings
+  - id: GH-SEC011
+    name: Repository security advisory
+    family: vulnerability_management
+    function: privately coordinate and publish vulnerability information
+  - id: GH-SEC012
+    name: Security alert access control
+    family: authorization
+    function: restrict who may view/triage/dismiss repository security alerts
+  - id: GH-SEC013
+    name: Security campaigns
+    family: remediation_governance
+    function: coordinate remediation across sets of security findings where available
+  - id: GH-SEC014
+    name: Ruleset code scanning requirements
+    family: merge_governance
+    function: require acceptable code scanning result before protected operation/merge where supported
+  - id: GH-SEC015
+    name: Ruleset code quality/coverage/path/size restrictions
+    family: repository_policy
+    function: enforce repository-content constraints where supported
+  - id: GH-SEC016
+    name: Commit signature verification
+    family: provenance
+    function: expose signature verification status for commits/tags where supported
+  - id: GH-SEC017
+    name: Immutable releases
+    family: supply_chain_integrity
+    function: prevent modification/deletion of release assets and movement/deletion of associated tag while immutable release exists
+    side_effect: release_attestation_generated
+  - id: GH-SEC018
+    name: Actions least-privilege permissions
+    family: automation_security
+    function: minimize workflow token capability
+  - id: GH-SEC019
+    name: Actions dependency pinning
+    family: automation_supply_chain
+    function: prevent mutable action references from silently changing workflow dependency code
+  - id: GH-SEC020
+    name: OIDC federation
+    family: credential_security
+    function: exchange GitHub-issued identity token for short-lived external cloud/service credentials
+  - id: GH-SEC021
+    name: Secret/credential lifecycle
+    family: credential_security
+    function: issue_store_use_rotate_revoke_delete credentials with minimum scope and lifetime
+public_repository_minimum_official_guidance:
+  - GH-SEC002
+  - GH-SEC005
+  - GH-SEC006
+  - GH-SEC008
+current_target:
+  repository: flawlessstudio/flawless-ftxp
+  visibility: public
+  verified_controls:
+    commit_signature_on_current_main_head: true
+    actions_workflow_explicit_contents_read: true
+    checkout_full_sha_pinned: true
+  unknown_controls:
+    - GH-SEC002
+    - GH-SEC005
+    - GH-SEC006
+    - GH-SEC008
+    - repository-level full-SHA action policy
+  conclusion: do_not_claim_security_baseline_pass_until_unknown_controls_are_observed

@@ -1,0 +1,29 @@
+schema_version: 1
+pass: 3
+status: DISCOVERY_SEED
+policy_layers:
+  - {id: GH-POL-L1, scope: GitHub_platform, role: product_defaults_and_global_capabilities}
+  - {id: GH-POL-L2, scope: enterprise, role: enterprise_policies_and_entitlements}
+  - {id: GH-POL-L3, scope: organization, role: organization_policies_base_permissions_security_and_actions_controls}
+  - {id: GH-POL-L4, scope: repository, role: repository_settings_rulesets_branch_protection_environments_and_feature_controls}
+  - {id: GH-POL-L5, scope: branch_tag_environment_or_resource, role: targeted_rules_and_resource_specific_controls}
+  - {id: GH-POL-L6, scope: actor_or_app, role: effective_role_permission_installation_and_bypass_context}
+relationships:
+  - INHERITS_FROM
+  - RESTRICTS
+  - OVERRIDES_WHERE_ALLOWED
+  - CANNOT_RELAX_PARENT_POLICY
+  - LAYERS_WITH
+  - BYPASSED_BY_EXPLICIT_ACTOR_WHERE_ALLOWED
+ruleset_model:
+  repository_ruleset_limit_documented: 75
+  targets: [branches, tags, pushes_where_available]
+  layering: multiple applicable rulesets may combine
+  organization_rulesets: available under eligible organization plans and may target multiple repositories
+  bypass_candidates_contextual: [repository_admin_role, organization_or_enterprise_owner, write_or_maintain_based_roles, teams, GitHub_Apps, Dependabot, Copilot_cloud_agent_in_supported_context]
+  assurance_rule: bypass is a capability with its own scope and audit risk; it is not a synonym for admin
+personal_repository_caveat:
+  target: flawlessstudio/flawless-ftxp
+  owner_type: User
+  effect: organization/enterprise policy layers are not current direct owner layers for this repository
+  implication: model them for GitHub completeness but do not incorrectly apply organization-only team/custom-role/bypass assumptions to target configuration
