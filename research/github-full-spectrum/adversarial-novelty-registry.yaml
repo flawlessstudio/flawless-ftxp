@@ -1,0 +1,269 @@
+schema_version: 1
+pass: adversarial_1
+status: MATERIAL_NOVELTY_FOUND
+rule: these are candidates discovered specifically by searching for omissions; canonical promotion requires normalization/deduplication/regression
+candidates:
+  - id: ADV-001
+    name: Repository custom properties
+    concept_type: metadata_governance_capability
+    scope: organization_repository
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/organizations/managing-organization-settings/managing-custom-properties-for-repositories-in-your-organization
+    facts:
+      - structured metadata fields can be defined for repositories in an organization
+      - types include text, single-select, multi-select and boolean
+      - values can be viewed at repository scope and searched/filtered at organization scope
+      - custom properties can be used to target repositories with rulesets
+    target_applicability: NOT_APPLICABLE_CURRENT_PERSONAL_OWNER
+    promote_to: [domain_model, feature_family, entity_or_metadata_definition, policy_context]
+
+  - id: ADV-002
+    name: Organization security configurations
+    concept_type: security_governance_configuration
+    scope: organization_enterprise_repository
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/code-security/concepts/security-at-scale/organization-security
+    facts:
+      - a security configuration is a collection of security feature enablement settings
+      - configurations can be applied to repositories and establish a managed relationship
+      - organization admins/security managers manage configurations; enterprise APIs can expose enterprise configurations
+    target_applicability: NOT_APPLICABLE_CURRENT_PERSONAL_OWNER
+    promote_to: [security_control, policy_inheritance, entity_registry]
+
+  - id: ADV-003
+    name: Artifact attestations
+    concept_type: supply_chain_provenance_capability
+    scope: Actions_artifacts_packages_releases
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/actions/concepts/security/artifact-attestations
+    facts:
+      - cryptographically signed provenance claims can bind an artifact to workflow, repository, organization, environment, commit SHA and triggering event
+      - attestations can cover binaries/container images and SBOM provenance
+      - verification is supported through GitHub CLI
+      - availability differs for private/internal repositories by plan while public repositories are supported on current plans
+    target_applicability: NOT_APPLICABLE_CURRENTLY_NO_BUILT_DISTRIBUTABLE_ARTIFACT
+    promote_to: [supply_chain_provenance, artifact_model, CLI_parity]
+
+  - id: ADV-004
+    name: Gists
+    concept_type: GitHub_Git_hosted_content_subsystem
+    scope: account_platform
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/get-started/writing-on-github/editing-and-sharing-content-with-gists
+    facts:
+      - every gist is a Git repository
+      - gists can be public or secret
+      - gists support clone, fork, commit history/diffs, stars and comments
+    target_applicability: NOT_APPLICABLE_TO_FTXP_REPOSITORY_BLUEPRINT
+    promote_to: [product_interface, entity_registry, Git_hosting_variants]
+
+  - id: ADV-005
+    name: Private vulnerability reporting
+    concept_type: vulnerability_disclosure_capability
+    scope: public_repository
+    materiality: MATERIAL_TARGET_RELEVANT
+    evidence: https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/configure-vulnerability-reporting/configure-for-a-repository
+    facts:
+      - public repository owners/admins can enable a private structured vulnerability reporting form
+      - reports feed repository security advisory workflows
+      - security-alert notification preferences affect maintainer notification
+      - private vulnerability reporting is distinct from SECURITY.md
+    target_applicability: CONDITIONAL_RECOMMENDED_EVALUATE
+    promote_to: [security_control, notification_model, repository_surface, applicability]
+
+  - id: ADV-006
+    name: Personal account settings and lifecycle
+    concept_type: account_surface_domain
+    scope: personal_account
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/account-and-profile/how-tos/account-settings
+    facts:
+      - account settings cover theme, username, default branch preference, accessibility and security settings among other controls
+      - account deletion/conversion/merge have cross-resource lifecycle consequences
+    target_applicability: CONTEXTUAL_OWNER_PLANE_NOT_REPOSITORY_ARTIFACT
+    promote_to: [account_surface, lifecycle, context_model]
+
+  - id: ADV-007
+    name: Accessibility settings and command-navigation preferences
+    concept_type: platform_interaction_configuration
+    scope: web_account
+    materiality: MATERIAL_FOR_FULL_SURFACE_MAP
+    evidence: https://docs.github.com/en/account-and-profile/how-tos/account-settings/managing-accessibility-settings
+    facts:
+      - includes link underlines, hovercards, keyboard shortcut settings, command palette shortcut, motion and contrast behavior
+    target_applicability: NOT_REPOSITORY_CONFIGURATION
+    promote_to: [surface_navigation, client_context]
+
+  - id: ADV-008
+    name: GitHub Models
+    concept_type: retired_product
+    scope: historical_platform
+    materiality: MATERIAL_TEMPORAL
+    evidence: https://docs.github.com/en/github-models
+    temporal_status: RETIRED_2026-07-30
+    facts:
+      - playground, model catalog, inference API and BYOK are no longer available to any customer
+      - GitHub Models was separate from GitHub Copilot
+    target_applicability: HISTORICAL_NOT_APPLICABLE
+    promote_to: [temporal_product_registry]
+
+  - id: ADV-009
+    name: GitHub Spark
+    concept_type: sunsetting_product
+    scope: Copilot_application_builder
+    materiality: MATERIAL_TEMPORAL
+    evidence: https://docs.github.com/en/copilot/concepts/spark
+    temporal_status: SUNSETTING_NO_NEW_USERS_OR_APPS_FROM_2026-08-04
+    facts:
+      - natural-language full-stack app building/deployment product with managed runtime/data/auth
+      - no new users or new apps from August 4 2026
+      - existing users are instructed to create repositories to preserve app code before August 31 2026
+    target_applicability: NOT_APPLICABLE
+    promote_to: [temporal_product_registry]
+
+  - id: ADV-010
+    name: Copilot agent management and agent sessions
+    concept_type: agentic_management_surface
+    scope: repository_user_enterprise
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/copilot/concepts/agents/cloud-agent/agent-management
+    facts:
+      - Agents page/panel starts and monitors sessions, exposes live logs, steering, session history and PR handoff
+      - enterprise AI Controls adds availability policies and agent-session/audit oversight
+    target_applicability: OPTIONAL_REFERENCE_ONLY_CURRENTLY
+    promote_to: [agentic_capability, surface_registry, state_registry, audit_observability]
+
+  - id: ADV-011
+    name: Third-party coding agents
+    concept_type: agentic_integration_model
+    scope: GitHub_Copilot_GitHub_com
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/copilot/concepts/agents/about-third-party-coding-agents
+    temporal_status: PUBLIC_PREVIEW
+    facts:
+      - supported third-party agents include Anthropic Claude and OpenAI Codex
+      - agents can be assigned tasks/issues and produce pull requests for review
+      - GitHub installs corresponding partner GitHub Apps when enabled
+      - agent sessions consume Actions minutes and AI credits
+    target_applicability: OPTIONAL_NOT_REQUIRED_FOR_FTXP_CORE
+    promote_to: [agentic_capability, integration_model, trust_boundary, billing]
+
+  - id: ADV-012
+    name: Agent apps
+    concept_type: GitHub_App_agent_extension
+    scope: GitHub_Copilot_GitHub_Apps
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/copilot/concepts/agents/agent-apps
+    temporal_status: PUBLIC_PREVIEW
+    facts:
+      - agent apps are GitHub Apps that expose partner-built agents on GitHub
+      - entry points include issue assignment, PR mentions, Agents UI and GitHub Mobile
+      - installation and OAuth authorization both participate in activation
+      - app-defined agent can include prompt, model, tools and MCP servers
+    target_applicability: OPTIONAL
+    promote_to: [agentic_capability, GitHub_App_model, navigation_occurrences, trust_boundary]
+
+  - id: ADV-013
+    name: Copilot automations
+    concept_type: agentic_event_and_schedule_automation
+    scope: repository_and_Copilot_app
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-automations
+    facts:
+      - automations run cloud-agent tasks on schedules or repository events
+      - event triggers currently include issue creation, PR opening and PR synchronization with filters
+      - cloud repository automations are limited to private/internal repositories
+      - write-access event origin is a security boundary/default safeguard
+    target_applicability: NOT_APPLICABLE_CURRENT_PUBLIC_REPOSITORY
+    promote_to: [automation_model, event_model, agentic_capability, temporal_availability]
+
+  - id: ADV-014
+    name: GitHub Agentic Workflows
+    concept_type: Actions_agentic_automation_model
+    scope: repository_Actions
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/copilot/concepts/agents/about-github-agentic-workflows
+    temporal_status: PUBLIC_PREVIEW
+    facts:
+      - natural-language markdown workflows compile to hardened lock YAML and execute as GitHub Actions
+      - support coding agents including GitHub Copilot and external AI engines
+      - guardrails include frontmatter permissions, safe outputs, firewalled containers and threat detection
+      - requires GitHub CLI for creation/use workflow
+    target_applicability: OPTIONAL_NOT_REQUIRED
+    promote_to: [Actions_model, agentic_automation, security_trust]
+
+  - id: ADV-015
+    name: Copilot plugins, hooks and skills
+    concept_type: agent_customization_extension_model
+    scope: repository_personal_enterprise_clients
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/copilot/concepts/agents/about-plugins
+    facts:
+      - plugins can bundle custom agents, skills, hooks and MCP configurations
+      - hooks execute commands at defined agent lifecycle points and can approve/deny tools or add audit/security controls
+      - project skills can live in .github/skills, .claude/skills or .agents/skills with SKILL.md
+    target_applicability: OPTIONAL_REFERENCE_ONLY
+    promote_to: [agentic_customization, repository_artifact_types, hooks_extension_model]
+
+  - id: ADV-016
+    name: Copilot instruction hierarchy
+    concept_type: agentic_instruction_architecture
+    scope: repository_organization_personal_client
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/copilot/reference/custom-instructions-support
+    facts:
+      - repository-wide, path-specific, agent, personal and organization instructions are distinct scopes
+      - supported instruction types vary by Copilot feature/client
+      - AGENTS.md, CLAUDE.md and GEMINI.md can act as agent instructions in supported contexts
+    target_applicability: CONDITIONAL_IF_FTXP_ADDS_AGENTIC_CONSUMER_CONFIGURATION
+    promote_to: [instruction_artifact_model, client_parity, policy_context]
+
+  - id: ADV-017
+    name: Copilot sandboxes
+    concept_type: agent_execution_isolation
+    scope: Copilot_CLI_organization_enterprise
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/copilot/how-tos/cloud-and-local-sandboxes
+    temporal_status: PUBLIC_PREVIEW_FOR_CLOUD_AND_LOCAL_SANDBOX_FEATURE_SET
+    facts:
+      - local sandboxing constrains filesystem, network and system capabilities for Copilot CLI
+      - cloud sandbox availability can be controlled by organization/enterprise policy
+    target_applicability: NOT_REPOSITORY_REQUIREMENT
+    promote_to: [trust_boundary, client_capability, policy_model]
+
+  - id: ADV-018
+    name: Copilot agent OpenTelemetry
+    concept_type: agent_observability_model
+    scope: enterprise_clients
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/copilot/concepts/agents/opentelemetry
+    facts:
+      - agent telemetry can export traces and metrics to OTel-compatible backends
+      - traces can represent model/tool steps within agent sessions
+    target_applicability: NOT_APPLICABLE_CURRENT_REPOSITORY_SCOPE
+    promote_to: [audit_observability, agentic_capability]
+
+  - id: ADV-019
+    name: Copilot usage metrics and dashboards
+    concept_type: AI_usage_observability
+    scope: enterprise_organization_repository_user
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/copilot/concepts/copilot-usage-metrics/copilot-metrics
+    facts:
+      - metrics are exposed by APIs, dashboards and NDJSON export
+      - metrics include multiple clients and agent activity
+    target_applicability: NOT_REQUIRED_FOR_FTXP
+    promote_to: [billing_usage_observability, agentic_metrics]
+
+  - id: ADV-020
+    name: Enterprise-managed agent settings
+    concept_type: agent_policy_distribution
+    scope: enterprise_clients
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/configure-enterprise-managed-settings
+    facts:
+      - managed-settings can centrally control supported Copilot clients
+      - team-specific overrides exist within allowed enterprise policy
+      - local sandbox policy can impose minimum restrictions users cannot loosen
+    target_applicability: NOT_APPLICABLE_CURRENT_PERSONAL_OWNER
+    promote_to: [policy_inheritance, agentic_governance, client_parity]

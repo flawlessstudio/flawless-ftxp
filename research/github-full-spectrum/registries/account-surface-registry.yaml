@@ -1,0 +1,37 @@
+schema_version: 1
+pass: adversarial_1
+status: DISCOVERY_SEED
+scope: personal_account_surfaces
+families:
+  - id: GH-ACC-S001
+    name: Account identity and profile
+    includes: [username, profile, visibility, status, pinned_items, hiring_status]
+  - id: GH-ACC-S002
+    name: Appearance and rendering
+    includes: [theme, contrast, tab_size_rendering, display_preferences]
+  - id: GH-ACC-S003
+    name: Accessibility
+    includes: [link_underlines, hovercards, keyboard_shortcuts, command_palette_shortcut, motion, contrast]
+  - id: GH-ACC-S004
+    name: Authentication and account security
+    includes: [password, 2FA, passkeys, sessions, account_recovery, sign_in_verification]
+  - id: GH-ACC-S005
+    name: Emails and notification delivery
+    includes: [email_addresses, privacy, security_email_backup, notification_delivery_preferences]
+  - id: GH-ACC-S006
+    name: Git and signing credentials
+    includes: [SSH_keys, signing_keys, commit_email_privacy]
+  - id: GH-ACC-S007
+    name: Developer settings and application authorization
+    includes: [personal_access_tokens, GitHub_App_authorizations, OAuth_authorizations, app_developer_settings]
+  - id: GH-ACC-S008
+    name: Billing plans and usage
+    includes: [plan, payment, usage, Copilot_subscription, spending_controls_where_applicable]
+  - id: GH-ACC-S009
+    name: Account lifecycle
+    includes: [rename, merge_accounts, convert_to_organization, delete_account]
+    caution: account lifecycle can affect repositories_forks_issues_PRs_Pages_billing_and_namespace_reuse
+  - id: GH-ACC-S010
+    name: Personal dashboard and discovery
+    includes: [dashboard, activity, followed_or_starred_context, repository_and_issue_activity]
+target_relation: owner_context_only_not_repository_SSOT_content

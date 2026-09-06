@@ -1,0 +1,31 @@
+schema_version: 1
+pass: adversarial_1
+status: DISCOVERY_SEED
+capabilities:
+  - {id: GH-AG001, name: Copilot cloud agent, kind: asynchronous_agent, scope: repository}
+  - {id: GH-AG002, name: Agent sessions and Agents UI, kind: agent_management_surface, scope: user_repository}
+  - {id: GH-AG003, name: Custom agents, kind: configurable_agent_profile, scope: repository_organization_enterprise}
+  - {id: GH-AG004, name: Third-party coding agents, kind: partner_agent_model, scope: GitHub_com, status: PUBLIC_PREVIEW, examples: [Anthropic_Claude, OpenAI_Codex]}
+  - {id: GH-AG005, name: Agent apps, kind: GitHub_App_agent_extension, status: PUBLIC_PREVIEW}
+  - {id: GH-AG006, name: Copilot automations, kind: scheduled_or_event_agent_task, availability: private_internal_repositories_for_cloud_repository_automations}
+  - {id: GH-AG007, name: GitHub Agentic Workflows, kind: Actions_based_agentic_workflow, status: PUBLIC_PREVIEW}
+  - {id: GH-AG008, name: Agent skills, kind: reusable_instruction_script_resource_package}
+  - {id: GH-AG009, name: Custom instructions, kind: always_on_context, scopes: [repository, path, agent, personal, organization]}
+  - {id: GH-AG010, name: Copilot plugins, kind: distributable_extension_bundle, contains: [custom_agents, skills, hooks, MCP_configurations]}
+  - {id: GH-AG011, name: Copilot hooks, kind: lifecycle_command_interceptor, scopes: [repository, personal_CLI]}
+  - {id: GH-AG012, name: MCP integrations, kind: tool_and_data_integration, scopes: [repository, enterprise_policy, custom_agent]}
+  - {id: GH-AG013, name: Local and cloud sandboxes, kind: agent_execution_isolation, status: PUBLIC_PREVIEW}
+  - {id: GH-AG014, name: Agent OpenTelemetry, kind: agent_observability}
+  - {id: GH-AG015, name: Copilot usage metrics, kind: AI_usage_observability, surfaces: [APIs, dashboards, NDJSON_export]}
+  - {id: GH-AG016, name: Enterprise AI Controls, kind: agent_and_AI_governance_surface}
+  - {id: GH-AG017, name: Enterprise managed settings, kind: client_policy_distribution}
+  - {id: GH-AG018, name: Repository custom instruction artifact, kind: repository_artifact, examples: [.github/copilot-instructions.md, .github/instructions/*.instructions.md, AGENTS.md, CLAUDE.md, GEMINI.md]}
+  - {id: GH-AG019, name: Enterprise .github-private governance repository, kind: governance_repository, purpose: agent_profiles_client_permissions_plugin_settings}
+relationships:
+  - agent_apps ARE_A GitHub_App_specialization
+  - third_party_coding_agents MAY_INSTALL partner_GitHub_Apps_when_enabled
+  - agentic_workflows RUN_ON GitHub_Actions
+  - plugins MAY_CONTAIN custom_agents_skills_hooks_MCP
+  - custom_instructions HAVE_CLIENT_AND_FEATURE_SUPPORT_MATRIX
+  - sandboxes DEFINE trust_boundary_and_execution_policy
+  - AI_Controls GOVERN enterprise_agent_availability_and_activity
