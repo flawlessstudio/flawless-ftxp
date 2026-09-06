@@ -1,0 +1,18 @@
+statuses:
+  - candidate
+  - validated
+  - canonical
+  - included
+  - excluded
+  - merged
+  - split
+  - deprecated
+  - historical
+  - unresolved
+  - rejected
+
+primary_lifecycle:
+  - candidate
+  - validated
+  - canonical
+  - included
