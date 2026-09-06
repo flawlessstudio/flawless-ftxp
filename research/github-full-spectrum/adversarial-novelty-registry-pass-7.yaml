@@ -1,0 +1,79 @@
+schema_version: 1
+pass: zero_novelty_attempt_4
+status: MATERIAL_NOVELTY_FOUND_RESET_SAT_MAX
+candidates:
+  - id: ADV7-001
+    name: GitHub Classroom decommissioning
+    concept_type: retired_education_product
+    materiality: MATERIAL_TEMPORAL_CORRECTION
+    temporal_status: DECOMMISSIONED_2026-08-28
+    evidence: https://github.blog/changelog/2026-08-27-github-classroom-deprecated/
+    facts:
+      - Classroom website APIs and related services are decommissioned
+      - user accounts repositories and organizations created for Classroom remain unaffected
+      - some Classroom-specific data is deleted according to retention policy
+    target_applicability: HISTORICAL_NOT_APPLICABLE
+    promote_to: [temporal_product_registry, data_retention, migration_transition]
+
+  - id: ADV7-002
+    name: Actions retention expansion
+    concept_type: announced_retention_policy_change
+    materiality: MATERIAL_TEMPORAL_CONTEXT
+    temporal_status: ANNOUNCED_FUTURE_EFFECTIVE_2026-10-01
+    evidence: https://github.blog/changelog/month/08-2026/
+    facts:
+      - announced future state extends Actions retention setting to checks workflow runs and statuses
+      - current 2026-09-06 model must not prematurely apply future behavior
+    target_applicability: FUTURE_REEVALUATION_TRIGGER
+    promote_to: [retention_model, temporal_registry, Actions_observability]
+
+  - id: ADV7-003
+    name: Custom thread subscription deprecation pause
+    concept_type: temporal_status_correction
+    materiality: MATERIAL_EVIDENCE_CORRECTION
+    temporal_status: CURRENT_DEPRECATION_PAUSED
+    evidence: https://github.blog/changelog/2026-08-10-custom-thread-subscriptions-are-being-deprecated/
+    facts:
+      - original deprecation was paused on 2026-08-14
+      - Customize option remains available
+      - later update supersedes the original planned removal for current-state classification
+    target_applicability: REFERENCE_ONLY
+    promote_to: [notification_model, temporal_registry, evidence_precedence]
+
+  - id: ADV7-004
+    name: Rule insights dashboard
+    concept_type: governance_observability_surface
+    materiality: NON_MACRO_MATERIAL_OCCURRENCE
+    temporal_status: GENERALLY_AVAILABLE
+    evidence: https://github.blog/changelog/2026-08-25-rule-insights-dashboard-generally-available/
+    facts:
+      - repository and organization dashboards expose allowed failed and bypassed ruleset evaluations
+      - includes bypass actor analysis filters drilldown and CSV export
+    target_applicability: CONDITIONAL_AFTER_RULESET
+    promote_to: [observability_surface, ruleset_relation, audit_reporting]
+
+  - id: ADV7-005
+    name: Deployment environment protection lifecycle
+    concept_type: deployment_gate_state_machine
+    materiality: MATERIAL_REFINEMENT
+    evidence:
+      - https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments
+      - https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments
+    facts:
+      - jobs can be gated by branch/tag policy wait timer required reviewers and custom GitHub App protection rules
+      - environment secrets remain inaccessible until protection requirements pass
+      - self-approval and administrator bypass are independently configurable
+    target_applicability: NOT_APPLICABLE_NO_DEPLOYMENT
+    promote_to: [state_registry, policy_model, Actions_lifecycle, trust_boundary]
+
+  - id: ADV7-006
+    name: Privacy-safe star history API
+    concept_type: repository_social_observability_endpoint
+    materiality: NON_MACRO_MATERIAL_OCCURRENCE
+    temporal_status: CURRENT
+    evidence: https://github.blog/changelog/2026-09-04-new-api-endpoint-provides-privacy-safe-star-history-data/
+    facts:
+      - exposes historical star counts and timestamps without stargazer identities
+      - provides a privacy-preserving replacement for some historical-growth use cases
+    target_applicability: NOT_REQUIRED
+    promote_to: [REST_parity, observability, privacy_model]

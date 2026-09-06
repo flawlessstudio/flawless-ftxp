@@ -1,0 +1,136 @@
+schema_version: 1
+pass: 1
+status: DISCOVERY_SEED
+entities:
+  # Git entities
+  - {id: GIT-E001, name: repository, type: container}
+  - {id: GIT-E002, name: object database, type: storage_model}
+  - {id: GIT-E003, name: blob object, type: git_object}
+  - {id: GIT-E004, name: tree object, type: git_object}
+  - {id: GIT-E005, name: commit object, type: git_object}
+  - {id: GIT-E006, name: tag object, type: git_object}
+  - {id: GIT-E007, name: ref, type: reference}
+  - {id: GIT-E008, name: symbolic ref, type: reference}
+  - {id: GIT-E009, name: HEAD, type: reference}
+  - {id: GIT-E010, name: branch, type: reference_line}
+  - {id: GIT-E011, name: tag ref, type: reference}
+  - {id: GIT-E012, name: remote, type: repository_relation}
+  - {id: GIT-E013, name: remote-tracking ref, type: reference}
+  - {id: GIT-E014, name: upstream branch, type: branch_relation}
+  - {id: GIT-E015, name: index, type: working_state}
+  - {id: GIT-E016, name: working tree, type: working_state}
+  - {id: GIT-E017, name: worktree, type: repository_view}
+  - {id: GIT-E018, name: stash entry, type: temporary_state}
+  - {id: GIT-E019, name: hook, type: automation_point}
+  - {id: GIT-E020, name: submodule, type: repository_relation}
+  - {id: GIT-E021, name: superproject, type: repository_relation}
+  - {id: GIT-E022, name: configuration, type: configuration}
+
+  # GitHub identity/account entities
+  - {id: GH-E001, name: user, type: actor}
+  - {id: GH-E002, name: personal account, type: account}
+  - {id: GH-E003, name: organization, type: account}
+  - {id: GH-E004, name: enterprise account, type: account}
+  - {id: GH-E005, name: team, type: actor_group}
+  - {id: GH-E006, name: role, type: authorization_construct}
+  - {id: GH-E007, name: permission, type: authorization_construct}
+  - {id: GH-E008, name: policy, type: governance_construct}
+
+  # Repository/content entities
+  - {id: GH-E020, name: repository, type: repository}
+  - {id: GH-E021, name: branch, type: repository_ref}
+  - {id: GH-E022, name: tag, type: repository_ref}
+  - {id: GH-E023, name: commit, type: repository_object}
+  - {id: GH-E024, name: file, type: content}
+  - {id: GH-E025, name: directory, type: content}
+  - {id: GH-E026, name: fork, type: repository_relation}
+  - {id: GH-E027, name: ruleset, type: governance_object}
+  - {id: GH-E028, name: branch protection rule, type: governance_object}
+  - {id: GH-E029, name: CODEOWNERS definition, type: governance_artifact}
+  - {id: GH-E030, name: status check, type: validation_result}
+  - {id: GH-E031, name: check run, type: validation_result}
+  - {id: GH-E032, name: check suite, type: validation_aggregate}
+
+  # Collaboration entities
+  - {id: GH-E040, name: issue, type: collaboration_object}
+  - {id: GH-E041, name: sub-issue, type: collaboration_object}
+  - {id: GH-E042, name: issue type, type: classification}
+  - {id: GH-E043, name: label, type: classification}
+  - {id: GH-E044, name: milestone, type: planning_object}
+  - {id: GH-E045, name: pull request, type: collaboration_object}
+  - {id: GH-E046, name: pull request review, type: review_object}
+  - {id: GH-E047, name: review thread, type: discussion_thread}
+  - {id: GH-E048, name: comment, type: communication_object}
+  - {id: GH-E049, name: discussion, type: communication_object}
+  - {id: GH-E050, name: discussion category, type: classification}
+  - {id: GH-E051, name: project, type: planning_object}
+  - {id: GH-E052, name: project item, type: planning_object}
+  - {id: GH-E053, name: project field, type: metadata_definition}
+  - {id: GH-E054, name: project view, type: presentation_configuration}
+
+  # Actions/automation entities
+  - {id: GH-E060, name: workflow, type: automation_definition}
+  - {id: GH-E061, name: workflow run, type: automation_execution}
+  - {id: GH-E062, name: job, type: automation_execution_unit}
+  - {id: GH-E063, name: step, type: automation_execution_unit}
+  - {id: GH-E064, name: action, type: reusable_automation_component}
+  - {id: GH-E065, name: runner, type: compute_resource}
+  - {id: GH-E066, name: runner group, type: compute_resource_group}
+  - {id: GH-E067, name: workflow artifact, type: artifact}
+  - {id: GH-E068, name: cache, type: retained_automation_data}
+  - {id: GH-E069, name: environment, type: deployment_governance_object}
+  - {id: GH-E070, name: deployment, type: deployment_object}
+  - {id: GH-E071, name: Actions secret, type: credential_container}
+  - {id: GH-E072, name: Actions variable, type: configuration_data}
+
+  # Publication/distribution entities
+  - {id: GH-E080, name: release, type: publication_object}
+  - {id: GH-E081, name: release asset, type: artifact}
+  - {id: GH-E082, name: package, type: publication_object}
+  - {id: GH-E083, name: package version, type: publication_object}
+  - {id: GH-E084, name: GitHub Pages site, type: publication_surface}
+
+  # Codespaces entities
+  - {id: GH-E090, name: codespace, type: development_environment}
+  - {id: GH-E091, name: dev container configuration, type: environment_configuration}
+  - {id: GH-E092, name: codespace prebuild, type: environment_artifact}
+
+  # Integration/API entities
+  - {id: GH-E100, name: GitHub App, type: integration}
+  - {id: GH-E101, name: GitHub App installation, type: integration_instance}
+  - {id: GH-E102, name: GitHub App authorization, type: authorization_grant}
+  - {id: GH-E103, name: OAuth App, type: integration}
+  - {id: GH-E104, name: webhook, type: event_subscription}
+  - {id: GH-E105, name: webhook delivery, type: event_delivery}
+  - {id: GH-E106, name: personal access token, type: credential}
+  - {id: GH-E107, name: GitHub App user access token, type: credential}
+  - {id: GH-E108, name: GitHub App installation access token, type: credential}
+  - {id: GH-E109, name: SSH key, type: credential}
+  - {id: GH-E110, name: signing key, type: credential}
+
+  # Security entities
+  - {id: GH-E120, name: secret scanning alert, type: security_finding}
+  - {id: GH-E121, name: push protection event, type: security_event}
+  - {id: GH-E122, name: code scanning alert, type: security_finding}
+  - {id: GH-E123, name: Dependabot alert, type: security_finding}
+  - {id: GH-E124, name: repository security advisory, type: security_object}
+  - {id: GH-E125, name: security campaign, type: remediation_coordination_object}
+  - {id: GH-E126, name: dependency graph, type: supply_chain_model}
+  - {id: GH-E127, name: dependency review, type: supply_chain_validation}
+
+  # Notification/audit entities
+  - {id: GH-E140, name: notification, type: activity_delivery}
+  - {id: GH-E141, name: subscription, type: activity_preference}
+  - {id: GH-E142, name: audit log event, type: audit_evidence}
+  - {id: GH-E143, name: activity event, type: event}
+
+  # Commercial/agentic entities
+  - {id: GH-E150, name: plan, type: commercial_entitlement}
+  - {id: GH-E151, name: license seat, type: commercial_entitlement}
+  - {id: GH-E152, name: budget, type: billing_control}
+  - {id: GH-E153, name: usage record, type: billing_evidence}
+  - {id: GH-E160, name: Copilot review, type: agentic_review_object}
+  - {id: GH-E161, name: Copilot agent session, type: agentic_execution}
+  - {id: GH-E162, name: agent skill, type: agentic_instruction_artifact}
+  - {id: GH-E163, name: repository custom instruction, type: agentic_instruction_artifact}
+  - {id: GH-E164, name: MCP server configuration, type: agentic_integration_configuration}

@@ -1,0 +1,102 @@
+schema_version: 1
+pass: 3
+status: DISCOVERY_SEED
+principles:
+  - ROLE != PERMISSION != POLICY != ENTITLEMENT != OWNERSHIP
+  - effective access is context-dependent and may be inherited or restricted at organization/enterprise scope
+  - use least privilege
+account_scopes:
+  - {id: GH-AS001, name: personal account, role_model: owner_and_collaborator_permissions}
+  - {id: GH-AS002, name: organization, role_model: organization_roles_plus_repository_roles_plus_teams}
+  - {id: GH-AS003, name: enterprise, role_model: enterprise_roles_policies_and_organization_inheritance}
+repository_roles_organization:
+  - id: GH-ROLE-R01
+    name: Read
+    intent: view and discuss without write access
+  - id: GH-ROLE-R02
+    name: Triage
+    intent: proactively manage issues discussions and pull requests without code write access
+  - id: GH-ROLE-R03
+    name: Write
+    intent: actively push and perform write-level collaboration
+  - id: GH-ROLE-R04
+    name: Maintain
+    intent: manage repository operations without the most sensitive/destructive administration
+  - id: GH-ROLE-R05
+    name: Admin
+    intent: full repository administration including sensitive/destructive settings
+  - id: GH-ROLE-R06
+    name: Custom repository role
+    availability: GitHub Enterprise Cloud organization context
+    basis: predefined repository role plus additional custom permissions
+organization_roles_seed:
+  - {id: GH-ROLE-O01, name: Owner, scope: organization, capability: full_organization_administration}
+  - {id: GH-ROLE-O02, name: Billing manager, scope: organization, capability: billing_and_subscription_administration}
+  - {id: GH-ROLE-O03, name: Security manager, scope: organization, capability: organization_and_repository_security_management}
+  - {id: GH-ROLE-O04, name: CI/CD admin, scope: organization, capability: Actions_policies_runners_secrets_variables_usage}
+  - {id: GH-ROLE-O05, name: App Manager, scope: organization, capability: manage_organization_GitHub_Apps}
+  - {id: GH-ROLE-O06, name: All-repository read, scope: organization, capability: read_all_repositories}
+  - {id: GH-ROLE-O07, name: All-repository triage, scope: organization, capability: triage_all_repositories}
+  - {id: GH-ROLE-O08, name: All-repository write, scope: organization, capability: write_all_repositories}
+  - {id: GH-ROLE-O09, name: All-repository maintain, scope: organization, capability: maintain_all_repositories}
+  - {id: GH-ROLE-O10, name: All-repository admin, scope: organization, capability: admin_all_repositories}
+actor_types:
+  - {id: GH-ACTOR001, name: anonymous visitor}
+  - {id: GH-ACTOR002, name: authenticated user}
+  - {id: GH-ACTOR003, name: personal account owner}
+  - {id: GH-ACTOR004, name: repository collaborator}
+  - {id: GH-ACTOR005, name: organization member}
+  - {id: GH-ACTOR006, name: outside collaborator}
+  - {id: GH-ACTOR007, name: team}
+  - {id: GH-ACTOR008, name: organization owner}
+  - {id: GH-ACTOR009, name: enterprise actor}
+  - {id: GH-ACTOR010, name: GitHub App}
+  - {id: GH-ACTOR011, name: GitHub App installation}
+  - {id: GH-ACTOR012, name: Actions workflow identity}
+  - {id: GH-ACTOR013, name: Dependabot}
+  - {id: GH-ACTOR014, name: Copilot cloud agent}
+permission_families:
+  - {id: GH-PERM001, name: contents, operations: [read, write]}
+  - {id: GH-PERM002, name: metadata, operations: [read]}
+  - {id: GH-PERM003, name: issues, operations: [read, write, triage]}
+  - {id: GH-PERM004, name: pull requests, operations: [read, write, review, merge]}
+  - {id: GH-PERM005, name: actions, operations: [read, write, run, rerun, cancel, configure]}
+  - {id: GH-PERM006, name: administration, operations: [read, write]}
+  - {id: GH-PERM007, name: security findings, operations: [view, triage, dismiss, configure]}
+  - {id: GH-PERM008, name: deployments, operations: [read, write, approve]}
+  - {id: GH-PERM009, name: environments, operations: [read, configure]}
+  - {id: GH-PERM010, name: packages, operations: [read, write, delete]}
+  - {id: GH-PERM011, name: workflows, operations: [read, modify_workflow_files]}
+  - {id: GH-PERM012, name: repository rules, operations: [read, edit]}
+  - {id: GH-PERM013, name: webhooks, operations: [read, write]}
+  - {id: GH-PERM014, name: repository secrets and variables, operations: [configure, consume_via_workflow]}
+authorization_model:
+  effective_permission_factors:
+    - actor identity
+    - repository/account role
+    - direct or team assignment
+    - owner type
+    - repository visibility
+    - organization base permissions
+    - organization/enterprise policy
+    - GitHub App requested/granted permission
+    - selected repository scope for GitHub App installation
+    - user permission when an app acts on behalf of a user
+    - plan/entitlement
+    - current object/repository state
+  github_app_rules:
+    installation: grants requested repository/organization/enterprise resource permissions and selected-repository scope
+    authorization: grants requested account permissions and permits acting on behalf of the authorizing user
+    independence: installation and authorization may exist independently
+    app_default: no explicit permissions by default; minimum permissions should be requested
+    user_access_token: effective ability is bounded by both app permissions and user permissions
+    installation_access_token: effective ability is bounded by installation/app permissions and repository selection
+    git_http_access: Contents repository permission is needed; editing workflow files also requires Workflows repository permission
+current_target_context:
+  repository: flawlessstudio/flawless-ftxp
+  owner_type: personal_account
+  authenticated_connector_permission_observed: admin
+  implications:
+    - organization-only roles and organization-level policy are reference-model contexts, not the direct current owner scope
+    - a repository-level ruleset/branch protection design must not assume organization-only bypass teams or organization roles
+    - complete collaborator/effective-app inventory remains partially inaccessible through current connection

@@ -1,0 +1,30 @@
+schema_version: 1
+pass: zero_novelty_attempt_1
+status: DISCOVERY_SEED
+semantic_boundary: repository_policy != repository_ruleset != branch_protection
+repository_policy:
+  status: PUBLIC_PREVIEW
+  scope: enterprise
+  purpose: govern repository container lifecycle and naming/visibility operations
+  restrictions_seed:
+    - allowed_visibility_for_creation_or_change
+    - actors_allowed_to_create_repositories
+    - actors_allowed_to_delete_repositories
+    - actors_allowed_to_transfer_out
+    - repository_naming_rules
+  targeting: organizations_and_repositories_with_patterns_or_selection
+  bypass: explicit_actor_context
+legacy_or_parallel_enterprise_management_policies:
+  - base_repository_permissions
+  - repository_creation
+  - private_internal_forking
+  - outside_collaborators
+  - default_branch_name
+  - deploy_keys
+  - visibility_changes
+  - deletion_and_transfer
+  - issue_deletion
+  - protected_branch_rename
+code_rulesets:
+  purpose: govern branches_tags_pushes_commits_merges_and_code_quality/security_conditions
+  relation: may_coexist_with_repository_policy

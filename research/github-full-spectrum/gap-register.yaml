@@ -1,0 +1,111 @@
+schema_version: 1
+status: INITIAL
+classification_rule: observed findings are not remediated until applicability and impact are validated
+findings:
+  - id: GHFS-G001
+    domain: versioning_release_reconstructability
+    severity: BLOCKER_FOR_FREEZE
+    status: VALIDATED
+    observed: README and VERSION identify baseline 1.0.0 as frozen, but v1.0.0 tag is absent and GitHub Releases is empty.
+    impact: the declared baseline is not yet anchored by the intended immutable version/release identifiers.
+    target_gate: RQ16
+    remediation_candidate: create an exact baseline tag and release only after final release-readiness validation.
+
+  - id: GHFS-G002
+    domain: governance
+    severity: BLOCKER_FOR_FREEZE
+    status: VALIDATED
+    observed: main is unprotected and the repository has zero rulesets.
+    impact: direct updates can bypass the PR, CODEOWNERS and CI governance path.
+    target_gate: RQ17
+    remediation_candidate: define and apply the minimum sufficient main-branch ruleset after the lifecycle audit establishes exact required checks and bypass policy.
+
+  - id: GHFS-G003
+    domain: branch_hygiene
+    severity: MINOR
+    status: VALIDATED
+    observed: two merged documentation branches remain; delete_branch_on_merge is false.
+    impact: avoidable long-lived branch clutter and weaker post-merge hygiene.
+    remediation_candidate: decide branch-retention policy and remove merged branches when safe.
+
+  - id: GHFS-G004
+    domain: validation
+    severity: MAJOR
+    status: VALIDATED
+    observed: the current validator checks required files, version strings and selected registry ID invariants, but does not yet validate YAML syntax, internal links, referential integrity, duplicate canonical IDs, derived-view consistency or lifecycle/release invariants.
+    impact: CI success does not yet prove full repository integrity.
+    target_gate: RQ7
+    remediation_candidate: expand validation only for invariants justified by the full-spectrum audit.
+
+  - id: GHFS-G005
+    domain: reference_testing
+    severity: MAJOR
+    status: VALIDATED
+    observed: no materialized tests/, examples/ or reference-run corpus is present in the current root tree.
+    impact: protocol behavior and regression are documented but not yet backed by repository-level representative executable/reference cases.
+    remediation_candidate: define the minimum representative reference test matrix before adding artifacts.
+
+  - id: GHFS-G006
+    domain: documentation_status
+    severity: MINOR
+    status: VALIDATED
+    observed: docs/github-full-spectrum-master-prompt.md still labels itself a 'Canonical execution instruction candidate' although it has been merged and linked from README.
+    impact: ambiguous artifact maturity state.
+    remediation_candidate: normalize status after the execution/reference architecture governance model is confirmed.
+
+  - id: GHFS-G007
+    domain: licensing
+    severity: HUMAN_DECISION
+    status: UNRESOLVED
+    observed: repository is public and no license is detected.
+    impact: reuse rights are not explicitly granted by a repository license.
+    remediation_candidate: none without an explicit licensing decision.
+
+  - id: GHFS-G008
+    domain: discoverability
+    severity: MINOR
+    status: VALIDATED
+    observed: repository description is null and topics are empty.
+    impact: reduced GitHub-native discoverability and repository identity clarity.
+    remediation_candidate: define concise description/topics after terminology and scope audit.
+
+  - id: GHFS-G009
+    domain: optional_platform_surfaces
+    severity: INFO
+    status: VALIDATED
+    observed: wiki and projects are enabled while the current SSOT uses repository documentation and no project-management dependency has been established.
+    impact: potential unused or duplicate surfaces, not a correctness failure.
+    remediation_candidate: retain only if a concrete use case survives applicability analysis.
+
+  - id: GHFS-G010
+    domain: security_configuration
+    severity: UNVERIFIED
+    status: INACCESSIBLE
+    observed: repository-level secret-scanning, push-protection, code-scanning and vulnerability-management settings are not fully exposed by the available connected capability.
+    impact: security posture cannot be declared complete from current evidence.
+    remediation_candidate: verify through an exposed API/UI context before any assertion or change.
+
+  - id: GHFS-G011
+    domain: app_integrations
+    severity: UNVERIFIED
+    status: INACCESSIBLE
+    observed: complete repository GitHub App installation and effective-permission inventory is not exposed by the current connected capability.
+    impact: integration and trust-boundary coverage remains incomplete.
+    remediation_candidate: verify through installation/admin surfaces or user-provided UI evidence when required.
+
+external_capability_limits:
+  - id: GHFS-X001
+    capability: ruleset_write
+    status: NOT_EXPOSED
+  - id: GHFS-X002
+    capability: branch_protection_write
+    status: NOT_EXPOSED
+  - id: GHFS-X003
+    capability: tag_create
+    status: NOT_EXPOSED
+  - id: GHFS-X004
+    capability: release_create
+    status: NOT_EXPOSED
+  - id: GHFS-X005
+    capability: repository_settings_write
+    status: NOT_EXPOSED

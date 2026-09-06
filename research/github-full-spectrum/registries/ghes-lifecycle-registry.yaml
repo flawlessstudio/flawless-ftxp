@@ -1,0 +1,28 @@
+schema_version: 1
+pass: zero_novelty_attempt_2
+status: DISCOVERY_SEED
+stages:
+  - install_or_provision_instance
+  - configure_network_TLS_DNS_storage_authentication
+  - configure_enterprise_policies_and_products
+  - operate_and_monitor
+  - create_full_or_incremental_backups
+  - configure_HA_or_cluster_when_required
+  - apply_patch_or_feature_upgrades
+  - validate_post_upgrade
+  - restore_or_failover_on_incident
+  - retire_or_migrate
+backup_semantics:
+  backup_service: current_preferred_native_service_in_newer_GHES_versions
+  legacy_backup_utilities: scheduled_for_removal_in_future_GHES_version_according_to_current_docs
+  Actions_external_data_note: workflow_artifacts_and_logs_can_use_external_storage_and require coordinated restore behavior
+restore_semantics:
+  destructive_to_current_target_state: true
+  version_compatibility: constrained
+high_availability:
+  relation_to_backup: complementary_not_equivalent
+  replication: asynchronous_primary_to_replica_for_major_datastores_in_documented_HA_model
+upgrade_semantics:
+  customer_responsibility: true
+  prerequisites: [release_notes, known_issues, capacity, backup_or_snapshot, maintenance_window]
+  mechanisms: [hotpatch_where_applicable, upgrade_package, API_or_gh_extension_automation_in_supported_versions]

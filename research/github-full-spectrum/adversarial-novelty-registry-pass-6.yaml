@@ -1,0 +1,128 @@
+schema_version: 1
+pass: zero_novelty_attempt_3
+status: MATERIAL_NOVELTY_FOUND_RESET_SAT_MAX
+candidates:
+  - id: ADV6-001
+    name: GitHub Copilot app
+    concept_type: agentic_desktop_client
+    materiality: MATERIAL
+    temporal_status: GENERALLY_AVAILABLE
+    evidence:
+      - https://docs.github.com/en/copilot/concepts/agents/github-copilot-app
+      - https://github.blog/changelog/2026-06-17-github-copilot-app-generally-available/
+    facts:
+      - desktop application for agent-driven development on macOS Windows and Linux
+      - supports parallel sessions across repositories with branch/worktree isolation
+      - integrates issues pull requests diff review terminal browser canvases cloud sessions and automations
+      - supports external tools through MCP and can open pull requests into existing governance paths
+    target_applicability: OPTIONAL_CLIENT_NOT_REPOSITORY_REQUIREMENT
+    promote_to: [client_registry, agentic_capability, lifecycle_occurrence, deep_link_surface]
+
+  - id: ADV6-002
+    name: github.dev
+    concept_type: browser_sandbox_development_client
+    materiality: MATERIAL_CLIENT_VARIANT
+    temporal_status: PUBLIC_PREVIEW
+    evidence: https://docs.github.com/en/codespaces/the-githubdev-web-based-editor
+    facts:
+      - runs entirely in the browser sandbox
+      - does not clone the repository
+      - stores uncommitted work in browser local storage
+      - can edit and commit but lacks Codespaces compute and integrated terminal semantics
+      - available on GitHub.com but documented as unavailable on GHE.com subdomains
+    target_applicability: OPTIONAL_AUTHORING_CLIENT
+    promote_to: [client_registry, client_parity, persistence_model, deployment_variation]
+
+  - id: ADV6-003
+    name: GitHub Agent Finder
+    concept_type: agentic_capability_discovery
+    materiality: MATERIAL
+    temporal_status: CURRENT
+    evidence: https://github.blog/changelog/2026-06-17-agent-finder-for-github-copilot-now-available/
+    facts:
+      - searches an index of AI resources and returns ranked matches
+      - can target GitHub curated or private registries
+      - discovery respects managed settings
+      - discovery does not imply automatic installation or connection
+      - implements the open Agentic Resource Discovery specification
+    target_applicability: OPTIONAL_REFERENCE_ONLY
+    promote_to: [agentic_discovery, registry_model, policy_context, search_surface]
+
+  - id: ADV6-004
+    name: Agentic Resource Discovery specification
+    concept_type: external_open_discovery_specification
+    materiality: MATERIAL_RELATION
+    evidence: https://github.blog/changelog/2026-06-17-agent-finder-for-github-copilot-now-available/
+    facts:
+      - open specification used by GitHub Agent Finder
+      - models registry-backed discovery of agents tools skills MCP resources and related AI capabilities
+    target_applicability: NOT_A_REPOSITORY_DEPENDENCY
+    promote_to: [external_standard, agentic_discovery, integration_boundary]
+
+  - id: ADV6-005
+    name: MCP Registry
+    concept_type: agent_resource_registry
+    materiality: MATERIAL
+    evidence:
+      - https://github.blog/changelog/2026-06-17-agent-finder-for-github-copilot-now-available/
+      - https://github.blog/changelog/2026-02-17-mcp-registry-and-more-improvements-in-copilot-in-eclipse/
+    facts:
+      - registry/discovery surface is distinct from an MCP server client connection or tool call
+      - can expose curated or organization-specific resources for later explicit installation/use
+    target_applicability: OPTIONAL_REFERENCE_ONLY
+    promote_to: [registry_model, MCP_architecture, agentic_discovery]
+
+  - id: ADV6-006
+    name: GitHub Code Quality
+    concept_type: code_quality_product
+    materiality: MATERIAL_MACRO
+    temporal_status: GENERALLY_AVAILABLE
+    evidence:
+      - https://docs.github.com/en/code-security/concepts/code-quality/code-quality
+      - https://github.blog/changelog/2026-07-20-github-code-quality-is-now-generally-available/
+    facts:
+      - standalone paid product available on GitHub Team and Enterprise Cloud
+      - performs deterministic CodeQL quality analysis on pull requests and default branch
+      - supports code coverage metrics and ruleset quality/coverage thresholds
+      - supports Copilot-powered remediation and organization-level dashboards
+      - not available on GitHub Enterprise Server at current evidence horizon
+    target_applicability: NOT_APPLICABLE_CURRENT_PLAN_AND_SCOPE
+    promote_to: [product_registry, quality_governance, PR_surface, ruleset_integration, billing]
+
+  - id: ADV6-007
+    name: Code Quality organization targeting and inheritance
+    concept_type: quality_policy_distribution
+    materiality: MATERIAL_CONTEXT
+    evidence: https://github.blog/changelog/2026-07-09-organization-level-targeting-for-github-code-quality/
+    facts:
+      - organization owners can target repositories by custom properties visibility fork status or manual selection
+      - enforcement can prevent repository administrators from overriding organization choice
+    target_applicability: NOT_APPLICABLE_PERSONAL_ACCOUNT
+    promote_to: [policy_inheritance, custom_properties_relation, organization_governance]
+
+  - id: ADV6-008
+    name: Code Quality programmatic and observability plane
+    concept_type: quality_API_and_audit_surface
+    materiality: MATERIAL_INTERFACE
+    evidence:
+      - https://github.blog/changelog/2026-05-26-github-code-quality-repository-enablement-api/
+      - https://github.blog/changelog/2026-08-20-track-github-code-quality-enablement-changes-in-the-audit-log/
+      - https://github.blog/changelog/2026-08-20-separate-github-actions-path-for-github-code-quality/
+    facts:
+      - repository enablement/configuration has dedicated REST endpoints
+      - enable disable and update operations emit dedicated audit events
+      - deterministic analysis uses a dedicated Actions workflow path and actor distinct from code scanning
+    target_applicability: NOT_APPLICABLE_CURRENTLY
+    promote_to: [API_parity, audit_registry, Actions_actor, billing_observability]
+
+  - id: ADV6-009
+    name: Copilot cross-client policy convergence
+    concept_type: announced_temporal_policy_change
+    materiality: MATERIAL_TEMPORAL_CONTEXT
+    temporal_status: ANNOUNCED_FUTURE_NOT_CURRENT
+    evidence: https://github.blog/changelog/2026-08-28-upcoming-changes-to-github-copilot-policies-and-billing/
+    facts:
+      - no earlier than 2026-09-28 GitHub plans a unified policy for Copilot on github.com GitHub Mobile and the cloud agent
+      - announced data-retention and default-policy behavior must not be applied to the 2026-09-06 current-state model
+    target_applicability: TEMPORAL_REFERENCE_ONLY
+    promote_to: [temporal_registry, policy_model, client_convergence]

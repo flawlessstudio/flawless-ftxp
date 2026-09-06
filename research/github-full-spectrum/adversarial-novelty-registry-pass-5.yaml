@@ -1,0 +1,110 @@
+schema_version: 1
+pass: zero_novelty_attempt_2
+status: MATERIAL_NOVELTY_FOUND_RESET_SAT_MAX
+candidates:
+  - id: ADV5-001
+    name: GitHub Enterprise Cloud with data residency
+    concept_type: managed_cloud_deployment_model
+    materiality: MATERIAL_MACRO
+    evidence: https://docs.github.com/en/enterprise-cloud@latest/admin/data-residency/about-github-enterprise-cloud-with-data-residency
+    facts:
+      - enterprise is hosted on a dedicated GHE.com subdomain
+      - data region is selected from supported regions
+      - API requests target api.SUBDOMAIN.ghe.com rather than api.github.com
+      - managed-user and public-repository restrictions differ from ordinary GitHub.com contexts
+    target_applicability: NOT_APPLICABLE
+    promote_to: [deployment_model, route_namespace, identity_context, data_residency]
+
+  - id: ADV5-002
+    name: GitHub Enterprise Server
+    concept_type: self_managed_GitHub_deployment
+    materiality: MATERIAL_MACRO
+    evidence: https://docs.github.com/en/enterprise-server@latest/admin/overview/about-github-enterprise-server
+    facts:
+      - customer operates an appliance/instance with administrative shell and instance lifecycle
+      - external authentication/policies and infrastructure administration are instance-admin responsibilities
+      - feature/version availability is tied to GHES release lifecycle
+    target_applicability: NOT_APPLICABLE
+    promote_to: [deployment_model, instance_lifecycle, version_matrix]
+
+  - id: ADV5-003
+    name: GitHub Enterprise Server backup and restore
+    concept_type: platform_disaster_recovery_lifecycle
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/enterprise-server@latest/admin/backing-up-and-restoring-your-instance
+    facts:
+      - full/incremental backups and restore form an instance-level recovery plane
+      - restore can overwrite current instance data and requires compatibility constraints
+      - Actions data may include external storage considerations not identical to core instance backup
+    target_applicability: NOT_APPLICABLE
+    promote_to: [platform_failure_recovery, retention, external_storage_boundary]
+
+  - id: ADV5-004
+    name: GitHub Enterprise Server high availability
+    concept_type: platform_availability_topology
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/enterprise-server@latest/admin/monitoring-and-managing-your-instance/configuring-high-availability
+    facts:
+      - primary and replica appliances use datastore replication and failover architecture
+      - HA is distinct from backup/disaster recovery
+    target_applicability: NOT_APPLICABLE
+    promote_to: [service_availability, topology, failure_recovery]
+
+  - id: ADV5-005
+    name: GitHub Enterprise Server upgrade lifecycle
+    concept_type: self_managed_platform_version_lifecycle
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/enterprise-server@latest/admin/upgrading-your-instance
+    facts:
+      - feature and patch releases require planned upgrades
+      - backups/snapshots and maintenance windows are part of upgrade readiness
+      - some upgrades can be automated through API/CLI tooling
+      - old GHES releases have explicit support/discontinuation dates
+    target_applicability: NOT_APPLICABLE
+    promote_to: [temporal_product, platform_maintenance, recovery]
+
+  - id: ADV5-006
+    name: GitHub Connect
+    concept_type: hybrid_enterprise_bridge
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/enterprise-server@latest/admin/configuring-settings/configuring-github-connect
+    facts:
+      - GitHub Enterprise Server can be connected to GitHub.com or eligible cloud enterprise context for selected cloud-backed features
+      - outbound connectivity and cross-platform enterprise ownership are configuration boundaries
+    target_applicability: NOT_APPLICABLE
+    promote_to: [integration_model, deployment_topology, trust_boundary]
+
+  - id: ADV5-007
+    name: Self-hosted Actions runners
+    concept_type: customer_managed_compute_model
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/actions/reference/runners/self-hosted-runners
+    facts:
+      - customer owns OS hardware/network maintenance and security
+      - runners can be scoped to repository organization or enterprise
+      - persistent self-hosted runners carry cross-job trust risk
+      - ephemeral runners are recommended for autoscaling patterns
+    target_applicability: NOT_APPLICABLE_CURRENT_GITHUB_HOSTED_WORKFLOW
+    promote_to: [Actions_compute_topology, trust_boundary, lifecycle]
+
+  - id: ADV5-008
+    name: Actions Runner Controller and runner scale sets
+    concept_type: autoscaled_runner_orchestration
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/actions/concepts/runners/runner-scale-sets
+    facts:
+      - ARC is GitHub's recommended Kubernetes-based reference implementation for autoscaling self-hosted runners
+      - runner scale sets are homogeneous runner groups consumed through Actions job routing
+      - external infrastructure lifecycle remains customer controlled
+    target_applicability: NOT_APPLICABLE
+    promote_to: [Actions_compute_topology, external_dependency, Kubernetes_boundary]
+
+  - id: ADV5-009
+    name: GHES Actions runner restriction
+    concept_type: deployment_feature_variation
+    materiality: MATERIAL_CONTEXT
+    evidence: https://docs.github.com/en/enterprise-server@latest/actions/concepts/runners/self-hosted-runners
+    facts:
+      - GitHub Enterprise Server workflows use self-hosted runners; GitHub-hosted runners are not supported in the documented GHES context
+    target_applicability: NOT_APPLICABLE
+    promote_to: [client_compute_parity, deployment_matrix]

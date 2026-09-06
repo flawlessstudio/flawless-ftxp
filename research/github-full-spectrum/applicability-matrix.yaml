@@ -1,0 +1,185 @@
+schema_version: 1
+pass: 6
+target: flawlessstudio/flawless-ftxp
+owner_type: personal_account
+repository_kind: public_specification_protocol_ssot
+status_values: [REQUIRED, RECOMMENDED, OPTIONAL, CONDITIONAL, NOT_APPLICABLE, HUMAN_DECISION, UNVERIFIED]
+items:
+  - {id: APP-001, capability: README, status: REQUIRED, current: PRESENT, rationale: repository entry point and orientation}
+  - {id: APP-002, capability: VERSION, status: REQUIRED, current: PRESENT, rationale: repository/protocol baseline identification}
+  - {id: APP-003, capability: CHANGELOG, status: REQUIRED, current: PRESENT, rationale: material change history}
+  - {id: APP-004, capability: CONTRIBUTING, status: RECOMMENDED, current: PRESENT, rationale: contribution/change process is useful for public repository}
+  - {id: APP-005, capability: CODEOWNERS, status: RECOMMENDED, current: PRESENT, rationale: ownership routing and provenance; enforcement is a separate decision}
+  - {id: APP-006, capability: pull_request_template, status: REQUIRED, current: PRESENT, rationale: change impact/reopening/validation contract}
+  - {id: APP-007, capability: protocol_change_issue_form, status: RECOMMENDED, current: PRESENT, rationale: structured change proposals}
+  - {id: APP-008, capability: LICENSE, status: HUMAN_DECISION, current: ABSENT, rationale: public visibility does not itself grant reuse rights; licensing must be explicit}
+  - {id: APP-009, capability: SECURITY_md, status: RECOMMENDED, current: ABSENT, rationale: GitHub recommends a security policy for public repositories; repository has workflows and code-like validator surface}
+  - {id: APP-010, capability: private_vulnerability_reporting, status: CONDITIONAL, current: UNVERIFIED, rationale: useful if maintainers want private disclosure workflow}
+  - {id: APP-011, capability: CITATION_cff, status: RECOMMENDED, current: ABSENT, rationale: protocol/reference artifact is plausibly citable; does not substitute for licensing}
+  - {id: APP-012, capability: CODE_OF_CONDUCT, status: CONDITIONAL, current: ABSENT, rationale: add when real community/contribution dimension justifies it}
+  - {id: APP-013, capability: repository_description, status: RECOMMENDED, current: ABSENT, rationale: GitHub-native identity/discoverability}
+  - {id: APP-014, capability: repository_topics, status: RECOMMENDED, current: ABSENT, rationale: GitHub-native discoverability and classification}
+  - {id: APP-015, capability: wiki, status: NOT_APPLICABLE, current: ENABLED, rationale: duplicates versioned docs SSOT unless a separate use case is established}
+  - {id: APP-016, capability: repository_projects, status: NOT_APPLICABLE, current: ENABLED, rationale: no project-management dependency currently exists for this protocol SSOT}
+  - {id: APP-017, capability: discussions, status: OPTIONAL, current: DISABLED, rationale: no community discussion requirement established}
+  - {id: APP-018, capability: Pages, status: OPTIONAL, current: DISABLED, rationale: documentation can remain repository-native unless a published site creates value}
+
+  - id: APP-020
+    capability: main_integration_ruleset
+    status: REQUIRED
+    current: ABSENT
+    rationale: frozen baseline must not permit accidental direct modification outside the validated PR path
+    target_minimum:
+      - require_pull_request_before_merge
+      - require_status_check_validate
+      - block_force_push
+      - block_deletion
+      - require_conversation_resolution
+    target_context:
+      required_review_count: 0
+      reason: single-owner personal repository cannot rely on mandatory independent approval without introducing a deadlock or fake review requirement
+
+  - id: APP-021
+    capability: required_code_owner_review
+    status: CONDITIONAL
+    current: NOT_ENFORCED
+    rationale: useful only when at least one genuinely independent eligible reviewer exists; CODEOWNERS itself remains useful without mandatory approval
+
+  - id: APP-022
+    capability: signed_commits_rule
+    status: CONDITIONAL
+    current: NOT_ENFORCED
+    rationale: provenance value is real but enforcement must be tested against connector/automation write paths before adoption
+
+  - id: APP-023
+    capability: squash_only_main_merge_policy
+    status: RECOMMENDED
+    current: MULTIPLE_METHODS_ALLOWED
+    rationale: one PR generally represents one logical spec/repository change; squash keeps main concise while PR retains review history
+
+  - id: APP-024
+    capability: linear_history
+    status: RECOMMENDED
+    current: NOT_ENFORCED
+    depends_on: [APP-023]
+
+  - id: APP-025
+    capability: automatic_delete_merged_head_branches
+    status: RECOMMENDED
+    current: DISABLED
+    rationale: short-lived branch model and reduced stale-branch surface
+
+  - id: APP-026
+    capability: allow_update_pull_request_branch
+    status: OPTIONAL
+    current: DISABLED
+    rationale: useful with strict required checks but not itself a governance requirement
+
+  - id: APP-027
+    capability: auto_merge
+    status: OPTIONAL
+    current: DISABLED
+    rationale: convenience only after required gates are trustworthy
+
+  - id: APP-028
+    capability: merge_queue
+    status: NOT_APPLICABLE
+    current: DISABLED_OR_NOT_REQUIRED
+    rationale: low-concurrency single-maintainer repository does not justify queue complexity
+
+  - id: APP-030
+    capability: validation_workflow
+    status: REQUIRED
+    current: PRESENT
+    rationale: machine-verifiable repository invariants
+
+  - id: APP-031
+    capability: explicit_Actions_permissions
+    status: REQUIRED
+    current: PRESENT_CONTENTS_READ
+    rationale: least privilege
+
+  - id: APP-032
+    capability: full_SHA_action_references
+    status: REQUIRED
+    current: PRESENT_FOR_CURRENT_WORKFLOW
+    rationale: immutable dependency reference for workflow code
+
+  - id: APP-033
+    capability: repository_level_action_SHA_pinning_policy
+    status: RECOMMENDED
+    current: UNVERIFIED
+    rationale: enforce the invariant across future actions rather than relying only on review
+
+  - id: APP-034
+    capability: expanded_repository_validator
+    status: REQUIRED
+    current: PARTIAL
+    target_invariants:
+      - required_artifact_presence
+      - version_consistency
+      - canonical_registry_ID_uniqueness_and_order_where_normative
+      - internal_link_integrity
+      - referential_integrity_for_research_or_machine_readable_artifacts_when_promoted
+      - duplicate_canonical_ID_detection
+      - lifecycle_release_invariants
+      - freeze_manifest_consistency
+
+  - id: APP-035
+    capability: reference_test_cases
+    status: REQUIRED
+    current: ABSENT
+    rationale: documented validation/regression claims need representative repository-level cases
+
+  - id: APP-036
+    capability: reference_runs
+    status: RECOMMENDED
+    current: ABSENT
+    rationale: retain only canonical regression/evidence runs, not all executions
+
+  - id: APP-040
+    capability: Dependabot_alerts
+    status: REQUIRED
+    current: UNVERIFIED
+    rationale: current official minimum public-repository security guidance
+  - id: APP-041
+    capability: secret_scanning
+    status: REQUIRED
+    current: UNVERIFIED
+    rationale: current official minimum public-repository security guidance
+  - id: APP-042
+    capability: push_protection
+    status: REQUIRED
+    current: UNVERIFIED
+    rationale: current official minimum public-repository security guidance
+  - id: APP-043
+    capability: code_scanning
+    status: REQUIRED
+    current: UNVERIFIED
+    rationale: current official minimum public-repository security guidance; actual language/tool applicability must be configured minimally
+  - id: APP-044
+    capability: dependency_graph
+    status: REQUIRED
+    current: EXPECTED_PUBLIC_DEFAULT_BUT_UNVERIFIED_ON_TARGET
+    rationale: supply-chain visibility and current public-repository security model
+
+  - id: APP-050
+    capability: v1_0_0_tag
+    status: REQUIRED
+    current: ABSENT
+    rationale: exact reconstructable named baseline
+  - id: APP-051
+    capability: v1_0_0_GitHub_release
+    status: REQUIRED
+    current: ABSENT
+    rationale: repository currently declares frozen 1.0.0 but has no corresponding GitHub Release
+  - id: APP-052
+    capability: release_immutability
+    status: RECOMMENDED
+    current: UNVERIFIED
+    rationale: strong integrity for future frozen releases and associated tags/assets
+  - id: APP-053
+    capability: freeze_manifest
+    status: REQUIRED
+    current: ABSENT
+    rationale: bind version, tag, release, exact commit, validation state, evidence horizon and gates

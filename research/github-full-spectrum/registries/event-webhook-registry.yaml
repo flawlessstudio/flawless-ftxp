@@ -1,0 +1,53 @@
+schema_version: 1
+pass: 4
+status: DISCOVERY_SEED
+event_model:
+  fields: [event_id, source, action, actor, entity, scope, payload, permissions, state_transition, notification_effect, workflow_trigger, audit_effect]
+principles:
+  - webhook_event != Actions_event != notification_reason != audit_event
+  - one underlying repository transition may produce multiple representations across these channels
+  - webhook availability depends on webhook scope and app permissions
+webhook_families:
+  - id: GH-WHF001
+    family: repository_and_ref
+    events: [repository, push, create, delete, branch_protection_rule, repository_ruleset, repository_dispatch]
+  - id: GH-WHF002
+    family: collaboration
+    events: [issues, issue_comment, sub_issues, pull_request, pull_request_review, pull_request_review_comment, pull_request_review_thread, discussion, discussion_comment, label, milestone]
+  - id: GH-WHF003
+    family: checks_and_status
+    events: [check_run, check_suite, status]
+  - id: GH-WHF004
+    family: actions
+    events: [workflow_dispatch, workflow_job, workflow_run]
+  - id: GH-WHF005
+    family: deployments
+    events: [deployment, deployment_status, deployment_protection_rule]
+  - id: GH-WHF006
+    family: releases_and_packages
+    events: [release, package, registry_package]
+  - id: GH-WHF007
+    family: security
+    events: [code_scanning_alert, dependabot_alert, secret_scanning_alert, secret_scanning_scan, security_advisory, repository_vulnerability_alert, security_and_analysis]
+  - id: GH-WHF008
+    family: access_and_membership
+    events: [member, membership, team, team_add, installation, installation_repositories, installation_target]
+  - id: GH-WHF009
+    family: keys_and_integrations
+    events: [deploy_key, github_app_authorization, marketplace_purchase, ping]
+  - id: GH-WHF010
+    family: activity_and_social
+    events: [star, watch, fork, public, sponsorship]
+state_transition_examples:
+  - id: GH-EVT-EX001
+    source: pull_request
+    transition: open_or_update_or_close_or_merge
+    representations: [webhook, UI_timeline, notification_possible, Actions_trigger_possible, audit_or_activity_evidence]
+  - id: GH-EVT-EX002
+    source: workflow_run
+    action: completed
+    representations: [webhook, Actions_UI, notification_reason_ci_activity_when_applicable]
+  - id: GH-EVT-EX003
+    source: push_protection_bypass
+    transition: blocked_secret_push_bypassed
+    representations: [secret_scanning_alert, security_surface, audit/security_evidence]

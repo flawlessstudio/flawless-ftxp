@@ -1,0 +1,87 @@
+schema_version: 1
+pass: zero_novelty_attempt_1
+status: MATERIAL_NOVELTY_FOUND_RESET_SAT_MAX
+candidates:
+  - id: ADV4-001
+    name: Enterprise Managed Users
+    concept_type: enterprise_identity_model
+    materiality: MATERIAL_MACRO
+    evidence: https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/identity-and-access-management/enterprise-managed-users
+    facts:
+      - user lifecycle and authentication are controlled through an external identity provider
+      - managed users have restrictions on public content/collaboration outside the enterprise
+      - identity/provider data affects usernames profile data organization membership and repository access
+    target_applicability: NOT_APPLICABLE_PERSONAL_ACCOUNT
+    promote_to: [identity_model, account_type, lifecycle, policy_context]
+
+  - id: ADV4-002
+    name: Enterprise SAML/OIDC/SCIM identity plane
+    concept_type: federated_identity_and_provisioning
+    materiality: MATERIAL_MACRO
+    evidence: https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/configuring-authentication-for-enterprise-managed-users
+    facts:
+      - Enterprise Managed Users can use SAML or OIDC authentication depending on enterprise configuration
+      - SCIM provisions and deprovisions identities/memberships in supported IdP models
+      - OIDC can integrate IdP conditional access policy in supported environments
+    target_applicability: NOT_APPLICABLE
+    promote_to: [authentication_architecture, provisioning_lifecycle, trust_boundary]
+
+  - id: ADV4-003
+    name: Enterprise repository policies
+    concept_type: repository_lifecycle_policy
+    materiality: MATERIAL_MACRO
+    temporal_status: PUBLIC_PREVIEW
+    evidence: https://docs.github.com/en/enterprise-cloud@latest/admin/managing-accounts-and-repositories/managing-repositories-in-your-enterprise/governing-how-people-use-repositories-in-your-enterprise
+    facts:
+      - repository policy governs lifecycle events such as create delete transfer visibility and naming
+      - policy targets organizations/repositories and supports bypass actors
+      - this is distinct from code rulesets that govern refs/commits/merge behavior
+    target_applicability: NOT_APPLICABLE_PERSONAL_ACCOUNT
+    promote_to: [policy_model, repository_lifecycle, enterprise_governance]
+
+  - id: ADV4-004
+    name: Enterprise member-privilege policies
+    concept_type: inherited_repository_management_policy
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-repository-management-policies-in-your-enterprise
+    facts:
+      - enterprise can constrain base permissions creation forking outside collaborators default branch deploy keys visibility deletion transfer issue deletion and protected-branch rename
+      - organization settings may be restricted by enterprise policy
+    target_applicability: NOT_APPLICABLE_PERSONAL_ACCOUNT
+    promote_to: [policy_inheritance, repository_management]
+
+  - id: ADV4-005
+    name: IP allow lists
+    concept_type: network_access_policy
+    materiality: MATERIAL_TRUST_BOUNDARY
+    evidence: https://docs.github.com/en/enterprise-cloud@latest/admin/configuring-settings/hardening-security-for-your-enterprise/restricting-network-traffic-to-your-enterprise-with-an-ip-allow-list
+    facts:
+      - organization/enterprise resources can be restricted to allowed source IP ranges
+      - Actions runner networking must be compatible with allow-list policy
+      - Pages/Dependabot and other services may have policy interactions
+    target_applicability: NOT_APPLICABLE_CURRENT_PERSONAL_REPOSITORY
+    promote_to: [network_security, trust_boundary, Actions_context]
+
+  - id: ADV4-006
+    name: Hosted compute private networking
+    concept_type: managed_compute_network_configuration
+    materiality: MATERIAL_TRUST_BOUNDARY
+    evidence: https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/about-networking-for-hosted-compute-products-in-your-organization
+    facts:
+      - network configurations govern private connectivity for supported GitHub-hosted compute products
+      - Azure private networking can route GitHub-hosted runner traffic into private networks
+      - failover network state can produce audit/email events
+    target_applicability: NOT_APPLICABLE
+    promote_to: [Actions_compute, network_model, operational_state]
+
+  - id: ADV4-007
+    name: SSH certificate authorities
+    concept_type: Git_transport_enterprise_authentication
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-git-access-to-your-organizations-repositories/about-ssh-certificate-authorities
+    facts:
+      - organization/enterprise can trust a CA that signs SSH user certificates for Git access
+      - certificate validity and CA trust replace static-key-only authentication assumptions
+      - CA rotation/revocation is a credential lifecycle
+    target_applicability: NOT_APPLICABLE_CURRENTLY
+    promote_to: [Git_transport_auth, credential_lifecycle, trust_boundary]

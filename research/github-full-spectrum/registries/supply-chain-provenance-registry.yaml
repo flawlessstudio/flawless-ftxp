@@ -1,0 +1,36 @@
+schema_version: 1
+pass: adversarial_1
+status: DISCOVERY_SEED
+capabilities:
+  - id: GH-SCP001
+    name: Artifact attestation
+    function: cryptographically_signed_provenance_claim
+    binds: [artifact_subject, workflow, repository, organization, environment, commit_SHA, triggering_event]
+    implementation_context: GitHub_Actions_and_GitHub_attestation_service
+    verification_interfaces: [GitHub_CLI, REST_API, offline_verification]
+    public_repository_availability: current_plans
+    private_internal_availability: Enterprise_Cloud_required_for_attestations_on_private_internal_under_documented_plan_rules
+  - id: GH-SCP002
+    name: SBOM attestation
+    function: bind_SBOM_statement_to_artifact_provenance
+    parent: GH-SCP001
+  - id: GH-SCP003
+    name: Immutable release
+    function: lock_associated_tag_and_release_assets_and_generate_release_attestation
+    parent_domain: release_integrity
+  - id: GH-SCP004
+    name: Commit/tag signature verification
+    function: Git_identity_and_provenance_signal
+  - id: GH-SCP005
+    name: Full-SHA workflow dependency pinning
+    function: make_external_Action_code_reference_immutable
+  - id: GH-SCP006
+    name: Dependency graph and dependency review
+    function: model_and_review_software_supply_chain_dependencies
+applicability_to_flawless_ftxp:
+  GH-SCP001: NOT_APPLICABLE_UNTIL_BUILD_ARTIFACT_EXISTS
+  GH-SCP002: NOT_APPLICABLE_UNTIL_SBOM_OR_DISTRIBUTABLE_EXISTS
+  GH-SCP003: RECOMMENDED_FOR_FUTURE_FROZEN_RELEASES
+  GH-SCP004: CONDITIONAL_GOVERNANCE
+  GH-SCP005: REQUIRED_CURRENT_ACTIONS_DEPENDENCY
+  GH-SCP006: REQUIRED_OR_SECURITY_BASELINE_AS_APPLICABLE

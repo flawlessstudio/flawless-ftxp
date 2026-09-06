@@ -1,0 +1,61 @@
+schema_version: 1
+pass: regression_integration
+status: CANONICAL_RESEARCH_REGISTRY
+feature_families:
+  - {id: GH-FAM001, name: repository creation and initialization, domain: GH-D03}
+  - {id: GH-FAM002, name: repository metadata and feature configuration, domain: GH-D03}
+  - {id: GH-FAM003, name: repository transfer archive delete and restore, domain: GH-D19}
+  - {id: GH-FAM004, name: file and directory browsing editing and upload, domain: GH-D03}
+  - {id: GH-FAM005, name: branches default branch and branch lifecycle, domain: GH-D03}
+  - {id: GH-FAM006, name: tags and tag lifecycle, domain: GH-D03}
+  - {id: GH-FAM007, name: forks and fork networks, domain: GH-D03}
+  - {id: GH-FAM008, name: pull request creation comparison review and merge, domain: GH-D03}
+  - {id: GH-FAM009, name: merge methods auto-merge merge queue update branch and stacked-PR topology, domain: GH-D03}
+  - {id: GH-FAM010, name: CODEOWNERS and review ownership, domain: GH-D09}
+  - {id: GH-FAM011, name: rulesets branch/tag protections and rule insights, domain: GH-D09}
+  - {id: GH-FAM012, name: required status checks and merge gating, domain: GH-D09}
+  - {id: GH-FAM013, name: issues sub-issues issue types and task tracking, domain: GH-D04}
+  - {id: GH-FAM014, name: labels milestones assignees and triage, domain: GH-D04}
+  - {id: GH-FAM015, name: discussions categories moderation and conversion, domain: GH-D03}
+  - {id: GH-FAM016, name: Projects items fields views automations and insights, domain: GH-D04}
+  - {id: GH-FAM017, name: global and scoped search filtering sorting command navigation and agent-resource discovery, domain: GH-D04}
+  - {id: GH-FAM018, name: notification subscriptions watching participating inbox email push and custom thread subscriptions, domain: GH-D13}
+  - {id: GH-FAM019, name: workflow definition syntax triggers and permissions, domain: GH-D05}
+  - {id: GH-FAM020, name: workflow runs jobs steps and cancellation retry retention, domain: GH-D05}
+  - {id: GH-FAM021, name: reusable workflows custom actions and workflow composition, domain: GH-D05}
+  - {id: GH-FAM022, name: hosted self-hosted larger ephemeral and autoscaled runners, domain: GH-D05}
+  - {id: GH-FAM023, name: environments deployments approvals bypass and protection rules, domain: GH-D05}
+  - {id: GH-FAM024, name: workflow artifacts caches logs metrics and retention, domain: GH-D05}
+  - {id: GH-FAM025, name: Actions secrets variables OIDC and token permissions, domain: GH-D08}
+  - {id: GH-FAM026, name: releases release assets immutable releases release notes and publication, domain: GH-D06}
+  - {id: GH-FAM027, name: packages registries versions permissions visibility and trusted publishing, domain: GH-D06}
+  - {id: GH-FAM028, name: Pages publishing sources domains and build flows, domain: GH-D06}
+  - {id: GH-FAM029, name: codespace creation lifecycle devcontainers prebuilds ports secrets and retention, domain: GH-D07}
+  - {id: GH-FAM030, name: account authentication sessions 2FA passkeys and recovery, domain: GH-D02}
+  - {id: GH-FAM031, name: SSH HTTPS Git credentials certificates and commit signature verification, domain: GH-D02}
+  - {id: GH-FAM032, name: personal access tokens and programmatic credentials, domain: GH-D02}
+  - {id: GH-FAM033, name: repository organization and enterprise roles permissions and managed identities, domain: GH-D02}
+  - {id: GH-FAM034, name: teams membership base permissions and custom roles, domain: GH-D10}
+  - {id: GH-FAM035, name: organization enterprise policy inheritance identity provisioning and network policy, domain: GH-D10}
+  - {id: GH-FAM036, name: GitHub App registration installation authorization tokens and enterprise scope, domain: GH-D11}
+  - {id: GH-FAM037, name: OAuth Apps authorization and organization restrictions, domain: GH-D11}
+  - {id: GH-FAM038, name: webhooks event subscriptions deliveries ordering failure and redelivery, domain: GH-D12}
+  - {id: GH-FAM039, name: REST resources endpoints authentication versioning rate limits and resource utilities, domain: GH-D12}
+  - {id: GH-FAM040, name: GraphQL schema queries mutations connections and limits, domain: GH-D12}
+  - {id: GH-FAM041, name: GitHub CLI commands auth configuration extensions and API access, domain: GH-D12}
+  - {id: GH-FAM042, name: secret scanning alerts partner alerts push protection and bypass, domain: GH-D08}
+  - {id: GH-FAM043, name: code scanning CodeQL SARIF alerts and autofix, domain: GH-D08}
+  - {id: GH-FAM044, name: dependency graph Dependabot dependency review SBOM and supply chain, domain: GH-D08}
+  - {id: GH-FAM045, name: repository organization enterprise security overview configurations and campaigns, domain: GH-D08}
+  - {id: GH-FAM046, name: audit logs streams workflow logs checks statuses rule insights and repository insights, domain: GH-D18}
+  - {id: GH-FAM047, name: plans licenses metered usage budgets cost controls and billing roles, domain: GH-D16}
+  - {id: GH-FAM048, name: web mobile desktop Copilot-app github-dev Codespaces IDE CLI and API client capability parity, domain: GH-D14}
+  - {id: GH-FAM049, name: Copilot repository instructions AGENTS.md path instructions and skills, domain: GH-D15}
+  - {id: GH-FAM050, name: Copilot code review approvals review sessions and agent review actions, domain: GH-D15}
+  - {id: GH-FAM051, name: Copilot cloud agent sessions MCP repository context memory and observability, domain: GH-D15}
+  - {id: GH-FAM052, name: import export migration mirror repository transfer and live migrations, domain: GH-D19}
+  - {id: GH-FAM053, name: limits quotas retention and service availability, domain: GH-D20}
+  - {id: GH-FAM054, name: feature preview announcements deprecation pause decommission removal and changelog tracking, domain: GH-D20}
+  - {id: GH-FAM055, name: community health contribution moderation support programs and retired program services, domain: GH-D17}
+  - {id: GH-FAM056, name: GitHub Code Quality findings coverage thresholds ruleset integration remediation and organization targeting, domain: GH-D08}
+  - {id: GH-FAM057, name: agent resource registries Agent Finder ARD discovery and explicit installation connection boundary, domain: GH-D15}

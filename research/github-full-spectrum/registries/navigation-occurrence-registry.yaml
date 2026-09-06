@@ -1,0 +1,83 @@
+schema_version: 1
+pass: 5
+status: DISCOVERY_SEED
+model_rule: canonical concept != UI occurrence; the same capability may occur in several routes, menus, clients, APIs, notifications, or context menus
+occurrence_types:
+  - page
+  - tab
+  - sidebar_section
+  - sidebar_item
+  - dropdown
+  - overflow_menu
+  - context_menu
+  - button
+  - link
+  - command_palette_entry
+  - modal
+  - confirmation_flow
+  - form
+  - inline_control
+  - banner_or_alert
+repository_navigation_families:
+  - id: GH-NAV-R01
+    concept: repository_code_and_content
+    occurrences: [repository_home, file_tree, branch_selector, file_view, commit_history, code_button]
+  - id: GH-NAV-R02
+    concept: issues
+    occurrences: [issues_list, issue_detail, labels, milestones, issue_creation, search_filter_sort]
+    conditional: issues_enabled
+  - id: GH-NAV-R03
+    concept: pull_requests
+    occurrences: [pull_request_list, pull_request_detail, files_changed, checks, review_threads, merge_box]
+  - id: GH-NAV-R04
+    concept: discussions
+    occurrences: [discussion_categories, discussion_list, discussion_detail, moderation_controls]
+    conditional: discussions_enabled
+  - id: GH-NAV-R05
+    concept: actions
+    occurrences: [workflow_list, workflow_detail, run_list, run_detail, job_detail, artifacts]
+    conditional: Actions_enabled
+  - id: GH-NAV-R06
+    concept: projects
+    occurrences: [repository_project_links]
+    conditional: projects_enabled
+  - id: GH-NAV-R07
+    concept: security_and_quality
+    occurrences: [security_overview, security_policy, Dependabot_alerts, secret_scanning_alerts, code_scanning_alerts, dependency_graph]
+    conditional: feature_availability
+  - id: GH-NAV-R08
+    concept: insights
+    occurrences: [activity, contributors, traffic, network, forks, dependency_related_views]
+  - id: GH-NAV-R09
+    concept: repository_settings
+    occurrences: [general, access, rules, Actions, environments, security_and_quality, webhooks, deploy_keys]
+    required_role: admin_or_equivalent_for_most_mutations
+settings_navigation_seed:
+  - id: GH-NAV-S001
+    path: Settings > General
+    groups: [identity_and_features, pull_requests, archives_or_releases, danger_zone]
+  - id: GH-NAV-S002
+    path: Settings > Actions > General
+    groups: [actions_permissions, fork_workflows, GITHUB_TOKEN_permissions, reusable_component_access, cache, retention]
+  - id: GH-NAV-S003
+    path: Settings > Environments
+    groups: [environment_list, create_environment, environment_protection, secrets, variables]
+  - id: GH-NAV-S004
+    path: Settings > Security and quality > Advanced Security
+    groups: [dependency_graph, Dependabot, Secret_Protection, Code_Security, alert_access]
+  - id: GH-NAV-S005
+    path: Settings > Rules or equivalent repository rule surface
+    groups: [rulesets, branch_protection, rule_targets, bypass]
+    exact_UI_label_status: CONTEXT_DEPENDENT_VERIFY
+  - id: GH-NAV-S006
+    path: Settings > Webhooks or integrations surface
+    groups: [webhook_list, add_webhook, deliveries, configuration]
+    exact_UI_label_status: VERIFY
+  - id: GH-NAV-S007
+    path: Settings > Deploy keys
+    groups: [key_list, add_key, write_access_control]
+    exact_UI_label_status: VERIFY
+recursive_expansion_contract:
+  sequence: SURFACE -> SECTION -> SUBSECTION -> COMPONENT -> CONTROL -> OPTION -> ACTION -> STATE_TRANSITION -> RESULTING_SURFACE
+  stop: no_materially_distinct_child
+  duplicate_rule: repeated labels or responsive rearrangements without semantic change are occurrences not new canonical concepts

@@ -1,0 +1,49 @@
+schema_version: 1
+pass: regression_integration
+status: CANONICAL_RESEARCH_REGISTRY
+rule: documentation sections are classified by semantic kind; they are not all treated as products
+entries:
+  - {id: GH-PI001, name: GitHub.com, kind: platform_surface, scope: platform}
+  - {id: GH-PI002, name: Repositories, kind: core_capability_family, scope: repository}
+  - {id: GH-PI003, name: Pull requests, kind: core_capability_family, scope: repository}
+  - {id: GH-PI004, name: GitHub Issues, kind: product_capability, scope: repository_organization}
+  - {id: GH-PI005, name: Projects, kind: product_capability, scope: user_organization}
+  - {id: GH-PI006, name: GitHub Discussions, kind: product_capability, scope: repository_organization}
+  - {id: GH-PI007, name: GitHub Actions, kind: product_capability, scope: repository_organization_enterprise}
+  - {id: GH-PI008, name: GitHub Packages, kind: product_capability, scope: user_organization_repository}
+  - {id: GH-PI009, name: GitHub Pages, kind: product_capability, scope: user_organization_repository}
+  - {id: GH-PI010, name: GitHub Codespaces, kind: product_capability, scope: user_repository_organization}
+  - {id: GH-PI011, name: GitHub Copilot, kind: product_family, scope: user_organization_enterprise}
+  - {id: GH-PI012, name: Copilot cloud agent, kind: agentic_capability, scope: repository}
+  - {id: GH-PI013, name: Copilot code review, kind: agentic_capability, scope: pull_request_repository}
+  - {id: GH-PI014, name: Copilot CLI, kind: client_agentic_interface, scope: client}
+  - {id: GH-PI015, name: GitHub CLI, kind: first_party_client, scope: client}
+  - {id: GH-PI016, name: GitHub Mobile, kind: first_party_client, scope: client}
+  - {id: GH-PI017, name: GitHub Desktop, kind: first_party_client, scope: client}
+  - {id: GH-PI018, name: REST API, kind: programmatic_interface, scope: platform}
+  - {id: GH-PI019, name: GraphQL API, kind: programmatic_interface, scope: platform}
+  - {id: GH-PI020, name: Webhooks, kind: event_delivery_interface, scope: repository_organization_app}
+  - {id: GH-PI021, name: Git transport, kind: version_control_transport, scope: repository}
+  - {id: GH-PI022, name: GitHub Apps, kind: integration_model, scope: user_organization_repository_enterprise}
+  - {id: GH-PI023, name: OAuth Apps, kind: integration_model, scope: user_organization}
+  - {id: GH-PI024, name: GitHub Marketplace, kind: ecosystem_surface, scope: platform}
+  - {id: GH-PI025, name: Search on GitHub, kind: cross_platform_capability, scope: platform}
+  - {id: GH-PI026, name: Subscriptions and notifications, kind: cross_platform_capability, scope: user}
+  - {id: GH-PI027, name: Organizations, kind: account_scope, scope: organization}
+  - {id: GH-PI028, name: Enterprise Cloud administration, kind: account_scope, scope: enterprise}
+  - {id: GH-PI029, name: GitHub Enterprise Server, kind: deployment_model, scope: enterprise}
+  - {id: GH-PI030, name: Security and code quality, kind: product_family, scope: repository_organization_enterprise}
+  - {id: GH-PI031, name: GitHub Secret Protection, kind: security_product_capability, scope: repository_organization_enterprise}
+  - {id: GH-PI032, name: GitHub Code Security, kind: security_product_capability, scope: repository_organization_enterprise}
+  - {id: GH-PI033, name: GitHub Support, kind: support_service, scope: platform}
+  - {id: GH-PI034, name: GitHub Sponsors, kind: community_service, scope: user_organization}
+  - {id: GH-PI035, name: GitHub Education, kind: program_service, scope: user_organization}
+  - {id: GH-PI036, name: GitHub for Nonprofits, kind: program_service, scope: organization}
+  - {id: GH-PI037, name: Billing platform, kind: administrative_surface, scope: user_organization_enterprise}
+  - {id: GH-PI038, name: GitHub Docs, kind: documentation_surface, scope: public}
+  - {id: GH-PI039, name: GitHub Copilot app, kind: first_party_agentic_desktop_client, scope: client, status: GENERALLY_AVAILABLE}
+  - {id: GH-PI040, name: github.dev, kind: browser_sandbox_editor_client, scope: client, status: PUBLIC_PREVIEW}
+  - {id: GH-PI041, name: GitHub Code Quality, kind: paid_code_quality_product, scope: repository_organization, availability: Team_and_Enterprise_Cloud}
+  - {id: GH-PI042, name: Agent Finder, kind: agentic_discovery_capability, scope: Copilot_clients}
+  - {id: GH-PI043, name: MCP Registry, kind: agent_resource_registry, scope: platform_organization}
+  - {id: GH-PI044, name: GitHub Classroom, kind: retired_program_service, scope: historical_education, status: DECOMMISSIONED_2026_08_28}

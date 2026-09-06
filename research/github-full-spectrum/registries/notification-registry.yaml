@@ -1,0 +1,54 @@
+schema_version: 1
+pass: 4
+status: DISCOVERY_SEED
+model:
+  causal_chain: SOURCE_EVENT -> SUBSCRIPTION_OR_REASON -> RECIPIENT -> CHANNEL -> DELIVERY -> USER_STATE -> USER_ACTION
+channels:
+  - {id: GH-NCH001, name: GitHub notifications inbox, kind: first_party_inbox}
+  - {id: GH-NCH002, name: email, kind: external_delivery}
+  - {id: GH-NCH003, name: GitHub Mobile push, kind: mobile_push}
+  - {id: GH-NCH004, name: webhook or external integration, kind: machine_delivery, note: not_identical_to_user_notification}
+subscription_modes:
+  - participating
+  - watching
+  - manual_thread_subscription
+  - custom_repository_watch
+  - ignored_or_muted
+repository_custom_event_types_seed:
+  - issues
+  - pull_requests
+  - releases
+  - security_alerts
+  - discussions
+notification_reasons_seed:
+  - assign
+  - author
+  - ci_activity
+  - comment
+  - invitation
+  - manual
+  - member_feature_requested
+  - mention
+  - push
+  - review_requested
+  - security_advisory_credit
+  - security_alert
+  - state_change
+  - subscribed
+  - team_mention
+  - your_activity
+reason_semantics:
+  mutable_per_thread: true
+  example: a later mention may replace an earlier author reason for the same notification thread
+user_states_seed:
+  - unread
+  - read
+  - done
+  - saved
+  - subscribed
+  - unsubscribed
+  - muted
+  - participating
+constraints:
+  watched_repository_limit_documented: 10000
+  delivery_configuration_is_user_contextual: true

@@ -1,0 +1,172 @@
+schema_version: 1
+execution:
+  id: GHFS-2026-09-06-001
+  protocol: FTXP
+  protocol_version: 1.0.0
+  profile: FT-X
+  target: Git + GitHub Full-Spectrum Reference Architecture
+  repository: flawlessstudio/flawless-ftxp
+  branch: research/github-full-spectrum-execution
+  status: REFERENCE_DISCOVERY_SAT_MAX_PASS
+  mutation_policy: DISCOVER_VERIFY_CLASSIFY_JUSTIFY_PLAN_CHANGE_VALIDATE_REGRESS
+
+baseline:
+  captured_on: 2026-09-06
+  default_branch: main
+  head_sha: 0f6c31d4f59e82e3fe00102680f6888e45832407
+  head_signature_verified: true
+  repository_visibility: public
+  repository_version: 1.0.0
+  protocol_readme_status: Frozen baseline
+  repository_description: null
+  topics: []
+  license_detected: null
+  default_branch_protected: false
+  rulesets_count: 0
+  release_count: 0
+  tag_v1_0_0_present: false
+  branches:
+    - main
+    - docs/github-lifecycle-architecture
+    - docs/link-full-spectrum-master-prompt
+  repository_features:
+    issues: true
+    projects: true
+    wiki: true
+    pages: false
+    discussions: false
+  merge_configuration:
+    squash_merge: true
+    merge_commit: true
+    rebase_merge: true
+    auto_merge: false
+    delete_branch_on_merge: false
+    update_branch: false
+  github_native_artifacts:
+    codeowners: true
+    pull_request_template: true
+    issue_form_protocol_change: true
+    validation_workflow: true
+  validation:
+    workflow: .github/workflows/validate.yml
+    validator: validation/validate_repository.py
+    research_validator: research/github-full-spectrum/validate_research.py
+    validator_dependency_model: zero_dependency_python
+    regression_run_id: 34022607305
+    regression_job_id: 101457809123
+    regression_conclusion: success
+    canonical_research_registries_validated: 36
+    canonical_research_ids_validated: 600
+
+scope:
+  in:
+    - current Git conceptual, object, reference, operational, workflow, failure, recovery and maintenance architecture
+    - github.com platform and repository architecture
+    - GitHub Enterprise Cloud where materially relevant
+    - GitHub Enterprise Server only where materially required for platform/deployment variation
+    - repositories, issues, pull requests, discussions, projects, actions, packages, pages, codespaces and releases
+    - Copilot and current agentic repository surfaces where materially relevant
+    - identity, authentication, authorization, roles, permissions, policies and entitlements
+    - repository settings, navigation, controls, actions, routes, states and journeys
+    - REST, GraphQL, Git transport, GitHub CLI and webhooks
+    - notifications, events, audit and observability
+    - GitHub Apps, OAuth Apps and external integration boundaries
+    - security, supply chain, trust boundaries, credentials and secrets
+    - failure, rollback, recovery, maintenance, archival and EOL
+    - plan, client, state and temporal variation
+  out_by_default:
+    - undocumented private GitHub implementation internals
+    - tenant-specific private configuration that is inaccessible to the evidence horizon
+    - exhaustive historical reconstruction of every retired GitHub UI version
+    - external products except where they cross a GitHub integration or trust boundary
+    - purely decorative UI variation with no semantic or functional effect
+
+evidence_horizon:
+  date: 2026-09-06
+  git_documentation_line: 2.55.0
+  github_dot_com: current
+  github_enterprise_cloud: selective_current
+  github_enterprise_server: selective_when_material
+  clients:
+    web: true
+    mobile: evidence_based
+    desktop: evidence_based
+    copilot_app: evidence_based
+    github_dev: evidence_based
+    cli: true
+    rest: true
+    graphql: true
+    webhooks: true
+    git_transport: true
+    codespaces: evidence_based
+  evidence_priority:
+    - official Git documentation
+    - GitHub Docs
+    - official GitHub API and schema documentation
+    - official GitHub CLI documentation
+    - GitHub Changelog and official repositories
+    - live connected repository evidence
+    - authoritative secondary evidence only for unresolved gaps
+
+access_model:
+  connected_repository:
+    metadata_read: AVAILABLE
+    content_read: AVAILABLE
+    branch_read: AVAILABLE
+    commit_read: AVAILABLE
+    pull_request_read_write: AVAILABLE
+    issue_read_write: AVAILABLE
+    workflow_run_read: AVAILABLE
+    file_write: AVAILABLE
+    branch_create: AVAILABLE
+    merge: AVAILABLE
+    ruleset_read: AVAILABLE
+    release_read: AVAILABLE
+    repository_admin_metadata: PARTIAL
+    ruleset_write: NOT_EXPOSED
+    branch_protection_write: NOT_EXPOSED
+    release_create: NOT_EXPOSED
+    tag_create: NOT_EXPOSED
+    repository_settings_write: NOT_EXPOSED
+    repository_app_installation_inventory: NOT_EXPOSED
+    repository_secrets_inventory: NOT_EXPOSED
+    security_feature_configuration_read: PARTIAL_OR_NOT_EXPOSED
+  interpretation_rule: NOT_OBSERVED_DOES_NOT_IMPLY_ABSENT
+
+pre_execution_gates:
+  PE0_baseline_identified: PASS
+  PE1_scope_locked: PASS
+  PE2_evidence_horizon_defined: PASS
+  PE3_sources_mapped: PASS
+  PE4_access_mapped: PASS_WITH_LIMITATIONS
+  PE5_concept_model_frozen: PASS
+  PE6_registries_defined: PASS
+  PE7_facets_defined: PASS
+  PE8_relationships_defined: PASS
+  PE9_coverage_model_defined: PASS
+  PE10_qa_strategy_defined: PASS
+  PE11_security_model_defined: PASS
+  PE12_failure_recovery_model: PASS
+  PE13_mutation_policy_defined: PASS
+  PE14_sat_max_defined: PASS
+  PE15_stop_condition_defined: PASS
+
+saturation:
+  adversarial_passes_with_material_novelty: multiple
+  zero_material_novelty_pass_1: PASS
+  zero_material_novelty_pass_2: PASS
+  consecutive_zero_material_passes: 2
+  post_integration_regression: PASS
+  known_material_taxonomy_gaps: 0
+  reference_discovery_sat_max: PASS
+  target_repository_freeze_ready: false
+
+next_stage:
+  name: TARGET_REMEDIATION
+  allowed: true
+  repository_remediation_allowed: true
+  constraints:
+    - only validated applicable gaps
+    - preserve FTXP v1.0 normative baseline unless a reopening trigger occurs
+    - settings/tag/release operations blocked by connector capability remain external steps
+    - licensing remains a human decision

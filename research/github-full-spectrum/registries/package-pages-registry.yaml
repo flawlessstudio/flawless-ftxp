@@ -1,0 +1,24 @@
+schema_version: 1
+pass: adversarial_2
+status: DISCOVERY_SEED
+packages:
+  permission_models:
+    granular_user_or_organization_scope:
+      registries: [Container, npm, NuGet, RubyGems]
+      visibility_can_be_independent_of_linked_repository: true
+    repository_scoped:
+      registries: [Apache_Maven, Gradle]
+      inherits_repository_permissions: true
+  access_roles: [read, write, admin]
+  authentication:
+    package_client: personal_access_token_classic_documented
+    Actions_same_repository: GITHUB_TOKEN_supported
+  lifecycle: [publish, view, install, link, grant_access, change_visibility, delete, restore_where_supported]
+  events: [package_published_or_updated_webhook]
+  transfer_note: repository transfer has registry-dependent package side effects
+pages:
+  publication_models:
+    - branch_and_folder_source
+    - custom_GitHub_Actions_workflow
+  site_features: [custom_domain, Jekyll_support, themes, custom_404, deployment_history]
+  contexts: [plan, repository_visibility, source_branch, Actions]

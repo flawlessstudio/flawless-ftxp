@@ -1,0 +1,94 @@
+schema_version: 1
+pass: 3
+status: DISCOVERY_SEED
+actions_security_controls:
+  - id: GH-ASEC001
+    name: Workflow-level explicit permissions
+    principle: grant only the GITHUB_TOKEN permissions required by the workflow/job
+  - id: GH-ASEC002
+    name: Read-only default token posture
+    principle: repository contents read is a preferred default; elevate per job only when required
+  - id: GH-ASEC003
+    name: Full commit SHA pinning for third-party actions
+    principle: full-length commit SHA is the strongest immutable reference model for an action dependency
+  - id: GH-ASEC004
+    name: Repository/organization action allow policy
+    principle: restrict which actions/reusable workflows may execute where justified
+  - id: GH-ASEC005
+    name: Fork workflow approval policy
+    principle: untrusted fork-originated workflow execution requires explicit policy because code may be attacker-controlled
+  - id: GH-ASEC006
+    name: Secret minimization and masking
+    principle: secrets must not be plaintext in workflow definitions; masking is defense-in-depth, not guaranteed secret safety
+  - id: GH-ASEC007
+    name: Credential rotation/revocation
+    principle: exposed credentials should be revoked/rotated rather than relying only on history rewriting or log redaction
+  - id: GH-ASEC008
+    name: OIDC short-lived federation
+    principle: prefer short-lived cloud credentials where supported instead of long-lived static cloud secrets
+    required_permission: id-token: write
+    semantic_note: id-token write only permits requesting an OIDC JWT; it does not itself grant write access to repository/cloud resources
+  - id: GH-ASEC009
+    name: Environment-gated secret access
+    principle: environment protection can delay job dispatch and environment-secret access until configured rules pass
+  - id: GH-ASEC010
+    name: Workflow source review
+    principle: third-party actions/reusable workflows and code receiving secrets/tokens should be reviewed according to risk
+trust_boundaries:
+  - id: GH-TB001
+    source: user_device
+    destination: git_transport_or_github_web
+    crossings: [credentials, source_content, Git_objects]
+    risks: [credential_theft, accidental_secret_push, unauthorized_push]
+  - id: GH-TB002
+    source: github_repository
+    destination: github_actions_runner
+    crossings: [repository_content, workflow_definition, token, secrets, variables]
+    risks: [untrusted_code_execution, secret_exposure, token_overpermission]
+  - id: GH-TB003
+    source: github_actions_runner
+    destination: third_party_action
+    crossings: [workflow_context, token_visibility, filesystem, network_access]
+    risks: [supply_chain_compromise, data_exfiltration]
+  - id: GH-TB004
+    source: github_actions_runner
+    destination: external_cloud_or_service
+    crossings: [OIDC_token_or_credentials, deployment_artifacts, telemetry]
+    risks: [credential_scope, audience_misconfiguration, external_service_compromise]
+  - id: GH-TB005
+    source: github_platform
+    destination: github_app
+    crossings: [webhook_payloads, installation_tokens, API_requests]
+    risks: [overbroad_app_permissions, compromised_app, repository_scope_expansion]
+  - id: GH-TB006
+    source: user_account
+    destination: github_app_authorization
+    crossings: [account_permissions, user_access_token]
+    risks: [acting_on_behalf_scope, account_data_access]
+  - id: GH-TB007
+    source: repository
+    destination: deploy_key_holder
+    crossings: [Git_read_or_write_access]
+    risks: [private_key_distribution, access_survives_user_removal]
+  - id: GH-TB008
+    source: repository
+    destination: webhook_receiver
+    crossings: [event_payload, signature_secret]
+    risks: [payload_forgery, endpoint_compromise, delivery_failure]
+  - id: GH-TB009
+    source: repository
+    destination: package_registry_or_release_consumer
+    crossings: [source_archives, packages, assets, attestations]
+    risks: [artifact_tampering, tag_movement, provenance_loss]
+current_target_observation:
+  workflow:
+    explicit_permissions: contents_read
+    third_party_action: actions/checkout
+    checkout_reference: 3d3c42e5aac5ba805825da76410c181273ba90b1
+    checkout_full_sha_pinned: true
+    secrets_required: false
+    external_cloud_auth: not_present
+  assurance:
+    current_workflow_is_low_privilege: true
+    repository_level_action_pinning_enforcement: UNVERIFIED
+    default_GITHUB_TOKEN_repository_setting: UNVERIFIED

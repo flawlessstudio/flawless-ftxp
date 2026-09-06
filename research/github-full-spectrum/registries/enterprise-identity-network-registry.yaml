@@ -1,0 +1,40 @@
+schema_version: 1
+pass: zero_novelty_attempt_1
+status: DISCOVERY_SEED
+identity_models:
+  - id: GH-IAM001
+    name: Personal GitHub identity
+    lifecycle_owner: GitHub_user
+  - id: GH-IAM002
+    name: Organization membership over personal accounts
+    lifecycle_owner: GitHub_plus_organization_admin
+    federation_options: [SAML_where_configured]
+  - id: GH-IAM003
+    name: Enterprise Managed Users
+    lifecycle_owner: external_IdP_plus_enterprise
+    authentication: [SAML, OIDC_where_supported]
+    provisioning: SCIM
+    restrictions: enterprise_boundary_on_public_content_and_external_collaboration
+network_controls:
+  - id: GH-NET001
+    name: Organization IP allow list
+    scope: organization_resources
+  - id: GH-NET002
+    name: Enterprise IP allow list
+    scope: enterprise_resources
+  - id: GH-NET003
+    name: IdP Conditional Access Policy
+    scope: supported_OIDC_EMU_enterprise
+  - id: GH-NET004
+    name: Hosted compute network configuration
+    scope: organization_enterprise_GitHub_hosted_compute
+  - id: GH-NET005
+    name: Azure private networking for GitHub-hosted runners
+    scope: eligible_organization_in_enterprise
+  - id: GH-NET006
+    name: SSH certificate authority
+    scope: organization_or_enterprise_Git_access
+policy_interactions:
+  - IP_allow_list MAY_REQUIRE self_hosted_or_static_IP_larger_runners_or_private_networking_for_Actions
+  - OIDC_CAP MAY_VALIDATE web_PAT_and_SSH_interactions_in_supported_EMU_context
+  - hosted_compute_failover MAY_EMIT audit_and_email_events

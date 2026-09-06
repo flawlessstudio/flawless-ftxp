@@ -1,0 +1,108 @@
+schema_version: 1
+pass: regression_integration
+status: CANONICAL_RESEARCH_REGISTRY
+client_catalog:
+  - {id: GH-CLI001, name: GitHub.com web, kind: web_client}
+  - {id: GH-CLI002, name: responsive GitHub.com, kind: responsive_web_client}
+  - {id: GH-CLI003, name: GitHub Mobile, kind: native_mobile_client}
+  - {id: GH-CLI004, name: GitHub Desktop, kind: native_git_desktop_client}
+  - {id: GH-CLI005, name: GitHub CLI, kind: command_line_platform_client}
+  - {id: GH-CLI006, name: GitHub Copilot app, kind: native_agentic_desktop_client, platforms: [macOS, Windows, Linux]}
+  - {id: GH-CLI007, name: github.dev, kind: browser_sandbox_editor, status: PUBLIC_PREVIEW}
+  - {id: GH-CLI008, name: Codespaces, kind: cloud_development_environment}
+  - {id: GH-CLI009, name: IDE integrations, kind: editor_extension_clients}
+  - {id: GH-CLI010, name: REST client, kind: programmatic_HTTP_client}
+  - {id: GH-CLI011, name: GraphQL client, kind: programmatic_GraphQL_client}
+  - {id: GH-CLI012, name: Git transport client, kind: Git_protocol_client}
+matrix:
+  - capability: Git_repository_clone_fetch_push
+    git_cli: SUPPORTED
+    web: PARTIAL
+    github_cli: PARTIAL
+    desktop: SUPPORTED
+    mobile: UNAVAILABLE
+    rest: NOT_APPLICABLE
+    graphql: NOT_APPLICABLE
+  - capability: Repository_create_view_clone_fork
+    github_cli: SUPPORTED
+    web: SUPPORTED
+    desktop: PARTIAL
+    mobile: PARTIAL
+    rest: SUPPORTED
+    graphql: CONDITIONAL
+  - capability: Issues
+    web: SUPPORTED
+    github_cli: SUPPORTED
+    mobile: SUPPORTED
+    desktop: LIMITED_OR_UNKNOWN
+    copilot_app: SUPPORTED_AGENTIC_CONTEXT
+    rest: SUPPORTED
+    graphql: SUPPORTED
+  - capability: Pull_request_create_review_merge
+    web: SUPPORTED
+    github_cli: SUPPORTED
+    mobile: SUPPORTED
+    desktop: PARTIAL
+    copilot_app: SUPPORTED_AGENTIC_CONTEXT
+    rest: SUPPORTED
+    graphql: SUPPORTED
+  - capability: Actions_workflow_run_inspection_and_control
+    web: SUPPORTED
+    github_cli: SUPPORTED
+    mobile: PARTIAL_OR_UNKNOWN
+    desktop: UNAVAILABLE_OR_EXTERNAL
+    copilot_app: CLOUD_SESSION_AND_AUTOMATION_CONTEXTUAL
+    rest: SUPPORTED
+    graphql: PARTIAL
+  - capability: Releases
+    web: SUPPORTED
+    github_cli: SUPPORTED
+    mobile: READ_ONLY_OR_UNKNOWN
+    desktop: UNKNOWN
+    rest: SUPPORTED
+    graphql: PARTIAL_OR_UNKNOWN
+  - capability: Codespaces
+    web: SUPPORTED
+    github_cli: SUPPORTED
+    mobile: CONDITIONAL
+    desktop: NOT_PRIMARY_INTERFACE
+    rest: SUPPORTED
+  - capability: Browser_sandbox_edit_commit
+    github_dev: SUPPORTED
+    web_file_editor: PARTIAL_EQUIVALENT_NOT_SAME_CLIENT
+    codespaces: SUPPORTED_WITH_COMPUTE
+    local_terminal: UNAVAILABLE_IN_GITHUB_DEV
+  - capability: Parallel_agent_sessions_and_worktrees
+    copilot_app: SUPPORTED
+    web: PARTIAL_VIA_CLOUD_AGENT
+    mobile: PARTIAL_AGENT_SURFACE
+    github_cli: DIFFERENT_AGENT_CLIENT
+  - capability: Notification_triage
+    web: SUPPORTED
+    github_cli: API_VIA_GH_API_OR_EXTENSIONS
+    mobile: SUPPORTED
+    desktop: UNAVAILABLE_OR_UNKNOWN
+    rest: SUPPORTED
+  - capability: Code_search
+    web: SUPPORTED
+    mobile: SUPPORTED_WITHIN_REPOSITORY
+    github_cli: API_OR_SEARCH_COMMAND_CONTEXTUAL
+    desktop: LOCAL_SEARCH_NOT_EQUIVALENT
+  - capability: Two_factor_authentication_and_sign_in_verification
+    web: SUPPORTED
+    mobile: SUPPORTED
+    github_cli: AUTH_CONSUMER_NOT_PRIMARY_ADMIN_SURFACE
+    desktop: AUTH_CONSUMER
+  - capability: Repository_settings_administration
+    web: PRIMARY
+    github_cli: API_DEPENDENT
+    mobile: PARTIAL_OR_UNKNOWN
+    desktop: UNAVAILABLE_OR_UNKNOWN
+    rest: PARTIAL_BY_ENDPOINT
+    graphql: PARTIAL_BY_SCHEMA
+rules:
+  - PARTIAL_OR_UNKNOWN and UNKNOWN require later verification before canonical parity claims
+  - local Git operation parity must not be confused with GitHub platform feature parity
+  - a first-party client can expose a capability without exposing its full administration/settings surface
+  - github.dev is not equivalent to Codespaces because it has browser-local persistence and no hosted compute/terminal
+  - client identity is independent from feature identity; the same capability may have multiple client occurrences
