@@ -1,0 +1,253 @@
+schema_version: 1
+pass: 2
+status: DISCOVERY_SEED
+scope: GitHub repository settings and repository-scoped feature configuration
+notes:
+  - UI labels and exact placement are observational and may change; IDs are semantic and stable.
+  - Availability may depend on owner type, plan, policy, visibility, repository state, and role.
+setting_families:
+  - id: GH-RS001
+    canonical_name: Repository identity and presentation
+    canonical_surface: Settings / General and repository metadata surfaces
+    controls:
+      - repository name
+      - description
+      - homepage
+      - social preview
+      - topics
+      - repository visibility
+      - template-repository status
+    risk: [discoverability, breaking_links, visibility_exposure]
+
+  - id: GH-RS002
+    canonical_name: Repository feature enablement
+    controls:
+      - issues enabled
+      - pull requests enabled where supported
+      - projects enabled
+      - discussions enabled
+      - wiki enabled
+      - Pages configuration
+      - Actions enablement
+      - security and analysis feature enablement
+    context_dimensions: [plan, visibility, owner_type, organization_policy]
+
+  - id: GH-RS003
+    canonical_name: Access and collaboration
+    controls:
+      - collaborators
+      - teams and people with access
+      - repository roles
+      - forking policy
+      - security-alert access
+    context_dimensions: [personal_vs_organization_owner, role, policy]
+
+  - id: GH-RS004
+    canonical_name: Default branch and branch workflow
+    controls:
+      - default branch
+      - default branch naming policy where applicable
+      - branch deletion after merge
+      - update pull request branch suggestions
+      - push policy
+    related_domains: [GH-D03, GH-D09]
+
+  - id: GH-RS005
+    canonical_name: Pull request merge configuration
+    controls:
+      - allow merge commits
+      - merge commit title/message format
+      - allow squash merging
+      - squash commit title/message format
+      - allow rebase merging
+      - allow auto-merge
+      - allow update branch
+      - automatically delete head branches
+      - merge queue when required by rule
+    semantic_rule: repository merge-method availability and branch/ruleset requirements are separate but interacting controls
+
+  - id: GH-RS006
+    canonical_name: Branch and tag governance
+    controls:
+      - branch protection rules
+      - branch rulesets
+      - tag rulesets
+      - push rulesets where available
+      - bypass actors
+      - branch/tag target patterns
+      - rule enforcement status
+    related_domains: [GH-D09]
+
+  - id: GH-RS007
+    canonical_name: Pull request review governance
+    controls:
+      - require pull request before merge
+      - required approving review count
+      - code owner review
+      - dismiss stale approvals
+      - require approval of most recent reviewable push
+      - require conversation resolution
+      - restrict review dismissal where supported
+    related_entities: [GH-E045, GH-E046, GH-E029]
+
+  - id: GH-RS008
+    canonical_name: Required validation and history policy
+    controls:
+      - required status checks
+      - strict versus non-strict update requirement
+      - expected source application for status checks
+      - required signed commits
+      - linear history
+      - merge queue
+      - required successful deployments
+      - force-push policy
+      - branch deletion policy
+      - branch locking
+    related_entities: [GH-E030, GH-E031, GH-E027, GH-E028]
+
+  - id: GH-RS009
+    canonical_name: GitHub Actions policy and execution settings
+    canonical_surface: Settings / Actions / General
+    controls:
+      - enable or disable Actions
+      - allowed actions and reusable workflows
+      - require actions pinned to full-length commit SHA where available
+      - fork pull request workflow approval policy
+      - fork private-repository token/secrets behavior where applicable
+      - default GITHUB_TOKEN permissions
+      - allow Actions to create or approve pull requests
+      - private-repository workflow/action sharing where applicable
+      - artifact and log retention
+      - cache-related policy and retention where applicable
+    policy_inheritance: enterprise_or_organization_policy_may_restrict_repository_setting
+
+  - id: GH-RS010
+    canonical_name: Environments and deployment protection
+    canonical_surface: Settings / Environments
+    controls:
+      - environment creation and deletion
+      - required reviewers
+      - prevent self-review
+      - wait timer
+      - administrator bypass
+      - custom GitHub-App deployment protection rules
+      - deployment branch and tag restrictions
+      - environment secrets
+      - environment variables
+    state_effects:
+      - protection rules gate jobs before dispatch and secret access
+      - deleting environment removes associated secrets and protection rules
+    context_dimensions: [plan, visibility, role]
+
+  - id: GH-RS011
+    canonical_name: Security and analysis
+    canonical_surface: Settings / Security and quality / Advanced Security
+    controls:
+      - dependency graph
+      - Dependabot alerts
+      - Dependabot-related configuration
+      - secret scanning
+      - push protection
+      - code scanning
+      - access to security alerts
+      - Secret Protection and Code Security entitlement-dependent controls
+    minimum_public_repository_guidance:
+      - Dependabot alerts
+      - secret scanning
+      - push protection
+      - code scanning
+    context_dimensions: [public_private_internal, entitlement, organization_policy]
+
+  - id: GH-RS012
+    canonical_name: Webhooks and programmatic integrations
+    controls:
+      - repository webhooks
+      - webhook events
+      - webhook secret
+      - delivery status and redelivery
+      - deploy keys
+      - installed GitHub Apps where exposed
+      - OAuth/application policy interactions where applicable
+    related_domains: [GH-D11, GH-D12]
+
+  - id: GH-RS013
+    canonical_name: Commit and Git metadata policy
+    controls:
+      - web commit signoff requirement
+      - Git LFS objects in source archives
+      - push email notifications
+      - autolinks
+      - automatic issue-closing behavior
+    related_domains: [GH-D03]
+
+  - id: GH-RS014
+    canonical_name: Release configuration
+    controls:
+      - release creation and editing
+      - release notes generation
+      - tag association
+      - release asset management
+      - immutable releases
+      - release notifications/subscriptions
+    invariants:
+      - GitHub releases are based on Git tags
+      - release date and tag date are distinct
+      - immutable release locks associated tag and assets after publication
+    related_domains: [GH-D06, GH-D08]
+
+  - id: GH-RS015
+    canonical_name: Danger Zone and destructive repository operations
+    controls:
+      - change visibility
+      - transfer repository
+      - archive/unarchive
+      - delete repository
+    required_analysis: [permission, policy, confirmation, blast_radius, reversibility, recovery]
+
+  - id: GH-RS016
+    canonical_name: Repository lifecycle and housekeeping
+    controls:
+      - archive state
+      - branch cleanup after merge
+      - stale branch cleanup
+      - release/tag maintenance
+      - feature-surface minimization
+      - repository transfer/migration considerations
+    policy: housekeeping must not remove evidence needed for reconstructability
+
+target_observations:
+  repository: flawlessstudio/flawless-ftxp
+  observed:
+    GH-RS001:
+      description: null
+      topics: []
+      visibility: public
+      license: null
+    GH-RS002:
+      issues: true
+      projects: true
+      wiki: true
+      pages: false
+      discussions: false
+    GH-RS004:
+      default_branch: main
+      delete_branch_on_merge: false
+      allow_update_branch: false
+    GH-RS005:
+      allow_merge_commits: true
+      allow_squash_merge: true
+      allow_rebase_merge: true
+      allow_auto_merge: false
+    GH-RS006:
+      rulesets_count: 0
+      main_protected: false
+    GH-RS009:
+      workflow_present: true
+      complete_effective_policy: UNVERIFIED
+    GH-RS011:
+      complete_effective_security_configuration: INACCESSIBLE
+    GH-RS014:
+      releases_count: 0
+      tag_v1_0_0_present: false
+    GH-RS015:
+      visibility: public

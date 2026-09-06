@@ -1,0 +1,139 @@
+schema_version: 1
+pass: 2
+status: DISCOVERY_SEED
+lifecycle:
+  - id: GH-RLC01
+    stage: intent_and_ownership
+    purpose: define owner, repository responsibility, visibility intent and lifecycle authority
+    inputs: [project_intent, ownership_context]
+    outputs: [repository_identity_decision]
+
+  - id: GH-RLC02
+    stage: repository_creation
+    purpose: materialize repository container and initial default branch semantics
+    actions: [create_repository, optionally_initialize]
+    outputs: [repository]
+
+  - id: GH-RLC03
+    stage: bootstrap_and_metadata
+    purpose: establish README, versioning, contribution/security metadata and applicable feature configuration
+    outputs: [initial_baseline]
+
+  - id: GH-RLC04
+    stage: access_and_governance_configuration
+    purpose: establish roles, review path, branch/tag rules, merge policy and bypass boundaries
+    outputs: [effective_governance]
+
+  - id: GH-RLC05
+    stage: security_and_automation_configuration
+    purpose: establish CI, Actions permissions, security features, secrets/credentials policy and supply-chain controls
+    outputs: [validated_automation_and_security_baseline]
+
+  - id: GH-RLC06
+    stage: change_request
+    purpose: establish why a change exists and its impact/reopening/version class
+    outputs: [change_record]
+
+  - id: GH-RLC07
+    stage: branch_or_change_preparation
+    purpose: isolate the proposed change from the protected baseline
+    actions: [create_branch, synchronize_with_base]
+    outputs: [change_branch]
+
+  - id: GH-RLC08
+    stage: implementation_and_local_validation
+    purpose: create change and prove local/structural invariants before review
+    outputs: [candidate_change]
+
+  - id: GH-RLC09
+    stage: commit_and_remote_sync
+    purpose: record the candidate in Git history and publish the branch/reference to GitHub
+    outputs: [commit, remote_branch]
+
+  - id: GH-RLC10
+    stage: pull_request
+    purpose: create reviewable change boundary with rationale, scope, evidence and validation state
+    outputs: [pull_request]
+
+  - id: GH-RLC11
+    stage: automated_validation
+    purpose: run required checks against the candidate revision
+    outputs: [checks, statuses, workflow_runs]
+    failure_transition: GH-RLC08
+
+  - id: GH-RLC12
+    stage: human_or_agent_review
+    purpose: review correctness, scope, security, ownership and regression impact
+    outputs: [reviews, review_threads, approval_or_changes_requested]
+    failure_transition: GH-RLC08
+
+  - id: GH-RLC13
+    stage: merge_gate
+    purpose: evaluate all effective rules, review requirements, status checks and deployment requirements
+    outputs: [mergeable_or_blocked_state]
+
+  - id: GH-RLC14
+    stage: merge_and_branch_integration
+    purpose: integrate accepted change using allowed merge method and preserve intended history semantics
+    outputs: [base_branch_commit]
+
+  - id: GH-RLC15
+    stage: post_merge_validation
+    purpose: validate integrated base state rather than only the PR candidate
+    outputs: [known_good_main_state]
+
+  - id: GH-RLC16
+    stage: version_decision
+    purpose: determine none/patch/minor/major or domain-specific baseline impact
+    outputs: [version_decision]
+
+  - id: GH-RLC17
+    stage: tag
+    purpose: anchor a named version reference to an exact Git history point
+    preconditions: [known_good_commit, version_decision]
+    outputs: [tag]
+
+  - id: GH-RLC18
+    stage: release
+    purpose: publish a GitHub release based on a tag with release notes and optional assets/attestation controls
+    preconditions: [tag]
+    outputs: [release]
+
+  - id: GH-RLC19
+    stage: distribution_and_subscription
+    purpose: expose source archives/assets/packages/pages and generate release/activity signals as applicable
+    outputs: [distribution_surfaces, notifications]
+
+  - id: GH-RLC20
+    stage: active_maintenance
+    purpose: monitor dependency/security/automation/platform changes and repository hygiene
+    outputs: [maintenance_changes_or_noop]
+
+  - id: GH-RLC21
+    stage: incident_or_regression
+    purpose: detect invalid baseline, failed workflow, vulnerability, bad configuration or broken integration
+    outputs: [incident_record]
+
+  - id: GH-RLC22
+    stage: containment_and_recovery
+    purpose: restore a known-good state or eliminate compromised/bad configuration using the least destructive valid mechanism
+    actions: [revert, restore, rerun, rollback, revoke, rotate, recover, redeploy]
+    outputs: [recovered_state]
+
+  - id: GH-RLC23
+    stage: deprecation_or_supersession
+    purpose: mark artifacts/features/baselines as superseded without erasing historical provenance
+    outputs: [deprecation_record]
+
+  - id: GH-RLC24
+    stage: archive_or_end_of_life
+    purpose: stop active changes while preserving history and clear successor/status information
+    outputs: [archived_repository_or_eol_record]
+
+critical_invariants:
+  - baseline mutations SHOULD flow through review and required validation once governance is enabled
+  - tag identity, semantic version, GitHub release and commit SHA MUST remain distinct but traceably linked
+  - post-merge validation MUST validate the integrated target state
+  - failed checks/reviews MUST block merge when designated required
+  - recovery path MUST exist for every material destructive/failure class where the platform permits recovery
+  - archived/deprecated status MUST preserve provenance rather than silently deleting history

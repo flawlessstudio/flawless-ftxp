@@ -1,0 +1,140 @@
+schema_version: 1
+pass: 2
+status: DISCOVERY_SEED
+controls:
+  - id: GH-GC001
+    name: Require pull request before merge
+    mechanisms: [branch_protection, ruleset]
+    protects: [base_branch]
+    effect: direct integration path is constrained to pull requests except valid bypass actors
+
+  - id: GH-GC002
+    name: Required pull request approvals
+    mechanisms: [branch_protection, ruleset]
+    parameters: [approval_count, code_owner_review, stale_review_handling, latest_push_approval]
+
+  - id: GH-GC003
+    name: Required status checks
+    mechanisms: [branch_protection, ruleset]
+    parameters: [check_names, strict_up_to_date, expected_source_app]
+    accepted_terminal_states: [successful, skipped, neutral]
+
+  - id: GH-GC004
+    name: Conversation resolution requirement
+    mechanisms: [branch_protection, ruleset]
+
+  - id: GH-GC005
+    name: Required signed commits
+    mechanisms: [branch_protection, ruleset]
+    protects: [commit_provenance]
+
+  - id: GH-GC006
+    name: Linear history
+    mechanisms: [branch_protection, ruleset]
+    interaction: requires squash or rebase merge capability rather than merge commits
+
+  - id: GH-GC007
+    name: Merge queue
+    mechanisms: [branch_protection, ruleset]
+    use_when: high_concurrency_protected_branch
+    effect: validates queued changes against current queue/base state before integration
+
+  - id: GH-GC008
+    name: Required successful deployments
+    mechanisms: [branch_protection, ruleset]
+    relates_to: [GH-RS010]
+
+  - id: GH-GC009
+    name: Force-push restriction
+    mechanisms: [branch_protection, ruleset]
+    default_branch_protection_behavior: disabled_force_push
+
+  - id: GH-GC010
+    name: Branch deletion restriction
+    mechanisms: [branch_protection, ruleset]
+    default_branch_protection_behavior: prevent_delete
+
+  - id: GH-GC011
+    name: Push restriction
+    mechanisms: [branch_protection, ruleset]
+    parameters: [users, teams, installed_apps, creation_restriction]
+
+  - id: GH-GC012
+    name: Branch lock
+    mechanisms: [branch_protection, ruleset]
+    effect: read_only_branch
+
+  - id: GH-GC013
+    name: Ruleset bypass
+    mechanisms: [ruleset]
+    actor_types: [roles, teams, GitHub_Apps]
+    assurance_requirement: every bypass MUST be explicit, minimal, justified and auditable
+
+  - id: GH-GC014
+    name: Ruleset target and layering
+    mechanisms: [ruleset]
+    parameters: [branch_pattern, tag_pattern, enforcement_status]
+    behavior: multiple applicable rulesets can layer; branch protection has different single-rule semantics
+
+  - id: GH-GC015
+    name: Merge method policy
+    mechanisms: [repository_setting, ruleset]
+    options: [merge_commit, squash, rebase]
+    interaction: ruleset merge-method constraints and repository allowed methods must be compatible
+
+  - id: GH-GC016
+    name: Automatic branch deletion after merge
+    mechanisms: [repository_setting]
+    effect: post_merge_branch_hygiene
+    caveat: protection rules or repository rules may prevent automatic deletion
+
+  - id: GH-GC017
+    name: CODEOWNERS review routing
+    mechanisms: [CODEOWNERS, required_code_owner_review]
+    assurance_requirement: CODEOWNERS alone assigns ownership context; enforcement requires compatible branch/ruleset review requirement
+
+  - id: GH-GC018
+    name: Actions execution policy
+    mechanisms: [repository_setting, organization_policy, enterprise_policy]
+    parameters: [enabled_actions, reusable_workflows, pinning_requirement, fork_approval_policy]
+
+  - id: GH-GC019
+    name: GITHUB_TOKEN default permission policy
+    mechanisms: [repository_setting, organization_policy, enterprise_policy]
+    parameters: [restricted_read, read_write, allow_pr_approval_creation]
+    security_principle: least_privilege
+
+  - id: GH-GC020
+    name: Environment deployment protection
+    mechanisms: [environment]
+    parameters: [required_reviewers, prevent_self_review, wait_timer, branch_tag_policy, admin_bypass, custom_app_rules]
+
+  - id: GH-GC021
+    name: Security feature baseline
+    mechanisms: [repository_security_settings, organization_security_configuration]
+    public_repository_minimum_guidance: [Dependabot_alerts, secret_scanning, push_protection, code_scanning]
+
+  - id: GH-GC022
+    name: Release immutability
+    mechanisms: [repository_setting, organization_policy]
+    effect:
+      - locks release tag against movement/deletion while immutable release exists
+      - prevents release asset modification/deletion
+      - generates release attestation
+    scope: future_releases_after_enablement
+
+  - id: GH-GC023
+    name: Destructive repository operation policy
+    mechanisms: [repository_role, organization_policy, enterprise_policy, confirmation_flow]
+    operations: [visibility_change, transfer, archive, delete]
+    assurance_requirement: require impact/recovery analysis before execution
+
+target_gap_mapping:
+  flawlessstudio/flawless-ftxp:
+    GH-GC001: NOT_ENFORCED
+    GH-GC002: NOT_ENFORCED
+    GH-GC003: WORKFLOW_EXISTS_BUT_NOT_REQUIRED_BY_REPOSITORY_RULE
+    GH-GC017: CODEOWNERS_PRESENT_BUT_NOT_ENFORCED
+    GH-GC016: DISABLED
+    GH-GC022: UNVERIFIED
+    GH-GC021: INACCESSIBLE

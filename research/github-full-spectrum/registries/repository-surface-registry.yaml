@@ -1,0 +1,25 @@
+schema_version: 1
+pass: 2
+status: DISCOVERY_SEED
+rule: these are canonical surface families; exact UI labels/ordering must be observed per client/context
+surfaces:
+  - {id: GH-SURF-R01, name: Repository home/code surface, functions: [browse, branch_select, file_navigation, commit_navigation, edit_create_upload]}
+  - {id: GH-SURF-R02, name: Issues surface, functions: [list, search, filter, create, triage, issue_types, sub_issues, labels, milestones]}
+  - {id: GH-SURF-R03, name: Pull requests surface, functions: [list, search, compare, create, review, checks, merge, queue]}
+  - {id: GH-SURF-R04, name: Discussions surface, functions: [categories, threads, Q_and_A, moderation], conditional: feature_enabled}
+  - {id: GH-SURF-R05, name: Actions surface, functions: [workflows, runs, jobs, logs, artifacts, rerun, cancel]}
+  - {id: GH-SURF-R06, name: Projects linkage surface, functions: [repository_project_links], conditional: feature_enabled}
+  - {id: GH-SURF-R07, name: Security and quality surface, functions: [overview, alerts, advisories, dependency_graph, security_findings], conditional: feature_availability}
+  - {id: GH-SURF-R08, name: Insights surface, functions: [activity, contributors, traffic, network, dependency_and_repository_insights]}
+  - {id: GH-SURF-R09, name: Settings General surface, functions: [identity, features, merge_options, archive_settings, danger_zone]}
+  - {id: GH-SURF-R10, name: Settings Access surface, functions: [collaborators, teams, roles], context: owner_type_and_permissions}
+  - {id: GH-SURF-R11, name: Settings Branch/Rules surface, functions: [branch_protection, rulesets, tag_rules, push_rules], context: plan_role_policy}
+  - {id: GH-SURF-R12, name: Settings Actions surface, functions: [actions_policy, token_permissions, fork_policy, retention]}
+  - {id: GH-SURF-R13, name: Settings Environments surface, functions: [environment_create_configure_delete, protection, secrets, variables]}
+  - {id: GH-SURF-R14, name: Settings Security and quality surface, functions: [advanced_security, code_scanning, secret_security, dependency_security, alert_access]}
+  - {id: GH-SURF-R15, name: Settings Webhooks/Integrations surface, functions: [webhooks, app_related_configuration, deliveries]}
+  - {id: GH-SURF-R16, name: Settings Deploy keys surface, functions: [deploy_key_management]}
+  - {id: GH-SURF-R17, name: Releases and tags surface, functions: [tag_browse, release_browse, create_release, assets, compare, subscriptions]}
+  - {id: GH-SURF-R18, name: Deployments surface, functions: [current_and_historical_deployments, environment_status]}
+  - {id: GH-SURF-R19, name: Branches surface, functions: [branch_list, create, delete, protection_indicators, restore_context]}
+  - {id: GH-SURF-R20, name: Commit/check details surface, functions: [commit_metadata, signature, statuses, checks, workflow_links]}
