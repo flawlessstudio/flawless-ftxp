@@ -1,0 +1,36 @@
+schema_version: 1
+target: flawlessstudio/flawless-ftxp
+status: INITIAL_CONFORMANCE
+results:
+  - {id: CF-001, requirement: canonical protocol files, expected: complete_baseline, observed: PRESENT, status: PASS}
+  - {id: CF-002, requirement: repository entry documentation, expected: README_VERSION_CHANGELOG, observed: PRESENT, status: PASS}
+  - {id: CF-003, requirement: structured contribution path, expected: CONTRIBUTING_PR_TEMPLATE_ISSUE_FORM, observed: PRESENT, status: PASS}
+  - {id: CF-004, requirement: ownership declaration, expected: CODEOWNERS, observed: PRESENT, status: PASS}
+  - {id: CF-005, requirement: enforce PR path for main, expected: required_PR, observed: main_unprotected_rulesets_zero, status: FAIL}
+  - {id: CF-006, requirement: enforce validation before main integration, expected: validate_required, observed: workflow_exists_but_not_required, status: FAIL}
+  - {id: CF-007, requirement: prevent force push/delete on main, expected: protected_main, observed: false, status: FAIL}
+  - {id: CF-008, requirement: post-merge validation capability, expected: push_on_main_validation, observed: workflow_triggers_on_push_main, status: PASS}
+  - {id: CF-009, requirement: least privilege current workflow, expected: explicit_min_permissions, observed: contents_read, status: PASS}
+  - {id: CF-010, requirement: immutable action dependency reference, expected: full_SHA, observed: checkout_full_SHA, status: PASS}
+  - {id: CF-011, requirement: broad repository invariant validation, expected: complete_minimum_invariants, observed: structural_subset_only, status: FAIL}
+  - {id: CF-012, requirement: representative reference tests, expected: reference_cases, observed: absent, status: FAIL}
+  - {id: CF-013, requirement: exact named frozen baseline, expected: v1_0_0_tag, observed: absent, status: FAIL}
+  - {id: CF-014, requirement: GitHub release for declared frozen baseline, expected: v1_0_0_release, observed: absent, status: FAIL}
+  - {id: CF-015, requirement: security minimum Dependabot alerts, observed: inaccessible, status: UNVERIFIED}
+  - {id: CF-016, requirement: security minimum secret scanning, observed: inaccessible, status: UNVERIFIED}
+  - {id: CF-017, requirement: security minimum push protection, observed: inaccessible, status: UNVERIFIED}
+  - {id: CF-018, requirement: security minimum code scanning, observed: inaccessible, status: UNVERIFIED}
+  - {id: CF-019, requirement: dependency graph, observed: expected_for_public_but_not_directly_verified, status: UNVERIFIED}
+  - {id: CF-020, requirement: security disclosure policy, expected: SECURITY_md_recommended, observed: absent, status: PASS_WITH_FINDING}
+  - {id: CF-021, requirement: explicit license decision, expected: human_decision, observed: no_license, status: BLOCKED_HUMAN_DECISION}
+  - {id: CF-022, requirement: repository identity discoverability, expected: description_topics, observed: absent, status: PASS_WITH_FINDING}
+  - {id: CF-023, requirement: no redundant enabled surfaces, expected: justified_features_only, observed: wiki_and_projects_enabled_without_use_case, status: PASS_WITH_FINDING}
+  - {id: CF-024, requirement: branch hygiene, expected: merged_branches_cleaned, observed: two_merged_branches_remain, status: PASS_WITH_FINDING}
+  - {id: CF-025, requirement: release integrity policy, expected: evaluated, observed: unverified, status: UNVERIFIED}
+summary:
+  PASS: 7
+  FAIL: 7
+  PASS_WITH_FINDING: 4
+  UNVERIFIED: 6
+  BLOCKED_HUMAN_DECISION: 1
+  freeze_ready: false
