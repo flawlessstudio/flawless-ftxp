@@ -1,0 +1,73 @@
+facets:
+  - id: F01
+    name: Concept type
+    group: Identity
+  - id: F02
+    name: Abstraction level
+    group: Identity
+  - id: F03
+    name: Granularity
+    group: Identity
+  - id: F04
+    name: Domain
+    group: Identity
+  - id: F05
+    name: Purpose
+    group: Functional
+  - id: F06
+    name: Function
+    group: Functional
+  - id: F07
+    name: Target/Object
+    group: Functional
+  - id: F08
+    name: Mechanism
+    group: Functional
+  - id: F09
+    name: Input
+    group: Functional
+  - id: F10
+    name: Output
+    group: Functional
+  - id: F11
+    name: Actor/Role
+    group: Operational
+  - id: F12
+    name: Process stage
+    group: Operational
+  - id: F13
+    name: Interface
+    group: Operational
+  - id: F14
+    name: Implementation form
+    group: Operational
+  - id: F15
+    name: Deployment context
+    group: Operational
+  - id: F16
+    name: Dependency
+    group: Operational
+  - id: F17
+    name: Lifecycle status
+    group: Governance & Lifecycle
+  - id: F18
+    name: Temporal status
+    group: Governance & Lifecycle
+  - id: F19
+    name: Standardization status
+    group: Governance & Lifecycle
+  - id: F20
+    name: Maturity
+    group: Governance & Lifecycle
+  - id: F21
+    name: Constraint
+    group: Governance & Lifecycle
+  - id: F22
+    name: Quality attribute
+    group: Governance & Lifecycle
+  - id: F23
+    name: Risk/Limitation
+    group: Governance & Lifecycle
+
+activation_rule: >-
+  Activate a facet only when it contributes material discriminatory or explanatory value for the run.
