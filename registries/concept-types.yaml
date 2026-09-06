@@ -1,0 +1,28 @@
+concept_types:
+  - CONCEPT
+  - TERM
+  - CATEGORY
+  - FAMILY
+  - CLASS
+  - TYPE
+  - SUBTYPE
+  - INSTANCE
+  - ATTRIBUTE
+  - FUNCTION
+  - PROCESS
+  - METHOD
+  - TECHNIQUE
+  - PATTERN
+  - MECHANISM
+  - STANDARD
+  - SPECIFICATION
+  - IMPLEMENTATION
+  - TOOL
+  - INTERFACE
+  - ROLE
+  - STATE
+  - EVENT
+  - ARTIFACT
+
+extension_policy: >-
+  Local extensions are allowed only when a material distinction cannot be represented correctly by the baseline registry.
