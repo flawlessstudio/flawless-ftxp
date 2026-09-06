@@ -1,0 +1,56 @@
+name: Protocol change
+about: Propose a material change to the frozen FTXP baseline
+title: "[Protocol change] "
+labels: []
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form only for material changes to the frozen FTXP baseline.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What concrete defect, gap, or changed requirement is being addressed?
+    validations:
+      required: true
+  - type: dropdown
+    id: trigger
+    attributes:
+      label: Reopening trigger
+      options:
+        - R1 — New material evidence
+        - R2 — Material domain change
+        - R3 — Canonical terminology or standard change
+        - R4 — Discovered contradiction
+        - R5 — Demonstrated material gap
+        - R6 — Scope change
+        - R7 — Use-case requirement change
+    validations:
+      required: true
+  - type: textarea
+    id: affected
+    attributes:
+      label: Affected canonical artifacts
+      description: Identify the spec, kernel, profiles, templates, registries, schemas, or validation artifacts affected.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and rationale
+      description: Provide the evidence or reasoning that makes this change material.
+    validations:
+      required: true
+  - type: dropdown
+    id: compatibility
+    attributes:
+      label: Expected compatibility impact
+      options:
+        - Patch-compatible correction
+        - Minor-compatible capability
+        - Major-breaking change
+        - Unknown — requires analysis
+    validations:
+      required: true
