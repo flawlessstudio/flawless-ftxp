@@ -1,0 +1,29 @@
+relationships:
+  structural:
+    - IS_A
+    - INSTANCE_OF
+    - PART_OF
+    - CONTAINS
+  functional:
+    - USES
+    - ENABLES
+    - REQUIRES
+    - PRODUCES
+    - TRANSFORMS
+    - IMPLEMENTS
+  temporal:
+    - PRECEDES
+    - FOLLOWS
+    - SUPERSEDES
+    - DEPRECATED_BY
+    - DERIVED_FROM
+  comparative:
+    - ALTERNATIVE_TO
+    - COMPLEMENTS
+    - OVERLAPS_WITH
+    - CONTRASTS_WITH
+  fallback:
+    - RELATED_TO
+
+fallback_policy: >-
+  RELATED_TO should be used only when a more specific relationship cannot be justified.
