@@ -1,0 +1,9 @@
+profile: FT-S
+description: Standard default execution profile.
+discovery: multi-directional
+facets: active-relevant
+relationships: active-relevant
+evidence: selective
+adversarial_pass: required
+sat_max: required
+regression: required
