@@ -1,0 +1,176 @@
+schema_version: 1
+last_verified: 2026-09-06
+sources:
+  - id: GIT-S001
+    authority: primary
+    domain: Git
+    title: Git manual
+    url: https://git-scm.com/docs/git
+    coverage: command families, guides, operational surface
+  - id: GIT-S002
+    authority: primary
+    domain: Git
+    title: Git glossary
+    url: https://git-scm.com/docs/gitglossary
+    coverage: canonical terminology, objects, refs, index, working tree, worktrees, repository forms
+  - id: GIT-S003
+    authority: primary
+    domain: Git
+    title: Git workflows
+    url: https://git-scm.com/docs/gitworkflows
+    coverage: topic branches, integration and distributed workflows
+
+  - id: GH-S001
+    authority: primary
+    domain: GitHub
+    title: GitHub Docs root
+    url: https://docs.github.com/en
+    coverage: top-level product and documentation information architecture
+  - id: GH-S002
+    authority: primary
+    domain: GitHub
+    title: Get started with GitHub documentation
+    url: https://docs.github.com/en/get-started
+    coverage: Git/GitHub boundary and introductory platform model
+  - id: GH-S003
+    authority: primary
+    domain: Access
+    title: Access permissions on GitHub
+    url: https://docs.github.com/en/get-started/learning-about-github/access-permissions-on-github
+    coverage: account types, roles and permission model
+  - id: GH-S004
+    authority: primary
+    domain: Access
+    title: Repository roles for an organization
+    url: https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/repository-roles-for-an-organization
+    coverage: read, triage, write, maintain, admin and custom-role variation
+  - id: GH-S005
+    authority: primary
+    domain: Governance
+    title: About rulesets
+    url: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
+    coverage: rulesets, protected branches, layering, bypass and plan availability
+  - id: GH-S006
+    authority: primary
+    domain: Governance
+    title: Available rules for rulesets
+    url: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets
+    coverage: branch, tag, push and merge policy controls
+  - id: GH-S007
+    authority: primary
+    domain: Notifications
+    title: Configuring notifications
+    url: https://docs.github.com/en/subscriptions-and-notifications/get-started/configuring-notifications
+    coverage: watching, participating, inbox and email delivery
+  - id: GH-S008
+    authority: primary
+    domain: CLI
+    title: GitHub CLI documentation
+    url: https://docs.github.com/en/github-cli
+    coverage: command-line GitHub capability surface
+  - id: GH-S009
+    authority: primary
+    domain: CLI
+    title: About GitHub CLI
+    url: https://docs.github.com/en/github-cli/github-cli/about-github-cli
+    coverage: Git versus GitHub CLI boundary and major CLI capability families
+  - id: GH-S010
+    authority: primary
+    domain: API
+    title: GitHub REST API documentation
+    url: https://docs.github.com/en/rest
+    coverage: REST resource families, versioning, authentication and automation
+  - id: GH-S011
+    authority: primary
+    domain: API
+    title: REST API rate limits
+    url: https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api
+    coverage: quota and limit architecture
+  - id: GH-S012
+    authority: primary
+    domain: API
+    title: GitHub GraphQL API documentation
+    url: https://docs.github.com/en/graphql
+    coverage: schema-driven object and relationship model, queries and mutations
+  - id: GH-S013
+    authority: primary
+    domain: Apps
+    title: Authorizing GitHub Apps
+    url: https://docs.github.com/en/apps/using-github-apps/authorizing-github-apps
+    coverage: authorization versus installation and user-to-server access
+  - id: GH-S014
+    authority: primary
+    domain: Apps
+    title: Choosing permissions for a GitHub App
+    url: https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/choosing-permissions-for-a-github-app
+    coverage: app permissions, APIs, webhooks and Git access
+  - id: GH-S015
+    authority: primary
+    domain: Actions
+    title: GitHub Actions reference
+    url: https://docs.github.com/en/actions/reference
+    coverage: workflows, triggers, commands, runners, environments, caching, reuse, security and limits
+  - id: GH-S016
+    authority: primary
+    domain: ActionsSecurity
+    title: GitHub Actions security reference
+    url: https://docs.github.com/en/actions/reference/security
+    coverage: secure use, secrets and OIDC
+  - id: GH-S017
+    authority: primary
+    domain: ActionsSecurity
+    title: OpenID Connect reference
+    url: https://docs.github.com/en/actions/reference/security/oidc
+    coverage: short-lived cloud authentication and permissions
+  - id: GH-S018
+    authority: primary
+    domain: SecretSecurity
+    title: Supported secret scanning patterns
+    url: https://docs.github.com/en/code-security/reference/secret-security/supported-secret-scanning-patterns
+    coverage: public-repository secret scanning and push-protection availability
+  - id: GH-S019
+    authority: primary
+    domain: Projects
+    title: Planning and tracking with Projects
+    url: https://docs.github.com/en/issues/planning-and-tracking-with-projects
+    coverage: project items, views, custom fields, filters, grouping and charts
+  - id: GH-S020
+    authority: primary
+    domain: Packages
+    title: About permissions for GitHub Packages
+    url: https://docs.github.com/en/packages/learn-github-packages/about-permissions-for-github-packages
+    coverage: package scope, visibility, inheritance and permissions
+  - id: GH-S021
+    authority: primary
+    domain: Pages
+    title: What is GitHub Pages?
+    url: https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages
+    coverage: Pages product and plan availability
+  - id: GH-S022
+    authority: primary
+    domain: Copilot
+    title: About GitHub Copilot code review
+    url: https://docs.github.com/en/copilot/concepts/agents/code-review
+    coverage: current repository AI review, approvals, skills, instructions and MCP context
+
+live_evidence:
+  - id: LIVE-R001
+    authority: primary_observed
+    domain: flawless-ftxp
+    reference: https://api.github.com/repos/flawlessstudio/flawless-ftxp
+    coverage: repository metadata and feature toggles
+  - id: LIVE-R002
+    authority: primary_observed
+    domain: flawless-ftxp
+    reference: https://api.github.com/repos/flawlessstudio/flawless-ftxp/branches/main
+    coverage: HEAD, signature and branch-protection state
+  - id: LIVE-R003
+    authority: primary_observed
+    domain: flawless-ftxp
+    reference: https://api.github.com/repos/flawlessstudio/flawless-ftxp/rulesets
+    coverage: repository ruleset state
+  - id: LIVE-R004
+    authority: primary_observed
+    domain: flawless-ftxp
+    reference: https://api.github.com/repos/flawlessstudio/flawless-ftxp/releases
+    coverage: release state
