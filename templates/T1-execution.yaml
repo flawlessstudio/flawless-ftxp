@@ -1,0 +1,29 @@
+ftxp_execution:
+  protocol_version: "1.0.0"
+  target:
+    raw: ""
+    canonical: null
+  objective: null
+  domain: null
+  audience: general-technical
+  scope:
+    included: []
+    excluded: []
+    boundary_rule: null
+  execution:
+    mode: auto
+    granularity: maximal-useful
+  evidence:
+    level: auto
+  temporal_scope:
+    current: true
+    historical: auto
+    emerging: auto
+  cross_domain:
+    enabled: auto
+  outputs:
+    profile: auto
+  saturation:
+    required: true
+  assumptions:
+    allow_non_blocking_inference: true
