@@ -1,0 +1,36 @@
+schema_version: 1
+pass: 5
+status: DISCOVERY_SEED
+rule: route namespace and evidence level are mandatory; inferred UI paths are never marked canonical until observed or officially documented
+namespaces:
+  - WEB_UI
+  - REST_API
+  - GRAPHQL
+  - GIT_TRANSPORT
+  - RAW_OR_DOWNLOAD
+  - WEBHOOK_CALLBACK
+repository_web_route_seed:
+  - {id: GH-ROUTE-W001, semantic_surface: repository_home, pattern: "https://github.com/{owner}/{repo}", evidence: OBSERVED}
+  - {id: GH-ROUTE-W002, semantic_surface: pull_request, pattern: "https://github.com/{owner}/{repo}/pull/{number}", evidence: OBSERVED_FROM_CONNECTED_PRS}
+  - {id: GH-ROUTE-W003, semantic_surface: branch_tree, pattern: "https://github.com/{owner}/{repo}/tree/{ref}/{path?}", evidence: OBSERVED_FROM_CONNECTED_BRANCH_FILES}
+  - {id: GH-ROUTE-W004, semantic_surface: file_blob, pattern: "https://github.com/{owner}/{repo}/blob/{ref}/{path}", evidence: OBSERVED_FROM_CONNECTED_FILES}
+  - {id: GH-ROUTE-W005, semantic_surface: commit, pattern: "https://github.com/{owner}/{repo}/commit/{sha}", evidence: OBSERVED_FROM_CONNECTED_COMMITS}
+  - {id: GH-ROUTE-W006, semantic_surface: actions_run, pattern: "https://github.com/{owner}/{repo}/actions/runs/{run_id}", evidence: OBSERVED_FROM_CONNECTED_WORKFLOWS}
+  - {id: GH-ROUTE-W007, semantic_surface: repository_settings, pattern: "Settings navigation from repository header", evidence: OFFICIAL_DOC_UI_PATH, exact_URL: UNVERIFIED}
+  - {id: GH-ROUTE-W008, semantic_surface: releases, pattern: "repository Releases surface", evidence: OFFICIAL_DOC_PLUS_API, exact_URL: VERIFY}
+REST_route_seed:
+  - {id: GH-ROUTE-R001, semantic_surface: repository_resource, pattern: "GET /repos/{owner}/{repo}", namespace: REST_API, evidence: OFFICIAL_API}
+  - {id: GH-ROUTE-R002, semantic_surface: releases_collection, pattern: "/repos/{owner}/{repo}/releases", namespace: REST_API, evidence: OFFICIAL_API}
+  - {id: GH-ROUTE-R003, semantic_surface: issues_collection, pattern: "/repos/{owner}/{repo}/issues", namespace: REST_API, evidence: OFFICIAL_API}
+  - {id: GH-ROUTE-R004, semantic_surface: pull_requests_collection, pattern: "/repos/{owner}/{repo}/pulls", namespace: REST_API, evidence: OFFICIAL_API}
+  - {id: GH-ROUTE-R005, semantic_surface: contents, pattern: "/repos/{owner}/{repo}/contents/{path}", namespace: REST_API, evidence: OFFICIAL_AND_CONNECTED}
+  - {id: GH-ROUTE-R006, semantic_surface: refs, pattern: "/repos/{owner}/{repo}/git/refs/{ref}", namespace: REST_API, evidence: OFFICIAL_AND_CONNECTED}
+  - {id: GH-ROUTE-R007, semantic_surface: rulesets, pattern: "/repos/{owner}/{repo}/rulesets", namespace: REST_API, evidence: OFFICIAL_AND_CONNECTED_READ}
+  - {id: GH-ROUTE-R008, semantic_surface: actions_runs, pattern: "/repos/{owner}/{repo}/actions/runs", namespace: REST_API, evidence: OFFICIAL_AND_CONNECTED}
+GraphQL_route:
+  endpoint: https://api.github.com/graphql
+  model: single_endpoint_typed_queries_and_mutations
+Git_transport_route:
+  HTTPS: "https://github.com/{owner}/{repo}.git"
+  SSH: "git@github.com:{owner}/{repo}.git"
+  evidence: canonical_GitHub_transport_patterns

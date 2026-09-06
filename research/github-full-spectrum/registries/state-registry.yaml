@@ -1,0 +1,53 @@
+schema_version: 1
+pass: 5
+status: DISCOVERY_SEED
+state_machines:
+  repository:
+    entity: GH-E020
+    states: [empty, populated, active, archived, deleted, transferred_or_renamed_context]
+    transitions:
+      - {from: empty, action: first_content_or_initial_commit, to: populated}
+      - {from: active, action: archive, to: archived}
+      - {from: archived, action: unarchive, to: active}
+      - {from: active, action: delete, to: deleted}
+      - {from: deleted, action: restore_where_supported, to: active_or_restored}
+  issue:
+    entity: GH-E040
+    states: [open, closed]
+    transitions: [open_to_closed, closed_to_open]
+  pull_request:
+    entity: GH-E045
+    states: [draft, open_ready, blocked, approved_or_review_satisfied, queued, merged, closed_unmerged]
+    orthogonal_substates: [mergeable, conflicting, checks_pending, checks_failed, checks_passed, review_requested, changes_requested, auto_merge_enabled]
+  review:
+    entity: GH-E046
+    states: [pending, comment, approved, changes_requested, dismissed]
+  workflow_run:
+    entity: GH-E061
+    states: [queued, in_progress, completed]
+    conclusions: [success, failure, cancelled, skipped, neutral, timed_out, action_required, stale, startup_failure]
+    note: exact conclusion vocabulary requires API-level verification for full canonicalization
+  job:
+    entity: GH-E062
+    states: [queued, waiting_or_pending, in_progress, completed]
+    conclusions: [success, failure, cancelled, skipped, neutral, timed_out]
+  deployment:
+    entity: GH-E070
+    states: [created, pending_or_waiting, approved_or_rejected, in_progress, success, failure, inactive_or_superseded]
+    exact_state_status: VERIFY_API_SCHEMA
+  release:
+    entity: GH-E080
+    states: [draft, published, prerelease, latest_or_nonlatest, immutable_or_mutable, deleted]
+    orthogonal_note: prerelease/latest/immutable are not all mutually exclusive lifecycle states
+  security_alert:
+    entities: [GH-E120, GH-E122, GH-E123]
+    states: [open, dismissed, fixed_or_resolved, reopened_or_reintroduced]
+    exact_per_alert_type: VERIFY
+  GitHub_App_installation:
+    entity: GH-E101
+    states: [installed, suspended, active, repository_scope_changed, uninstalled]
+    exact_state_status: VERIFY
+model_rules:
+  - distinguish primary lifecycle state from orthogonal conditions
+  - do not force every entity into a single linear state machine
+  - every destructive transition must link to recovery semantics or explicit irreversibility

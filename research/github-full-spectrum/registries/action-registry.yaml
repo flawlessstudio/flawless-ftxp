@@ -1,0 +1,49 @@
+schema_version: 1
+pass: 5
+status: DISCOVERY_SEED
+action_families:
+  - id: GH-ACT-F01
+    name: lifecycle creation
+    verbs: [CREATE, INITIALIZE, IMPORT, FORK, CLONE, INSTALL, AUTHORIZE]
+  - id: GH-ACT-F02
+    name: retrieval and discovery
+    verbs: [GET, READ, VIEW, LIST, SEARCH, FILTER, SORT, COMPARE, DIFF, DOWNLOAD]
+  - id: GH-ACT-F03
+    name: content and metadata mutation
+    verbs: [EDIT, UPDATE, RENAME, UPLOAD, CONFIGURE, ASSIGN, LABEL, LINK]
+  - id: GH-ACT-F04
+    name: Git/ref mutation
+    verbs: [COMMIT, PUSH, FETCH, PULL, CREATE_BRANCH, DELETE_BRANCH, RESTORE_BRANCH, CREATE_TAG, DELETE_TAG]
+  - id: GH-ACT-F05
+    name: collaboration state
+    verbs: [OPEN, CLOSE, REOPEN, COMMENT, REVIEW, APPROVE, REQUEST_CHANGES, DISMISS_REVIEW, RESOLVE_THREAD, LOCK, UNLOCK]
+  - id: GH-ACT-F06
+    name: integration and merge
+    verbs: [MERGE, SQUASH_MERGE, REBASE_MERGE, QUEUE_FOR_MERGE, ENABLE_AUTO_MERGE, UPDATE_BRANCH, REVERT]
+  - id: GH-ACT-F07
+    name: automation execution
+    verbs: [RUN, DISPATCH, RERUN, RETRY, CANCEL, APPROVE_RUN, REJECT_DEPLOYMENT]
+  - id: GH-ACT-F08
+    name: publication and distribution
+    verbs: [PUBLISH, CREATE_RELEASE, EDIT_RELEASE, DELETE_RELEASE, UPLOAD_ASSET, PUBLISH_PACKAGE, DEPLOY]
+  - id: GH-ACT-F09
+    name: subscription and attention
+    verbs: [WATCH, UNWATCH, SUBSCRIBE, UNSUBSCRIBE, MUTE, SAVE_NOTIFICATION, MARK_READ, MARK_DONE]
+  - id: GH-ACT-F10
+    name: access and credentials
+    verbs: [GRANT_ACCESS, REVOKE_ACCESS, CHANGE_ROLE, ISSUE_TOKEN, ROTATE, REVOKE, ADD_KEY, REMOVE_KEY]
+  - id: GH-ACT-F11
+    name: governance
+    verbs: [ENABLE_RULE, DISABLE_RULE, SET_ENFORCEMENT, ADD_BYPASS, REMOVE_BYPASS, REQUIRE_CHECK, REQUIRE_REVIEW]
+  - id: GH-ACT-F12
+    name: security remediation
+    verbs: [ENABLE_SCAN, DISABLE_SCAN, TRIAGE_ALERT, DISMISS_ALERT, REOPEN_ALERT, BLOCK_SECRET, BYPASS_SECRET_PROTECTION, FIX]
+  - id: GH-ACT-F13
+    name: destructive and administrative
+    verbs: [ARCHIVE, UNARCHIVE, TRANSFER, CHANGE_VISIBILITY, DELETE, RESTORE_DELETED_WHERE_SUPPORTED, UNINSTALL]
+  - id: GH-ACT-F14
+    name: external/programmatic
+    verbs: [CALL_API, QUERY_GRAPHQL, MUTATE_GRAPHQL, RECEIVE_WEBHOOK, REDELIVER_WEBHOOK]
+action_record_contract:
+  required_fields: [id, canonical_verb, target_entity, actor, required_permission, precondition, state_before, state_after, side_effects, reversibility, interfaces, evidence]
+  rule: a UI button is an occurrence of an action and not itself the canonical action
