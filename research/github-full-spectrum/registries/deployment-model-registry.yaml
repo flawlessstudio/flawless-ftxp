@@ -1,0 +1,34 @@
+schema_version: 1
+pass: zero_novelty_attempt_2
+status: DISCOVERY_SEED
+models:
+  - id: GH-DEPLOY001
+    name: GitHub.com
+    operator: GitHub
+    tenancy: multi_tenant_cloud
+    canonical_web_host: github.com
+    canonical_API_host: api.github.com
+  - id: GH-DEPLOY002
+    name: GitHub Enterprise Cloud with data residency
+    operator: GitHub
+    tenancy: dedicated_enterprise_subdomain
+    web_host_pattern: SUBDOMAIN.ghe.com
+    API_host_pattern: api.SUBDOMAIN.ghe.com
+    identity: Enterprise_Managed_Users
+    data_location: selectable_supported_region
+  - id: GH-DEPLOY003
+    name: GitHub Enterprise Server
+    operator: customer
+    tenancy: self_managed_instance
+    web_host: customer_defined
+    API_host: customer_instance_api_path_or_host
+    lifecycle: [deploy, configure, backup, restore, monitor, upgrade, HA_or_cluster, retire]
+  - id: GH-DEPLOY004
+    name: Hybrid GHES plus GitHub Connect
+    operator: customer_plus_GitHub
+    relation: GHES_instance_connected_to_cloud_enterprise_services
+context_invariants:
+  - exact feature availability must be qualified by deployment model and version
+  - github.com URLs must not be mechanically reused for GHE.com or GHES
+  - GHES version/support lifecycle is a first-class temporal dimension
+  - data residency is more than storage location; it changes hostname and identity/API context

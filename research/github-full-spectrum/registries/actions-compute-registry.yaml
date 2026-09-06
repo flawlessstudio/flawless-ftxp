@@ -1,0 +1,37 @@
+schema_version: 1
+pass: zero_novelty_attempt_2
+status: DISCOVERY_SEED
+compute_models:
+  - id: GH-COMP001
+    name: GitHub-hosted runner
+    owner: GitHub
+    lifecycle: fresh_or_managed_execution_environment_per_documented_runner_type
+    maintenance: GitHub
+  - id: GH-COMP002
+    name: Larger GitHub-hosted runner
+    owner: GitHub
+    features_seed: [larger_resources, static_IP_or_private_network_options_where_supported, runner_groups]
+  - id: GH-COMP003
+    name: Self-hosted persistent runner
+    owner: customer
+    security_note: state_and_compromise_can_persist_across_jobs
+  - id: GH-COMP004
+    name: Self-hosted ephemeral runner
+    owner: customer
+    lifecycle: one_job_then_deregister_or_destroy
+    recommended_for: autoscaling_self_hosted_patterns
+  - id: GH-COMP005
+    name: Runner scale set
+    owner: customer_or_platform_team
+    orchestration: ARC_or_scale_set_client
+  - id: GH-COMP006
+    name: Actions Runner Controller
+    owner: customer
+    infrastructure: Kubernetes
+    role: reference_implementation_for_scale_set_APIs
+routing_dimensions: [labels, groups, repository_scope, organization_scope, enterprise_scope, workflow_runs_on]
+trust_dimensions: [code_origin, fork_context, token_permissions, network_access, persistence, secrets, external_resources]
+target:
+  flawless-ftxp:
+    current: GH-COMP001
+    rationale: zero_dependency_validation_has_no_need_for_customer_managed_compute
