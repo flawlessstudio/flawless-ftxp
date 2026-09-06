@@ -1,0 +1,17 @@
+material_novelty:
+  material:
+    - M1_NEW_FAMILY
+    - M2_NEW_CLASS
+    - M3_NECESSARY_CONCEPTUAL_SPLIT
+    - M4_STRUCTURAL_RELATIONSHIP_CHANGING_INTERPRETATION
+    - M5_MATERIAL_COVERAGE_GAP
+    - M6_EVIDENCE_INVALIDATING_CURRENT_DECISION
+    - M7_SCOPE_OR_BOUNDARY_FAILURE
+  non_material_examples:
+    - alias
+    - translation
+    - example
+    - microvariant
+    - rewording
+    - confirmatory_evidence
+    - cosmetic_reorganization
