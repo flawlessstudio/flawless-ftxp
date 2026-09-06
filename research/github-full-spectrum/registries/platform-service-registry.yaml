@@ -1,0 +1,27 @@
+schema_version: 1
+pass: adversarial_2
+status: DISCOVERY_SEED
+services:
+  - id: GH-PS001
+    name: GitHub Support
+    type: support_service
+    surfaces: [support_portal, written_ticket_flow, Copilot_in_Support]
+  - id: GH-PS002
+    name: GitHub Status
+    type: service_availability_surface
+    functions: [current_incidents, historical_incidents, component_status, Copilot_model_availability]
+    subscriptions: [email, SMS, webhook]
+    programmatic: GitHub_Status_API
+  - id: GH-PS003
+    name: GitHub Sponsors
+    type: community_financial_service
+    actors: [sponsor_personal_account, sponsor_organization, sponsored_developer, sponsored_organization]
+    artifacts: [sponsorship_tier, sponsorship, invoice, receipt, dashboard]
+  - id: GH-PS004
+    name: GitHub Education
+    type: education_program
+    subdomains: [student_benefits, educator_benefits, GitHub_Classroom]
+  - id: GH-PS005
+    name: GitHub for Nonprofits
+    type: nonprofit_program
+    subdomains: [verification, Team_benefit, Enterprise_Cloud_discount, volunteer_programs]

@@ -1,0 +1,166 @@
+schema_version: 1
+pass: adversarial_2
+status: MATERIAL_NOVELTY_FOUND
+candidates:
+  - id: ADV2-001
+    name: GitHub Packages dual permission model
+    concept_type: package_authorization_architecture
+    materiality: MATERIAL_STRUCTURAL
+    evidence: https://docs.github.com/en/packages/learn-github-packages/about-permissions-for-github-packages
+    facts:
+      - container npm NuGet and RubyGems registries support granular user/organization-scoped permissions
+      - Maven and Gradle packages are repository-scoped and inherit repository permissions
+      - linked packages can inherit repository permissions but some registries permit independent permissions/visibility
+      - package transfer behavior differs by registry permission model
+      - Actions repository access to packages is a separate authorization relation
+    target_applicability: NOT_APPLICABLE_NO_PACKAGE_PUBLISHING
+    promote_to: [package_permission_model, transfer_lifecycle, Actions_access_model]
+
+  - id: ADV2-002
+    name: GitHub Packages registry/client matrix
+    concept_type: distribution_interface_matrix
+    materiality: MATERIAL_DETAIL
+    evidence: https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages
+    registries: [npm, RubyGems, Apache_Maven, Gradle, NuGet, Container_registry]
+    clients: [npm, gem, mvn, gradle, dotnet, Docker_or_OCI]
+    target_applicability: NOT_APPLICABLE
+
+  - id: ADV2-003
+    name: Git LFS external-object indirection
+    concept_type: repository_storage_extension
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage
+    facts:
+      - Git repository stores a pointer while large content is stored separately
+      - checkout/clone requires LFS-aware retrieval for real content
+      - maximum LFS object size varies by GitHub plan
+      - Git LFS is a separate program from Git
+    target_applicability: NOT_APPLICABLE_CURRENT_TEXTUAL_SSOT
+    promote_to: [Git_composition_model, storage_boundary, plan_limit_model]
+
+  - id: ADV2-004
+    name: Repository and file size limits
+    concept_type: repository_operational_limit
+    materiality: MATERIAL_CONSTRAINT
+    evidence: https://docs.github.com/en/repositories/creating-and-managing-repositories/repository-limits
+    facts:
+      - repository structure has documented limits/recommendations including on-disk size branch count directory width/depth
+      - ordinary GitHub file uploads and Git object files have separate limits
+      - browser upload limits differ from command-line push limits
+    target_applicability: LOW_RISK_CURRENT_REPOSITORY
+    promote_to: [limit_registry, client_parity, failure_model]
+
+  - id: ADV2-005
+    name: GitHub Pages dual publication pipeline
+    concept_type: publication_pipeline_variation
+    materiality: MATERIAL_STRUCTURAL
+    evidence: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+    facts:
+      - Pages can publish from a selected branch/folder
+      - Pages can publish through a custom GitHub Actions workflow
+      - custom domain and static-site/Jekyll behavior add publication settings and failure paths
+    target_applicability: OPTIONAL_NOT_ENABLED
+    promote_to: [Pages_lifecycle, publication_pipeline, Actions_integration]
+
+  - id: ADV2-006
+    name: GitHub Enterprise Importer and repository migration
+    concept_type: migration_subsystem
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/migrations/using-github-enterprise-importer/understanding-github-enterprise-importer/about-github-enterprise-importer
+    facts:
+      - migration can operate repository-by-repository or organization-by-organization for supported paths
+      - repository migration can include version history plus issues pull requests settings and additional metadata
+      - migration has its own permissions role and GraphQL-driven programmatic workflow
+    target_applicability: NOT_APPLICABLE_CURRENTLY
+    promote_to: [migration_domain, lifecycle, permission_model, GraphQL_interface]
+
+  - id: ADV2-007
+    name: Repository import by Git/API
+    concept_type: repository_ingress_model
+    materiality: MATERIAL_DETAIL
+    evidence: https://docs.github.com/en/migrations/overview/programmatically-importing-repositories
+    facts:
+      - repository container may be created via REST then populated via Git clone/push
+      - Enterprise Importer is distinct from raw Git-based import because it can preserve GitHub metadata
+    target_applicability: HISTORICAL_BOOTSTRAP_REFERENCE
+    promote_to: [repository_creation_lifecycle, Git_GitHub_boundary]
+
+  - id: ADV2-008
+    name: Organization archive/delete lifecycle
+    concept_type: account_scope_lifecycle
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/organizations/managing-organization-settings/deleting-an-organization-account
+    facts:
+      - organization archival makes it read-only
+      - deletion removes organization repositories forks wikis issues PRs projects/pages and is documented as irreversible
+      - backup is a prerequisite for safe destructive deletion
+    target_applicability: NOT_APPLICABLE_CURRENT_PERSONAL_OWNER
+    promote_to: [account_lifecycle, destructive_operations, recovery_boundary]
+
+  - id: ADV2-009
+    name: Personal-to-organization work migration
+    concept_type: ownership_migration_flow
+    materiality: MATERIAL
+    evidence: https://docs.github.com/en/account-and-profile/how-tos/account-management/moving-your-work-to-an-organization
+    facts:
+      - personal account can transfer repositories/projects to an organization
+      - namespace/username decisions may precede migration
+    target_applicability: CONDITIONAL_FUTURE_OWNER_MIGRATION
+    promote_to: [ownership_lifecycle, migration_model]
+
+  - id: ADV2-010
+    name: Command Palette
+    concept_type: context_scoped_navigation_and_action_surface
+    materiality: MATERIAL_SURFACE
+    evidence: https://docs.github.com/en/get-started/accessibility/github-command-palette
+    temporal_status: PUBLIC_PREVIEW
+    facts:
+      - navigation search and commands share a context-sensitive palette
+      - scope can be repository organization account or page context
+      - global commands include new repository new gist new project import repository and theme switching
+      - issue/discussion contexts expose object-specific actions
+    target_applicability: CLIENT_SURFACE_ONLY
+    promote_to: [navigation_occurrences, action_occurrences, search_model, accessibility_preferences]
+
+  - id: ADV2-011
+    name: GitHub Support and Status
+    concept_type: operational_support_and_service_availability_plane
+    materiality: MATERIAL_FULL_PLATFORM
+    evidence: https://docs.github.com/en/support/learning-about-github-support/about-github-support
+    facts:
+      - GitHub Support provides documented ticket/support flows
+      - GitHub Status exposes current and past incidents including Copilot model availability
+      - Status supports email text webhook subscriptions and a Status API
+    target_applicability: OPERATIONAL_CONTEXT_NOT_REPOSITORY_ARTIFACT
+    promote_to: [service_availability, support_surface, event_notification_external]
+
+  - id: ADV2-012
+    name: GitHub Sponsors
+    concept_type: community_financial_service
+    materiality: MATERIAL_PLATFORM_SERVICE
+    evidence: https://docs.github.com/en/sponsors/getting-started-with-github-sponsors/about-github-sponsors
+    facts:
+      - personal accounts and organizations can sponsor eligible developers/organizations
+      - sponsored profiles tiers payments invoices and dashboard surfaces form a separate billing/community lifecycle
+    target_applicability: NOT_REQUIRED
+    promote_to: [community_domain, billing_domain, account_surface]
+
+  - id: ADV2-013
+    name: GitHub Education and Classroom ecosystem
+    concept_type: education_program_service
+    materiality: MATERIAL_PLATFORM_SERVICE
+    evidence: https://docs.github.com/en/education
+    facts:
+      - education benefits and GitHub Classroom introduce educators students classrooms assignments and grading workflows
+    target_applicability: NOT_APPLICABLE
+    promote_to: [community_program_domain, product_interface]
+
+  - id: ADV2-014
+    name: GitHub for Nonprofits
+    concept_type: nonprofit_program_service
+    materiality: MATERIAL_PLATFORM_SERVICE
+    evidence: https://docs.github.com/en/nonprofit
+    facts:
+      - verified nonprofits can receive plan benefits/discounts and program/community surfaces
+    target_applicability: NOT_APPLICABLE
+    promote_to: [community_program_domain, plan_entitlement]

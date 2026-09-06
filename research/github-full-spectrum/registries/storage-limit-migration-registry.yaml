@@ -1,0 +1,34 @@
+schema_version: 1
+pass: adversarial_2
+status: DISCOVERY_SEED
+storage_models:
+  - id: GH-STOR001
+    name: Native Git object storage on GitHub
+    constraints:
+      regular_file_warning_threshold: 50_MiB
+      regular_file_hard_limit: 100_MiB
+      browser_upload_file_limit: 25_MiB
+      browser_upload_batch_limit: 100_files
+    evidence: https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github
+  - id: GH-STOR002
+    name: Git LFS
+    model: Git_pointer_plus_external_large_object_storage
+    plan_boundaries:
+      GitHub_Free: 2_GB_per_file
+      GitHub_Pro: 2_GB_per_file
+      GitHub_Team: 4_GB_per_file
+      GitHub_Enterprise_Cloud: 5_GB_per_file
+    evidence: https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage
+repository_structure_limits:
+  source: https://docs.github.com/en/repositories/creating-and-managing-repositories/repository-limits
+  on_disk_git_size: 10_GB_documented_maximum_guidance
+  directory_width: 3000_entries
+  directory_depth: 50
+  branches: 5000
+  note: limits and recommendations are temporal operational constraints and must retain evidence date
+migration_models:
+  - {id: GH-MIG001, name: Git-based import, preserves: [Git_history], loses_or_separately_migrates: [GitHub_platform_metadata]}
+  - {id: GH-MIG002, name: GitHub Enterprise Importer repository migration, preserves: [Git_history, GitHub_metadata_per_supported_matrix], programmatic_interface: GraphQL}
+  - {id: GH-MIG003, name: GitHub Enterprise Importer organization migration, scope: organization, source_constraint: supported_GitHub_paths}
+  - {id: GH-MIG004, name: Repository transfer, scope: ownership_change, side_effects: [package_links_permissions_billing_and_access_may_change]}
+  - {id: GH-MIG005, name: Personal account work migration to organization, scope: repositories_and_projects}
