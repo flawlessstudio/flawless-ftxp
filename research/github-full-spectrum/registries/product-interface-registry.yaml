@@ -1,6 +1,6 @@
 schema_version: 1
-pass: 1
-status: DISCOVERY_SEED
+pass: regression_integration
+status: CANONICAL_RESEARCH_REGISTRY
 rule: documentation sections are classified by semantic kind; they are not all treated as products
 entries:
   - {id: GH-PI001, name: GitHub.com, kind: platform_surface, scope: platform}
@@ -24,7 +24,7 @@ entries:
   - {id: GH-PI019, name: GraphQL API, kind: programmatic_interface, scope: platform}
   - {id: GH-PI020, name: Webhooks, kind: event_delivery_interface, scope: repository_organization_app}
   - {id: GH-PI021, name: Git transport, kind: version_control_transport, scope: repository}
-  - {id: GH-PI022, name: GitHub Apps, kind: integration_model, scope: user_organization_repository}
+  - {id: GH-PI022, name: GitHub Apps, kind: integration_model, scope: user_organization_repository_enterprise}
   - {id: GH-PI023, name: OAuth Apps, kind: integration_model, scope: user_organization}
   - {id: GH-PI024, name: GitHub Marketplace, kind: ecosystem_surface, scope: platform}
   - {id: GH-PI025, name: Search on GitHub, kind: cross_platform_capability, scope: platform}
@@ -41,3 +41,9 @@ entries:
   - {id: GH-PI036, name: GitHub for Nonprofits, kind: program_service, scope: organization}
   - {id: GH-PI037, name: Billing platform, kind: administrative_surface, scope: user_organization_enterprise}
   - {id: GH-PI038, name: GitHub Docs, kind: documentation_surface, scope: public}
+  - {id: GH-PI039, name: GitHub Copilot app, kind: first_party_agentic_desktop_client, scope: client, status: GENERALLY_AVAILABLE}
+  - {id: GH-PI040, name: github.dev, kind: browser_sandbox_editor_client, scope: client, status: PUBLIC_PREVIEW}
+  - {id: GH-PI041, name: GitHub Code Quality, kind: paid_code_quality_product, scope: repository_organization, availability: Team_and_Enterprise_Cloud}
+  - {id: GH-PI042, name: Agent Finder, kind: agentic_discovery_capability, scope: Copilot_clients}
+  - {id: GH-PI043, name: MCP Registry, kind: agent_resource_registry, scope: platform_organization}
+  - {id: GH-PI044, name: GitHub Classroom, kind: retired_program_service, scope: historical_education, status: DECOMMISSIONED_2026_08_28}
