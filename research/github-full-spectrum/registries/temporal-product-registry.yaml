@@ -1,7 +1,7 @@
 schema_version: 1
-pass: adversarial_1
-status: DISCOVERY_SEED
-status_vocabulary: [ANNOUNCED, PREVIEW, GENERALLY_AVAILABLE, CHANGED, DEPRECATED, SUNSETTING, RETIRED, HISTORICAL]
+pass: regression_integration
+status: CANONICAL_RESEARCH_REGISTRY
+status_vocabulary: [ANNOUNCED, ANNOUNCED_FUTURE, PREVIEW, GENERALLY_AVAILABLE, CHANGED, DEPRECATION_PAUSED, DEPRECATED, DECOMMISSIONED, SUNSETTING, RETIRED, HISTORICAL]
 entries:
   - id: GH-TEMP001
     product: GitHub Models
@@ -38,4 +38,47 @@ entries:
     status: PREVIEW
     subtype: public_preview
     evidence: https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/about-cloud-and-local-sandboxes
-rule: retired/sunsetting/preview capabilities must never be merged into current-stable architecture without explicit temporal status
+  - id: GH-TEMP007
+    product: GitHub Copilot app
+    status: GENERALLY_AVAILABLE
+    effective_date: 2026-06-17
+    evidence:
+      - https://docs.github.com/en/copilot/concepts/agents/github-copilot-app
+      - https://github.blog/changelog/2026-06-17-github-copilot-app-generally-available/
+  - id: GH-TEMP008
+    product: github.dev
+    status: PREVIEW
+    subtype: public_preview
+    evidence: https://docs.github.com/en/codespaces/the-githubdev-web-based-editor
+  - id: GH-TEMP009
+    product: GitHub Code Quality
+    status: GENERALLY_AVAILABLE
+    effective_date: 2026-07-20
+    availability: GitHub_Team_and_Enterprise_Cloud
+    evidence:
+      - https://docs.github.com/en/code-security/concepts/code-quality/code-quality
+      - https://github.blog/changelog/2026-07-20-github-code-quality-is-now-generally-available/
+  - id: GH-TEMP010
+    product: GitHub Classroom
+    status: DECOMMISSIONED
+    effective_date: 2026-08-28
+    evidence: https://github.blog/changelog/2026-08-27-github-classroom-deprecated/
+  - id: GH-TEMP011
+    product: Custom thread subscription deprecation
+    status: DEPRECATION_PAUSED
+    effective_update_date: 2026-08-14
+    current_effect: Customize_option_remains_available
+    evidence: https://github.blog/changelog/2026-08-10-custom-thread-subscriptions-are-being-deprecated/
+  - id: GH-TEMP012
+    product: Actions retention expansion
+    status: ANNOUNCED_FUTURE
+    effective_date: 2026-10-01
+    announced_effect: retention_setting_will_cover_checks_workflow_runs_and_statuses
+    current_horizon_effect: DO_NOT_APPLY_YET
+  - id: GH-TEMP013
+    product: Copilot cross-client policy convergence
+    status: ANNOUNCED_FUTURE
+    no_earlier_than: 2026-09-28
+    current_horizon_effect: DO_NOT_APPLY_YET
+    evidence: https://github.blog/changelog/2026-08-28-upcoming-changes-to-github-copilot-policies-and-billing/
+rule: later evidence can supersede an earlier planned deprecation or future announcement; retired, decommissioned, sunsetting, preview and announced-future capabilities must never be merged into current-stable architecture without explicit temporal status
